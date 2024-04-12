@@ -1,9 +1,9 @@
 *Use of this software is subject to important terms and conditions as set forth in the License file*
 
-# React App Scaffold
+# Zendesk ZDF app integrated with Amazon Bedrock
 
 ## Description
-This repo contains a scaffold to help developers build [apps for Zendesk products](https://developer.zendesk.com/apps/docs/apps-v2/getting_started).
+This repo help to build auto ai suggest for ticket reply by Amazon Bedrock. [apps for Zendesk products](https://developer.zendesk.com/apps/docs/apps-v2/getting_started).
 
 ## Getting Started
 
@@ -13,8 +13,7 @@ This repo contains a scaffold to help developers build [apps for Zendesk product
 
 ### Setup
 1. Clone or fork this repo
-2. Change (`cd`) into the `app_scaffolds/packages/react` directory
-3. Run `yarn install`
+2. Run `yarn install`
 
 To run your app locally in Zendesk, you need the latest [Zendesk CLI](https://github.com/zendesk/zcli).
 
