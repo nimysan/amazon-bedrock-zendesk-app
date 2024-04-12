@@ -1,0 +1,156 @@
+{
+  "errors": {},
+  "ticket": {
+    "organization": null,
+    "collaborators": [],
+    "createdAt": "Thu Mar 28 2024 09:22:53 GMT+0800 (China Standard Time)",
+    "description": "1234567",
+    "externalId": null,
+    "emailCcs": [],
+    "followers": [],
+    "postSaveAction": "close_tab",
+    "priority": "-",
+    "recipient": null,
+    "sharedWith": [],
+    "status": "new",
+    "subject": "AemailqOtZqAemail",
+    "tags": ["web_widget"],
+    "type": "ticket",
+    "viewers": [],
+    "id": 2861,
+    "isNew": false,
+    "updatedAt": "Thu Mar 28 2024 09:22:53 GMT+0800 (China Standard Time)",
+    "assignee": { "group": null, "user": null },
+    "brand": {
+      "hasHelpCenter": true,
+      "id": 360001901175,
+      "isActive": true,
+      "isDefault": true,
+      "logo": null,
+      "name": "Jackery Support",
+      "subdomain": "d3v-jackeryjapan",
+      "url": "https://d3v-jackeryjapan.zendesk.com"
+    },
+    "comment": {
+      "text": "",
+      "type": "publicReply",
+      "useRichText": true,
+      "attachments": []
+    },
+    "form": { "id": 360011843555 },
+    "editor": {
+      "capabilities": { "richText": true },
+      "targetChannel": {
+        "name": "web",
+        "sessionBased": false,
+        "sessionActive": false
+      }
+    },
+    "via": {
+      "channel": "web_widget",
+      "source": { "to": {}, "from": {}, "rel": "web_widget" }
+    },
+    "requester": {
+      "alias": null,
+      "avatarUrl": "https://assets.zendesk.com/images/2016/default-avatar-80.png",
+      "details": null,
+      "email": "pphvuehkfs68597@bccto.cc",
+      "externalId": null,
+      "groups": [],
+      "id": 9393021375503,
+      "isSystemUser": false,
+      "locale": "en-US",
+      "name": "AemailuWbAjAemail",
+      "notes": null,
+      "role": "end-user",
+      "signature": null,
+      "tags": [],
+      "organizations": [],
+      "timeZone": {
+        "name": "Beijing",
+        "translatedName": "北京",
+        "ianaName": "Asia/Shanghai",
+        "offset": 480,
+        "formattedOffset": "GMT+08:00"
+      },
+      "identities": [
+        {
+          "id": 9393021376271,
+          "type": "email",
+          "value": "pphvuehkfs68597@bccto.cc",
+          "verified": false,
+          "primary": true,
+          "userId": 9393021375503,
+          "undeliverableCount": 0,
+          "deliverableState": "deliverable"
+        }
+      ]
+    },
+    "conversation": [
+      {
+        "attachments": [],
+        "timestamp": "2024-03-28T01:22:53Z",
+        "author": {
+          "id": 9393021375503,
+          "avatar": "https://assets.zendesk.com/images/2016/default-avatar-80.png",
+          "name": "AemailuWbAjAemail",
+          "role": "end-user"
+        },
+        "channel": { "name": "web" },
+        "message": {
+          "content": "<div class=\"zd-comment\" dir=\"auto\"><p dir=\"auto\">1234567</p></div>",
+          "contentType": "text/html"
+        }
+      }
+    ],
+    "comments": [
+      {
+        "channelDisplayInfo": {},
+        "id": 9393027466895,
+        "imageAttachments": [],
+        "nonImageAttachments": [],
+        "value": "<div class=\"zd-comment\" dir=\"auto\"><p dir=\"auto\">1234567</p></div>",
+        "via": {
+          "channel": "web",
+          "source": { "to": {}, "from": {}, "rel": "web_widget" }
+        },
+        "author": {
+          "alias": null,
+          "avatarUrl": "https://assets.zendesk.com/images/2016/default-avatar-80.png",
+          "details": null,
+          "email": "pphvuehkfs68597@bccto.cc",
+          "externalId": null,
+          "groups": [],
+          "id": 9393021375503,
+          "isSystemUser": false,
+          "locale": "en-US",
+          "name": "AemailuWbAjAemail",
+          "notes": null,
+          "role": "end-user",
+          "signature": null,
+          "tags": [],
+          "organizations": [],
+          "timeZone": {
+            "name": "Beijing",
+            "translatedName": "北京",
+            "ianaName": "Asia/Shanghai",
+            "offset": 480,
+            "formattedOffset": "GMT+08:00"
+          },
+          "identities": [
+            {
+              "id": 9393021376271,
+              "type": "email",
+              "value": "pphvuehkfs68597@bccto.cc",
+              "verified": false,
+              "primary": true,
+              "userId": 9393021375503,
+              "undeliverableCount": 0,
+              "deliverableState": "deliverable"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
