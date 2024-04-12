@@ -5,6 +5,11 @@
 ## Description
 This repo help to build auto ai suggest for ticket reply by Amazon Bedrock. [apps for Zendesk products](https://developer.zendesk.com/apps/docs/apps-v2/getting_started).
 
+## How to integrate with Amazon Bedrock?
+
+There is a [Github AIServer](https://github.com/nimysan/AIServer) to host Amazon Bedrock. 
+This app will request urls host in that repo.
+
 ## Getting Started
 
 ### Dependencies
