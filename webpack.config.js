@@ -35,6 +35,11 @@ module.exports = {
         }
       },
       {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
+      {
         type: 'javascript/auto',
         test: /\.json$/,
         include: path.resolve(__dirname, './src/translations'),
