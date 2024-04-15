@@ -1,5 +1,5 @@
 {
-  "name": "hellotech_ai",
+  "name": "aizendeskassisant",
   "version": "2.0.0",
   "description": "Claude 3 under Amazon Bedrock works for Zendesk",
   "keywords": [
@@ -72,6 +72,7 @@
     "node-gyp": "^9.3.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-json-pretty": "^2.2.0",
     "styled-components": "^5.3.6"
   }
 }

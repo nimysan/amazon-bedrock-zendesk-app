@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, DEFAULT_THEME } from "@zendeskgarden/react-theming";
 import { Grid, Row, Col } from "@zendeskgarden/react-grid";
-import { Avatar } from '@zendeskgarden/react-avatars';
+import { Accordion } from '@zendeskgarden/react-accordions';
 import { Field, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Button } from "@zendeskgarden/react-buttons";
 // import { ReactComponent as LeafIcon } from '@zendeskgarden/svg-icons/src/16/leaf-stroke.svg';
-import { ReactComponent as UserIcon } from '@zendeskgarden/svg-icons/src/16/user-solo-stroke.svg';
 import { Tooltip } from "@zendeskgarden/react-tooltips";
+import JSONPretty from 'react-json-pretty';
+import JSONPrettyMon from "react-json-pretty/themes/monikai.css";
+
 import {
   Modal,
   Body,
@@ -58,6 +60,7 @@ export default function App() {
   const [aiSuggestContent, setAiSuggestContent] = useState("");
   const [translatedAiSuggestContent, setTranslatedAiSuggestContent] =
     useState("");
+  const [citations, setCitations] = useState([])
 
   //modal visible
   const [visible, setVisible] = useState(false);
@@ -66,6 +69,16 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+
+  const default_search_filter = {
+    "equals": {
+      "key": "language",
+      "value": "japanese"
+    }
+  }
+  const composeSearchFilter = () => {
+    return default_search_filter
+  }
 
   const callTranslate = (prompt, content, callback) => {
     const inputData = {
@@ -89,7 +102,7 @@ export default function App() {
   const callAISuggest = () => {
     const inputData = {
       input: questionContent,
-      market: "Japan",
+      filter: composeSearchFilter()
     };
     const options = {
       url: API_ENDPOINTS.ai + "/suggest",
@@ -102,10 +115,12 @@ export default function App() {
     setVisible(true);
     client.request(options).then((response) => {
       setVisible(false);
-      setAiSuggestContent(response.result.text);
+      setAiSuggestContent(response.result.output.text);
+      debugger
+      setCitations(response.result.citations)
     });
   };
-  const pormptChange = (e) => { 
+  const pormptChange = (e) => {
     setPrompt(e.target.value)
   };
 
@@ -183,8 +198,8 @@ export default function App() {
       <Grid>
         <Row>
           <Col>
-          <Label>Amazon Bedrock with Claude 3 for AI asserts</Label>
-          <Button size="small" isDanger onClick={open} style={{marginLeft:10}}>Edit Prompt Template</Button>
+            <Label>Amazon Bedrock with Claude 3 for AI asserts</Label>
+            <Button size="small" isDanger onClick={open} style={{ marginLeft: 10 }}>Edit Prompt Template</Button>
           </Col>
         </Row>
         <Row>
@@ -195,7 +210,7 @@ export default function App() {
                 <Row>
                   <Col textAlign="center">
                     <Dots size={32} color={PALETTE.green[600]} />
-              
+
                   </Col>
                 </Row>
               </Body>
@@ -230,7 +245,7 @@ export default function App() {
           <Col sm={8}>
             <Field>
               <Label>Ticket Content</Label>
-              <Textarea isResizable value={questionContent} rows="6"></Textarea>
+              <Textarea isResizable value={questionContent} rows="6" onChange={(e) => setQuestionContent(e.target.value)}></Textarea>
             </Field>
             <Field style={{ marginTop: 10 }}>
               <Tooltip content="Primary leaf">
@@ -279,7 +294,7 @@ export default function App() {
           <Col sm={8}>
             <Field>
               <Label>AI Suggest</Label>
-              <Textarea isResizable rows="6" value={aiSuggestContent} />
+              <Textarea isResizable rows="6" value={aiSuggestContent} onChange={(e) => setAiSuggestContent(e.target.value)} />
             </Field>
             <Field style={{ marginTop: 10 }}>
               <Tooltip content="Primary leaf">
@@ -323,6 +338,24 @@ export default function App() {
                 value={translatedAiSuggestContent}
               />
             </Field>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label>Source details</Label>
+            <Accordion level={4}>
+              {citations.map((citation, index) => (
+                <Accordion.Section key={index}>
+                  <Accordion.Header>
+                    <Accordion.Label>{citation.generatedResponsePart.textResponsePart.text}</Accordion.Label>
+                  </Accordion.Header>
+                  <Accordion.Panel>
+                    <Label>References</Label>
+                    <JSONPretty data={JSON.stringify(citation.retrievedReferences, null, 2)} theme={JSONPrettyMon}></JSONPretty>
+                  </Accordion.Panel>
+                </Accordion.Section>
+              ))}
+            </Accordion>
           </Col>
         </Row>
       </Grid>
