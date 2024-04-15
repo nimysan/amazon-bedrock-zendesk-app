@@ -49,6 +49,9 @@ export default function App() {
   $output_format_instructions$
   `;
 
+
+  const [ticket, setTicket] = useState({});
+  const [user, setUser] = useState({});
   /**
    * some states for page
    */
@@ -78,6 +81,32 @@ export default function App() {
   }
   const composeSearchFilter = () => {
     return default_search_filter
+  }
+
+  const logToRemote = (action) => {
+    const inputData = {
+      "action": action,
+      "user": user.name,
+      "input_data": {
+        "ticket_id": ticket.id,
+        "ticket_brand": ticket.brand.name,
+        "ticket_channel": "support",//TODO
+        "question": questionContent,
+        "kb_reference": citations,
+        "prompt_template": "" //TODO
+      }
+    };
+    const options = {
+      url: API_ENDPOINTS.ai + "/log",
+      type: "POST",
+      headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
+      secure: requestSecure, // very important
+      contentType: "application/json",
+      data: JSON.stringify(inputData),
+    };
+    client.request(options).then((response) => {
+      console.log("log successfully")
+    });
   }
 
   const callTranslate = (prompt, content, callback) => {
@@ -170,6 +199,11 @@ export default function App() {
       .then(function () {
         console.log("text has been appended");
       });
+    logToRemote("1")
+  }
+
+  const needImproveAction = () => {
+    logToRemote("2")
   }
 
 
@@ -178,6 +212,14 @@ export default function App() {
    */
   useEffect(() => {
     const fetchData = async () => {
+      const ticketResponse = await client.get('ticket');
+      setTicket(ticketResponse['ticket'])
+
+      const response = await client.get('currentUser');
+      setUser(response['currentUser'])
+
+      debugger
+
       const ticketInfo = await client.get([
         "ticket.description",
         "ticket.subject",
@@ -306,6 +348,18 @@ export default function App() {
                   style={{ marginRight: 10 }}
                 >
                   Use it
+                </Button>
+                
+              </Tooltip>
+              <Tooltip content="Feedback">
+              <Button
+                  size="small"
+                  isPrimary
+                  isDanger
+                  onClick={needImproveAction}
+                  style={{ marginRight: 10 }}
+                >
+                  Need Improve
                 </Button>
               </Tooltip>
               <Tooltip content="Primary leaf">
