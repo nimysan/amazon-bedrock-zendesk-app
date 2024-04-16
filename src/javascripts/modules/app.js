@@ -61,6 +61,7 @@ export default function App() {
   const [translatedQuestionContent, setTranslatedQuestionContent] =
     useState("");
   const [aiSuggestContent, setAiSuggestContent] = useState("");
+  const [aiSuggestResponse, setAiSuggestResponse] = useState({});
   const [translatedAiSuggestContent, setTranslatedAiSuggestContent] =
     useState("");
   const [citations, setCitations] = useState([])
@@ -90,10 +91,11 @@ export default function App() {
       "input_data": {
         "ticket_id": ticket.id,
         "ticket_brand": ticket.brand.name,
-        "ticket_channel": "support",//TODO
+        "ticket_channel": "support",
         "question": questionContent,
         "kb_reference": citations,
-        "prompt_template": "" //TODO
+        "prompt_template": aiSuggestResponse.result.prompt,
+        "cost": aiSuggestResponse.result.cost_time
       }
     };
     const options = {
@@ -144,9 +146,10 @@ export default function App() {
     setVisible(true);
     client.request(options).then((response) => {
       setVisible(false);
-      setAiSuggestContent(response.result.output.text);
-      debugger
-      setCitations(response.result.citations)
+      setAiSuggestResponse(response)
+      setAiSuggestContent(response.result.response.output.text);
+      // debugger
+      setCitations(response.result.response.citations)
     });
   };
   const pormptChange = (e) => {
@@ -218,7 +221,7 @@ export default function App() {
       const response = await client.get('currentUser');
       setUser(response['currentUser'])
 
-      debugger
+      // debugger
 
       const ticketInfo = await client.get([
         "ticket.description",
@@ -349,10 +352,10 @@ export default function App() {
                 >
                   Use it
                 </Button>
-                
+
               </Tooltip>
               <Tooltip content="Feedback">
-              <Button
+                <Button
                   size="small"
                   isPrimary
                   isDanger

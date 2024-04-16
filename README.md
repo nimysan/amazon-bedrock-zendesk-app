@@ -4,6 +4,10 @@
 
 ![doc](./doc.png)
 
+> Call Statistics
+
+![img](./statistics.png)
+
 ## Description
 This repo help to build auto ai suggest for ticket reply by Amazon Bedrock. [apps for Zendesk products](https://developer.zendesk.com/apps/docs/apps-v2/getting_started).
 
