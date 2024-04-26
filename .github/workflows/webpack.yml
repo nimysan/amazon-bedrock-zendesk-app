@@ -15,7 +15,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14' # 使用你想要的 Node 版本
+        node-version: '18' # 使用你想要的 Node 版本
 
     - run: npm ci
     - run: npm run build # 运行你的构建脚本
