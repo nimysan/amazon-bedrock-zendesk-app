@@ -2,18 +2,26 @@
 
 # Zendesk ZDF app integrated with Amazon Bedrock
 
-![doc](./doc.png)
+![app](./doc/app.png)
+
+## Install steps
 
 1. Download rlease from [Release](https://github.com/nimysan/amazon-bedrock-zendesk-app/releases/tag/1.0.0) and change the file metadata.json(to allow new backend url)
 
-2. Install it zendesk as private app [Release](https://github.com/nimysan/amazon-bedrock-zendesk-app/releases/tag/1.0.0)
+![change metadata.json](./doc/change_metajson_to_allow_remote.png)
+
+2. Install it to zendesk as private app 
+
 
 3. Set up the url and token also prompt if you need to customization.
 
+![change settings](./doc/zendesk_app_setup.png)
 
-> Call Statistics
 
-![img](./statistics.png)
+
+
+
+
 
 ## Description
 This repo help to build auto ai suggest for ticket reply by Amazon Bedrock. [apps for Zendesk products](https://developer.zendesk.com/apps/docs/apps-v2/getting_started).
