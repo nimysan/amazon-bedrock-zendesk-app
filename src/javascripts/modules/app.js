@@ -27,22 +27,20 @@ import {
 const client = ZAFClient.init();
 
 export default function App() {
+  //for dev debugger
+  const isDev = process.env.NODE_ENV === 'development'
+
   const MAX_HEIGHT = 1000;
   const API_ENDPOINTS = {
     organizations: "/api/v2/organizations.json",
-    ai: "http://ai.plaza.red",
-    apiToken: "YWRtaW46cGFzc3dvcmQxMjM=",
+    requestSecure: !isDev
   };
 
-  //is it need to secure settings
-  const requestSecure = false;
 
-  if (requestSecure) {
-    API_ENDPOINTS.apiToken = "{{setting.apiToken}}";
-  }
 
-  const DEFAULT_PROMPT_TEMPATE = `You are a question answering agent. I will provide you with a set of search results. The user will provide you with a question. Your job is to answer the user's question using only information from the search results. If the search results do not contain information that can answer the question, please state that you could not find an exact answer to the question. Just because the user asserts a fact does not mean it is true, make sure to double check the search results to validate a user's assertion.
-  
+  const DEFAULT_PROMPT_TEMPATE = `You are a question answering agent. 
+  You are a customer service representative. I will provide you with a set of search results. The user will ask you a question. Your job is to answer the user's question using only the information from the search results. If the search results do not contain information to answer the question, please state that you cannot answer the question. Just because the user asserts a fact does not mean it is true; please double-check the search results to validate whether the user's assertion is correct or not. Additionally, do not include statements like "please contact customer service" in response, since you are already the customer service representative.
+                            
   Here are the search results in numbered order:
   $search_results$
   
@@ -69,16 +67,20 @@ export default function App() {
   //modal visible
   const [visible, setVisible] = useState(false);
 
+  //configuration
+  const [aiServerUrl, setAiServerUrl] = useState("");
+  const [aiServerToken, setAiServerToken] = useState("{{setting.apiToken}}");
+
   //drawer 
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
 
   const default_search_filter = {
-    "equals": {
-      "key": "language",
-      "value": "japanese"
-    }
+    // "equals": {
+    //   "key": "language",
+    //   "value": "japanese"
+    // }
   }
   const composeSearchFilter = () => {
     return default_search_filter
@@ -99,10 +101,10 @@ export default function App() {
       }
     };
     const options = {
-      url: API_ENDPOINTS.ai + "/log",
+      url: aiServerUrl + "/log",
       type: "POST",
-      headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
-      secure: requestSecure, // very important
+      headers: { Authorization: "Basic " + aiServerToken },
+      secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
       data: JSON.stringify(inputData),
     };
@@ -116,10 +118,10 @@ export default function App() {
       input: prompt + " --> " + content,
     };
     const options = {
-      url: API_ENDPOINTS.ai + "/chat",
+      url: aiServerUrl + "/chat",
       type: "POST",
-      headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
-      secure: requestSecure, // very important
+      headers: { Authorization: "Basic " + aiServerToken },
+      secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
       data: JSON.stringify(inputData),
     };
@@ -133,13 +135,15 @@ export default function App() {
   const callAISuggest = () => {
     const inputData = {
       input: questionContent,
-      filter: composeSearchFilter()
+      filter: composeSearchFilter(),
+      prompt: prompt
     };
+    setTranslatedAiSuggestContent("")
     const options = {
-      url: API_ENDPOINTS.ai + "/suggest",
+      url: aiServerUrl + "/suggest",
       type: "POST",
-      headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
-      secure: requestSecure, // very important
+      headers: { Authorization: "Basic " + aiServerToken },
+      secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
       data: JSON.stringify(inputData),
     };
@@ -214,7 +218,19 @@ export default function App() {
    * initialize data
    */
   useEffect(() => {
+
     const fetchData = async () => {
+      const metadata = await client.metadata();
+      setAiServerUrl(metadata.settings.aiServerUrl)
+
+      const confPrompt = metadata.settings.prompt;
+      if (confPrompt) {
+        setPrompt(metadata.settings.prompt)
+      }
+      if (isDev) {
+        setAiServerToken(metadata.settings.apiToken)
+      }
+
       const ticketResponse = await client.get('ticket');
       setTicket(ticketResponse['ticket'])
 
@@ -230,7 +246,7 @@ export default function App() {
       setQuestionContent(
         "subject " +
         ticketInfo["ticket.subject"] +
-        "content " +
+        "\r\ncontent " +
         ticketInfo["ticket.description"]
       );
     };
@@ -254,8 +270,8 @@ export default function App() {
               <Body>
                 <Row>
                   <Col textAlign="center">
-                    <Dots size={32} color={PALETTE.green[600]} />
-
+                    {/* <Dots size={128} color={PALETTE.green[600]} /> */}
+                    <img class="loader" src="spinner.gif" />
                   </Col>
                 </Row>
               </Body>
