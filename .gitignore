@@ -5,3 +5,4 @@ coverage/
 npm-debug.log
 yarn-error.log
 dist.zip
+*.zip
