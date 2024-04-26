@@ -1,12 +1,12 @@
 {
   "name": "aizendeskassisant",
   "version": "2.0.0",
-  "description": "Claude 3 under Amazon Bedrock works for Zendesk",
+  "description": "Zendesk ticket auto reply by Amaozn Bedrock",
   "keywords": [
     "zendesk",
     "Claude 3",
     "GenAI",
-    "framework"
+    "Amazon Bedrock"
   ],
   "author": "yexw@amazon.com",
   "license": "Apache-2.0",
