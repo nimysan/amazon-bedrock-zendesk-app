@@ -30,15 +30,20 @@ export default function App() {
   const MAX_HEIGHT = 1000;
   const API_ENDPOINTS = {
     organizations: "/api/v2/organizations.json",
-    ai: "http://ai.plaza.red",
-    apiToken: "YWRtaW46cGFzc3dvcmQxMjM=",
+    aiServerUrl: "{{setting.aiServerUrl}}",
+    apiToken: "{{setting.apiToken}}",
+    requestSecure: true
   };
 
-  //is it need to secure settings
-  const requestSecure = false;
 
-  if (requestSecure) {
-    API_ENDPOINTS.apiToken = "{{setting.apiToken}}";
+  const isDev = process.env.NODE_ENV === 'development'
+
+  // debugger
+  if (isDev) {
+    //for local dev
+    API_ENDPOINTS.aiServerUrl = "http://ai.plaza.red"
+    API_ENDPOINTS.apiToken = "YWRtaW46cGFzc3dvcmQxMjM="
+    API_ENDPOINTS.requestSecure = false
   }
 
   const DEFAULT_PROMPT_TEMPATE = `You are a question answering agent. I will provide you with a set of search results. The user will provide you with a question. Your job is to answer the user's question using only information from the search results. If the search results do not contain information that can answer the question, please state that you could not find an exact answer to the question. Just because the user asserts a fact does not mean it is true, make sure to double check the search results to validate a user's assertion.
@@ -99,10 +104,10 @@ export default function App() {
       }
     };
     const options = {
-      url: API_ENDPOINTS.ai + "/log",
+      url: API_ENDPOINTS.aiServerUrl + "/log",
       type: "POST",
       headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
-      secure: requestSecure, // very important
+      secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
       data: JSON.stringify(inputData),
     };
@@ -116,10 +121,10 @@ export default function App() {
       input: prompt + " --> " + content,
     };
     const options = {
-      url: API_ENDPOINTS.ai + "/chat",
+      url: API_ENDPOINTS.aiServerUrl + "/chat",
       type: "POST",
       headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
-      secure: requestSecure, // very important
+      secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
       data: JSON.stringify(inputData),
     };
@@ -136,10 +141,10 @@ export default function App() {
       filter: composeSearchFilter()
     };
     const options = {
-      url: API_ENDPOINTS.ai + "/suggest",
+      url: API_ENDPOINTS.aiServerUrl + "/suggest",
       type: "POST",
       headers: { Authorization: "Basic " + API_ENDPOINTS.apiToken },
-      secure: requestSecure, // very important
+      secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
       data: JSON.stringify(inputData),
     };
@@ -254,8 +259,8 @@ export default function App() {
               <Body>
                 <Row>
                   <Col textAlign="center">
-                    <Dots size={32} color={PALETTE.green[600]} />
-
+                    {/* <Dots size={128} color={PALETTE.green[600]} /> */}
+                    <img class="loader" src="spinner.gif" />
                   </Col>
                 </Row>
               </Body>

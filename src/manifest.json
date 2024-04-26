@@ -15,14 +15,17 @@
       }
     }
   },
-  "domainWhitelist": [
-    "ai.plaza.red"
-  ],
+  "domainWhitelist": ["ai.plaza.red"],
   "parameters": [
     {
       "name": "apiToken",
       "type": "text",
       "secure": true
+    },
+    {
+      "name": "aiServerUrl",
+      "type": "text",
+      "secure": false
     }
   ],
   "version": "1.0",
