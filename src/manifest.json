@@ -15,7 +15,7 @@
       }
     }
   },
-  "domainWhitelist": ["ai.plaza.red"],
+  "domainWhitelist": ["ai.plaza.red","apisix-data.hijackery.cn"],
   "parameters": [
     {
       "name": "apiToken",
@@ -25,6 +25,11 @@
     {
       "name": "aiServerUrl",
       "type": "text",
+      "secure": false
+    },
+    {
+      "name": "prompt",
+      "type": "multiline",
       "secure": false
     }
   ],

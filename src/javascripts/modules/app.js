@@ -33,7 +33,6 @@ export default function App() {
   const MAX_HEIGHT = 1000;
   const API_ENDPOINTS = {
     organizations: "/api/v2/organizations.json",
-    apiToken: "{{setting.apiToken}}",
     requestSecure: !isDev
   };
 
@@ -70,7 +69,7 @@ export default function App() {
 
   //configuration
   const [aiServerUrl, setAiServerUrl] = useState("");
-  const [aiServerToken, setAiServerToken] = useState("base64token");
+  const [aiServerToken, setAiServerToken] = useState("{{setting.apiToken}}");
 
   //drawer 
   const [isOpen, setIsOpen] = useState(false);
@@ -139,6 +138,7 @@ export default function App() {
       filter: composeSearchFilter(),
       prompt: prompt
     };
+    setTranslatedAiSuggestContent("")
     const options = {
       url: aiServerUrl + "/suggest",
       type: "POST",
@@ -222,19 +222,14 @@ export default function App() {
     const fetchData = async () => {
       const metadata = await client.metadata();
       setAiServerUrl(metadata.settings.aiServerUrl)
-      setAiServerToken(metadata.settings.apiToken)
 
       const confPrompt = metadata.settings.prompt;
       if (confPrompt) {
         setPrompt(metadata.settings.prompt)
       }
-
       if (isDev) {
-        //for local dev
-        setAiServerUrl("http://streamlit-app-184417067.us-east-1.elb.amazonaws.com")
-        // setAiServerToken("")
+        setAiServerToken(metadata.settings.apiToken)
       }
-      debugger
 
       const ticketResponse = await client.get('ticket');
       setTicket(ticketResponse['ticket'])
