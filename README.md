@@ -4,6 +4,13 @@
 
 ![doc](./doc.png)
 
+1. Download rlease from [Release](https://github.com/nimysan/amazon-bedrock-zendesk-app/releases/tag/1.0.0) and change the file metadata.json(to allow new backend url)
+
+2. Install it zendesk as private app [Release](https://github.com/nimysan/amazon-bedrock-zendesk-app/releases/tag/1.0.0)
+
+3. Set up the url and token also prompt if you need to customization.
+
+
 > Call Statistics
 
 ![img](./statistics.png)
