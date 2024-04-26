@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: '18' # 使用你想要的 Node 版本
 
-    - run: npm ci
+    # - run: npm ci
     - run: npm run build # 运行你的构建脚本
 
     - name: Create Release
