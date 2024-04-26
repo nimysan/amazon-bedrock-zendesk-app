@@ -42,7 +42,7 @@ export default function App() {
   if (isDev) {
     //for local dev
     API_ENDPOINTS.aiServerUrl = "http://streamlit-app-184417067.us-east-1.elb.amazonaws.com"
-    API_ENDPOINTS.apiToken = "YWRtaW46cGFzc3dvcmQxMjM="
+    API_ENDPOINTS.apiToken = "sample test key"
     API_ENDPOINTS.requestSecure = false
   }
 
