@@ -41,7 +41,7 @@ export default function App() {
   // debugger
   if (isDev) {
     //for local dev
-    API_ENDPOINTS.aiServerUrl = "http://ai.plaza.red"
+    API_ENDPOINTS.aiServerUrl = "http://streamlit-app-184417067.us-east-1.elb.amazonaws.com"
     API_ENDPOINTS.apiToken = "YWRtaW46cGFzc3dvcmQxMjM="
     API_ENDPOINTS.requestSecure = false
   }
@@ -80,10 +80,10 @@ export default function App() {
   const close = () => setIsOpen(false);
 
   const default_search_filter = {
-    "equals": {
-      "key": "language",
-      "value": "japanese"
-    }
+    // "equals": {
+    //   "key": "language",
+    //   "value": "japanese"
+    // }
   }
   const composeSearchFilter = () => {
     return default_search_filter
@@ -235,7 +235,7 @@ export default function App() {
       setQuestionContent(
         "subject " +
         ticketInfo["ticket.subject"] +
-        "content " +
+        "\r\ncontent " +
         ticketInfo["ticket.description"]
       );
     };
