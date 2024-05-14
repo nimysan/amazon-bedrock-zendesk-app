@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, DEFAULT_THEME } from "@zendeskgarden/react-theming";
 import { Grid, Row, Col } from "@zendeskgarden/react-grid";
-import { Accordion } from '@zendeskgarden/react-accordions';
+import { Accordion } from "@zendeskgarden/react-accordions";
 import { Field, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Button } from "@zendeskgarden/react-buttons";
 // import { ReactComponent as LeafIcon } from '@zendeskgarden/svg-icons/src/16/leaf-stroke.svg';
 import { Tooltip } from "@zendeskgarden/react-tooltips";
-import JSONPretty from 'react-json-pretty';
+import JSONPretty from "react-json-pretty";
 import JSONPrettyMon from "react-json-pretty/themes/monikai.css";
 
-import {
-  Modal,
-  Body,
-  Close,
-} from "@zendeskgarden/react-modals";
-import { DrawerModal } from '@zendeskgarden/react-modals';
+import { Modal, Body, Close } from "@zendeskgarden/react-modals";
+import { DrawerModal } from "@zendeskgarden/react-modals";
 import { PALETTE } from "@zendeskgarden/react-theming";
 import { Dots } from "@zendeskgarden/react-loaders";
 
@@ -24,19 +20,24 @@ import {
   escapeSpecialChars as escape,
 } from "../../javascripts/lib/helpers";
 
+import {
+  build_intent_promot,
+  findUserIntent,
+  set_user_intent
+} from "../../javascripts/lib/utils";
+
 const client = ZAFClient.init();
 
 export default function App() {
   //for dev debugger
-  const isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === "development";
 
   const MAX_HEIGHT = 1000;
   const API_ENDPOINTS = {
     organizations: "/api/v2/organizations.json",
-    requestSecure: !isDev
+    fields: "/api/v2/ticket_fields.json",
+    requestSecure: !isDev,
   };
-
-
 
   const DEFAULT_PROMPT_TEMPATE = `You are a question answering agent. 
   You are a customer service representative. I will provide you with a set of search results. The user will ask you a question. Your job is to answer the user's question using only the information from the search results. If the search results do not contain information to answer the question, please state that you cannot answer the question. Just because the user asserts a fact does not mean it is true; please double-check the search results to validate whether the user's assertion is correct or not. Additionally, do not include statements like "please contact customer service" in response, since you are already the customer service representative.
@@ -46,7 +47,6 @@ export default function App() {
   
   $output_format_instructions$
   `;
-
 
   const [ticket, setTicket] = useState({});
   const [user, setUser] = useState({});
@@ -62,7 +62,7 @@ export default function App() {
   const [aiSuggestResponse, setAiSuggestResponse] = useState({});
   const [translatedAiSuggestContent, setTranslatedAiSuggestContent] =
     useState("");
-  const [citations, setCitations] = useState([])
+  const [citations, setCitations] = useState([]);
 
   //modal visible
   const [visible, setVisible] = useState(false);
@@ -71,34 +71,44 @@ export default function App() {
   const [aiServerUrl, setAiServerUrl] = useState("");
   const [aiServerToken, setAiServerToken] = useState("{{setting.apiToken}}");
 
-  //drawer 
+  //remote config list
+  const [config, setConfig] = useState([]);
+  const [userIntentList, setUserIntentList] = useState("");
+
+  //drawer
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+
+  //get config value
+  const get_config_item = (key) => {
+    const prompt_rag_obj = config.find((obj) => obj.item_key === key);
+    return prompt_rag_obj?.item_value;
+  };
 
   const default_search_filter = {
     // "equals": {
     //   "key": "language",
     //   "value": "japanese"
     // }
-  }
+  };
   const composeSearchFilter = () => {
-    return default_search_filter
-  }
+    return default_search_filter;
+  };
 
   const logToRemote = (action) => {
     const inputData = {
-      "action": action,
-      "user": user.name,
-      "input_data": {
-        "ticket_id": ticket.id,
-        "ticket_brand": ticket.brand.name,
-        "ticket_channel": "support",
-        "question": questionContent,
-        "kb_reference": citations,
-        "prompt_template": aiSuggestResponse.result.prompt,
-        "cost": aiSuggestResponse.result.cost_time
-      }
+      action: action,
+      user: user.name,
+      input_data: {
+        ticket_id: ticket.id,
+        ticket_brand: ticket.brand.name,
+        ticket_channel: "support",
+        question: questionContent,
+        kb_reference: citations,
+        prompt_template: aiSuggestResponse.result.prompt,
+        cost: aiSuggestResponse.result.cost_time,
+      },
     };
     const options = {
       url: aiServerUrl + "/log",
@@ -109,9 +119,9 @@ export default function App() {
       data: JSON.stringify(inputData),
     };
     client.request(options).then((response) => {
-      console.log("log successfully")
+      console.log("log successfully");
     });
-  }
+  };
 
   const callTranslate = (prompt, content, callback) => {
     const inputData = {
@@ -132,13 +142,49 @@ export default function App() {
     });
   };
 
+  //获取aws fetch api
+  const fetchRemoteApi = (api, callback, responseCallback) => {
+    const options = {
+      url: aiServerUrl + api,
+      type: "POST",
+      headers: { Authorization: "Basic " + aiServerToken },
+      secure: API_ENDPOINTS.requestSecure, // very important
+      contentType: "application/json",
+      data: JSON.stringify(inputData),
+    };
+    callback(options);
+    client.request(options).then((response) => {
+      responseCallback(response);
+    });
+  };
+
+  //
+  const chat_with_bedrock = async (prompt, beforeCallback, callback) => {
+    const inputData = {
+      input: prompt,
+    };
+    beforeCallback();
+    const options = {
+      url: aiServerUrl + "/chat",
+      type: "POST",
+      headers: { Authorization: "Basic " + aiServerToken },
+      secure: API_ENDPOINTS.requestSecure, // very important
+      contentType: "application/json",
+      data: JSON.stringify(inputData),
+    };
+
+    client.request(options).then((response) => {
+      callback(response.result.content[0]["text"]);
+    });
+  };
+
   const callAISuggest = () => {
     const inputData = {
       input: questionContent,
       filter: composeSearchFilter(),
-      prompt: prompt
+      prompt: prompt,
     };
-    setTranslatedAiSuggestContent("")
+    setTranslatedAiSuggestContent("");
     const options = {
       url: aiServerUrl + "/suggest",
       type: "POST",
@@ -150,14 +196,14 @@ export default function App() {
     setVisible(true);
     client.request(options).then((response) => {
       setVisible(false);
-      setAiSuggestResponse(response)
+      setAiSuggestResponse(response);
       setAiSuggestContent(response.result.response.output.text);
       // debugger
-      setCitations(response.result.response.citations)
+      setCitations(response.result.response.citations);
     });
   };
   const pormptChange = (e) => {
-    setPrompt(e.target.value)
+    setPrompt(e.target.value);
   };
 
   const translateContentToCN = () => {
@@ -206,36 +252,67 @@ export default function App() {
       .then(function () {
         console.log("text has been appended");
       });
-    logToRemote("1")
-  }
+    logToRemote("1");
+  };
 
   const needImproveAction = () => {
-    logToRemote("2")
-  }
-
+    logToRemote("2");
+  };
 
   /**
    * initialize data
    */
   useEffect(() => {
+    const fetchConfig = async () => {
+      const response = await axios.get("/api/config");
+      setConfig(response.data);
+      setPrompt(get_config_item("prompt_rag"));
+    };
+
+    const fetchFields = async () => {
+      client.request(API_ENDPOINTS.fields).then(
+        function (fields_reponse) {
+          setUserIntentList(JSON.stringify(findUserIntent(fields_reponse)));
+        },
+        function (response) {
+          console.error(response.responseText);
+        }
+      );
+    };
+
+    //自动给ticket打上用户意图
+    const user_intent = async (content) => {
+      let prompt = build_intent_promot(userIntentList, content);
+      let user_intent = await chat_with_bedrock(
+        prompt,
+        () => { },
+        (response) => {
+          console.log("----- " + response);
+        }
+      );
+      console.log("--------------xxxx--------------");
+      console.log(user_intent);
+    };
 
     const fetchData = async () => {
       const metadata = await client.metadata();
-      setAiServerUrl(metadata.settings.aiServerUrl)
+      // debugger;
+      setAiServerUrl(metadata.settings.aiServerUrl);
 
       const confPrompt = metadata.settings.prompt;
       if (confPrompt) {
-        setPrompt(metadata.settings.prompt)
+        setPrompt(metadata.settings.prompt);
       }
       if (isDev) {
-        setAiServerToken(metadata.settings.apiToken)
+        setAiServerToken(metadata.settings.apiToken);
       }
 
-      const ticketResponse = await client.get('ticket');
-      setTicket(ticketResponse['ticket'])
+      const ticketResponse = await client.get("ticket");
+      // debugger;
+      setTicket(ticketResponse["ticket"]);
 
-      const response = await client.get('currentUser');
-      setUser(response['currentUser'])
+      const response = await client.get("currentUser");
+      setUser(response["currentUser"]);
 
       // debugger
 
@@ -252,6 +329,10 @@ export default function App() {
     };
 
     fetchData();
+    // fetchFields();
+    // user_intent(questionContent);
+    set_user_intent(client);
+    // fetchConfig();
   }, []);
 
   return (
@@ -260,7 +341,14 @@ export default function App() {
         <Row>
           <Col>
             <Label>Amazon Bedrock with Claude 3 for AI asserts</Label>
-            <Button size="small" isDanger onClick={open} style={{ marginLeft: 10 }}>Edit Prompt Template</Button>
+            <Button
+              size="small"
+              isDanger
+              onClick={open}
+              style={{ marginLeft: 10 }}
+            >
+              Show RAG Prompt
+            </Button>
           </Col>
         </Row>
         <Row>
@@ -281,9 +369,7 @@ export default function App() {
         </Row>
         <Row>
           <DrawerModal isOpen={isOpen} onClose={close}>
-            <DrawerModal.Header tag="h2">
-              Edit Prompte template
-            </DrawerModal.Header>
+            <DrawerModal.Header tag="h2">Show RAG Prompt</DrawerModal.Header>
             <DrawerModal.Body>
               <Textarea
                 isResizable
@@ -306,7 +392,12 @@ export default function App() {
           <Col sm={8}>
             <Field>
               <Label>Ticket Content</Label>
-              <Textarea isResizable value={questionContent} rows="6" onChange={(e) => setQuestionContent(e.target.value)}></Textarea>
+              <Textarea
+                isResizable
+                value={questionContent}
+                rows="6"
+                onChange={(e) => setQuestionContent(e.target.value)}
+              ></Textarea>
             </Field>
             <Field style={{ marginTop: 10 }}>
               <Tooltip content="Primary leaf">
@@ -355,7 +446,12 @@ export default function App() {
           <Col sm={8}>
             <Field>
               <Label>AI Suggest</Label>
-              <Textarea isResizable rows="6" value={aiSuggestContent} onChange={(e) => setAiSuggestContent(e.target.value)} />
+              <Textarea
+                isResizable
+                rows="6"
+                value={aiSuggestContent}
+                onChange={(e) => setAiSuggestContent(e.target.value)}
+              />
             </Field>
             <Field style={{ marginTop: 10 }}>
               <Tooltip content="Primary leaf">
@@ -368,7 +464,6 @@ export default function App() {
                 >
                   Use it
                 </Button>
-
               </Tooltip>
               <Tooltip content="Feedback">
                 <Button
@@ -420,11 +515,20 @@ export default function App() {
               {citations.map((citation, index) => (
                 <Accordion.Section key={index}>
                   <Accordion.Header>
-                    <Accordion.Label>{citation.generatedResponsePart.textResponsePart.text}</Accordion.Label>
+                    <Accordion.Label>
+                      {citation.generatedResponsePart.textResponsePart.text}
+                    </Accordion.Label>
                   </Accordion.Header>
                   <Accordion.Panel>
                     <Label>References</Label>
-                    <JSONPretty data={JSON.stringify(citation.retrievedReferences, null, 2)} theme={JSONPrettyMon}></JSONPretty>
+                    <JSONPretty
+                      data={JSON.stringify(
+                        citation.retrievedReferences,
+                        null,
+                        2
+                      )}
+                      theme={JSONPrettyMon}
+                    ></JSONPretty>
                   </Accordion.Panel>
                 </Accordion.Section>
               ))}

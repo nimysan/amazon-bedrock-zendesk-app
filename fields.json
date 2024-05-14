@@ -1,0 +1,5441 @@
+{
+  "ticket_fields": [
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493695.json",
+      "id": 360019493695,
+      "type": "subject",
+      "title": "件名",
+      "raw_title": "Subject",
+      "description": "",
+      "raw_description": "",
+      "position": 0,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "件名",
+      "raw_title_in_portal": "Subject",
+      "visible_in_portal": true,
+      "editable_in_portal": true,
+      "required_in_portal": true,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:34Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": false,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493715.json",
+      "id": 360019493715,
+      "type": "description",
+      "title": "説明",
+      "raw_title": "Description",
+      "description": "ご質問を入れてください",
+      "raw_description": "ご質問を入れてください",
+      "position": 1,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "説明",
+      "raw_title_in_portal": "Description",
+      "visible_in_portal": true,
+      "editable_in_portal": true,
+      "required_in_portal": true,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:34Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": false,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493735.json",
+      "id": 360019493735,
+      "type": "status",
+      "title": "ステータス",
+      "raw_title": "Status",
+      "description": "リクエストのステータス",
+      "raw_description": "Request status",
+      "position": 2,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "ステータス",
+      "raw_title_in_portal": "Status",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:35Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": false,
+      "key": null,
+      "agent_description": null,
+      "system_field_options": [
+        { "name": "オープン", "value": "open" },
+        { "name": "保留中", "value": "pending" },
+        { "name": "待機中", "value": "hold" },
+        { "name": "解決済み", "value": "solved" }
+      ],
+      "sub_type_id": 1
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493755.json",
+      "id": 360019493755,
+      "type": "tickettype",
+      "title": "タイプ",
+      "raw_title": "Type",
+      "description": "リクエストのタイプ",
+      "raw_description": "Request type",
+      "position": 3,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "タイプ",
+      "raw_title_in_portal": "Type",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:35Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "system_field_options": [
+        { "name": "質問", "value": "question" },
+        { "name": "事象", "value": "incident" },
+        { "name": "問題", "value": "problem" },
+        { "name": "タスク", "value": "task" }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493775.json",
+      "id": 360019493775,
+      "type": "priority",
+      "title": "優先度",
+      "raw_title": "Priority",
+      "description": "リクエストの優先度",
+      "raw_description": "Request priority",
+      "position": 4,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "優先度",
+      "raw_title_in_portal": "Priority",
+      "visible_in_portal": true,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:35Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "system_field_options": [
+        { "name": "低", "value": "low" },
+        { "name": "普通", "value": "normal" },
+        { "name": "高", "value": "high" },
+        { "name": "緊急", "value": "urgent" }
+      ],
+      "sub_type_id": 0
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493795.json",
+      "id": 360019493795,
+      "type": "group",
+      "title": "グループ",
+      "raw_title": "Group",
+      "description": "リクエストグループ",
+      "raw_description": "Request group",
+      "position": 5,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "グループ",
+      "raw_title_in_portal": "Group",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:35Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": false,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360019493815.json",
+      "id": 360019493815,
+      "type": "assignee",
+      "title": "担当者",
+      "raw_title": "Assignee",
+      "description": "リクエストに割り当てられたエージェント",
+      "raw_description": "Agent assigned to your request",
+      "position": 6,
+      "active": true,
+      "required": true,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "担当者",
+      "raw_title_in_portal": "Assignee",
+      "visible_in_portal": true,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-09-15T03:04:35Z",
+      "updated_at": "2023-08-02T10:24:00Z",
+      "removable": false,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/4447344337167.json",
+      "id": 4447344337167,
+      "type": "text",
+      "title": "注文番号",
+      "raw_title": "注文番号",
+      "description": "",
+      "raw_description": "",
+      "position": 7,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "注文番号",
+      "raw_title_in_portal": "注文番号",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-03-02T02:23:13Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/4714205117711.json",
+      "id": 4714205117711,
+      "type": "text",
+      "title": "item_id",
+      "raw_title": "item_id",
+      "description": "",
+      "raw_description": "",
+      "position": 8,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "item_id",
+      "raw_title_in_portal": "item_id",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-04-24T03:05:42Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": "item_id"
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5375803293711.json",
+      "id": 5375803293711,
+      "type": "tagger",
+      "title": "订单拦截用问题分类字段 (测试用下拉项)",
+      "raw_title": "订单拦截用问题分类字段 (测试用下拉项)",
+      "description": "",
+      "raw_description": "",
+      "position": 9,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "订单拦截用问题分类字段 (测试用下拉项)",
+      "raw_title_in_portal": "订单拦截用问题分类字段 (测试用下拉项)",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-08-25T03:22:47Z",
+      "updated_at": "2023-05-16T07:29:36Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 6417077718415,
+          "name": "返品交換・キャンセル",
+          "raw_name": "返品交換・キャンセル",
+          "value": "返品交換・キャンセル",
+          "default": false
+        },
+        {
+          "id": 6990386042127,
+          "name": "注文キャンセル",
+          "raw_name": "注文キャンセル",
+          "value": "注文キャンセル",
+          "default": false
+        },
+        {
+          "id": 6990386042255,
+          "name": "送料・商品配送",
+          "raw_name": "送料・商品配送",
+          "value": "送料・商品配送",
+          "default": false
+        },
+        {
+          "id": 6990386042383,
+          "name": "お届け日/その他",
+          "raw_name": "お届け日/その他",
+          "value": "お届け日/その他",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/4411428538383.json",
+      "id": 4411428538383,
+      "type": "text",
+      "title": "itemUrl",
+      "raw_title": "itemUrl",
+      "description": "",
+      "raw_description": "",
+      "position": 10,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "itemUrl",
+      "raw_title_in_portal": "itemUrl",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-12-11T06:33:25Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5845813794575.json",
+      "id": 5845813794575,
+      "type": "tagger",
+      "title": "Product Name",
+      "raw_title": "Product Name",
+      "description": "",
+      "raw_description": "",
+      "position": 11,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Shop",
+      "raw_title_in_portal": "Shop",
+      "visible_in_portal": true,
+      "editable_in_portal": true,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-11-12T08:06:58Z",
+      "updated_at": "2023-08-08T06:44:58Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 5845830236047,
+          "name": "L1::Solar 100",
+          "raw_name": "L1::Solar 100",
+          "value": "l1__return_and_exchange",
+          "default": false
+        },
+        {
+          "id": 5845830236175,
+          "name": "L1::Solar 200",
+          "raw_name": "L1::Solar 200",
+          "value": "l1__shopify_contact_form",
+          "default": false
+        },
+        {
+          "id": 5845830236303,
+          "name": "L2::Explore 100",
+          "raw_name": "L2::Explore 100",
+          "value": "l2__refund__full_refund",
+          "default": false
+        },
+        {
+          "id": 5845835312271,
+          "name": "L2::Explore 200",
+          "raw_name": "L2::Explore 200",
+          "value": "l2__123123",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5193975314959.json",
+      "id": 5193975314959,
+      "type": "checkbox",
+      "title": "Send text",
+      "raw_title": "Send text",
+      "description": "",
+      "raw_description": "",
+      "position": 12,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Send text",
+      "raw_title_in_portal": "Send text",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-07-24T01:53:30Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": "send a text to customers on a ticket"
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360024548436.json",
+      "id": 360024548436,
+      "type": "text",
+      "title": "order_id",
+      "raw_title": "order_id",
+      "description": "order_id",
+      "raw_description": "order_id",
+      "position": 13,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "order_id",
+      "raw_title_in_portal": "order_id",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-12-01T10:09:46Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/4411764395407.json",
+      "id": 4411764395407,
+      "type": "text",
+      "title": "siteType",
+      "raw_title": "siteType",
+      "description": "",
+      "raw_description": "",
+      "position": 14,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "siteType",
+      "raw_title_in_portal": "siteType",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-12-16T06:14:41Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5290115433103.json",
+      "id": 5290115433103,
+      "type": "text",
+      "title": "Order ID",
+      "raw_title": "Order ID",
+      "description": "",
+      "raw_description": "",
+      "position": 15,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Order ID",
+      "raw_title_in_portal": "Order ID",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-08-10T07:22:46Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/4411428543119.json",
+      "id": 4411428543119,
+      "type": "text",
+      "title": "itemName",
+      "raw_title": "itemName",
+      "description": "",
+      "raw_description": "",
+      "position": 16,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "itemName",
+      "raw_title_in_portal": "itemName",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-12-11T06:33:47Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5290183600783.json",
+      "id": 5290183600783,
+      "type": "text",
+      "title": "Tracking ID",
+      "raw_title": "Tracking ID",
+      "description": "",
+      "raw_description": "",
+      "position": 17,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Tracking ID",
+      "raw_title_in_portal": "Tracking ID",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-08-10T07:22:26Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/4412097609871.json",
+      "id": 4412097609871,
+      "type": "text",
+      "title": "backSub",
+      "raw_title": "backSub",
+      "description": "",
+      "raw_description": "",
+      "position": 18,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "backSub",
+      "raw_title_in_portal": "backSub",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-12-21T08:56:43Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/360024479916.json",
+      "id": 360024479916,
+      "type": "text",
+      "title": "topicId",
+      "raw_title": "topicId",
+      "description": "topicId",
+      "raw_description": "topicId",
+      "position": 19,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "topicId",
+      "raw_title_in_portal": "topicId",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2021-11-30T03:27:53Z",
+      "updated_at": "2022-11-16T08:44:22Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5616504351759.json",
+      "id": 5616504351759,
+      "type": "custom_status",
+      "title": "Ticket status",
+      "raw_title": "Ticket status",
+      "description": "Request ticket status",
+      "raw_description": "Request ticket status",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Ticket status",
+      "raw_title_in_portal": "Ticket status",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-10-05T05:18:31Z",
+      "updated_at": "2022-10-05T05:18:31Z",
+      "removable": false,
+      "key": null,
+      "agent_description": null,
+      "custom_statuses": [
+        {
+          "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/custom_statuses/1633216.json",
+          "id": 1633216,
+          "status_category": "new",
+          "agent_label": "新規",
+          "end_user_label": "オープン",
+          "description": "エージェントへのチケット割り当て待ち",
+          "end_user_description": "お客様への返信を処理しています",
+          "active": true,
+          "default": true,
+          "created_at": "2021-10-14T18:01:10Z",
+          "updated_at": "2021-10-14T18:01:10Z"
+        },
+        {
+          "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/custom_statuses/1633236.json",
+          "id": 1633236,
+          "status_category": "open",
+          "agent_label": "オープン",
+          "end_user_label": "オープン",
+          "description": "スタッフによるチケット対応中",
+          "end_user_description": "お客様への返信を処理しています",
+          "active": true,
+          "default": true,
+          "created_at": "2021-10-14T18:01:10Z",
+          "updated_at": "2021-10-14T18:01:10Z"
+        },
+        {
+          "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/custom_statuses/1633256.json",
+          "id": 1633256,
+          "status_category": "pending",
+          "agent_label": "保留中",
+          "end_user_label": "あなたの返信待ち",
+          "description": "スタッフによるリクエスタの回答待ち",
+          "end_user_description": "お客様の応答を待っています",
+          "active": true,
+          "default": true,
+          "created_at": "2021-10-14T18:01:10Z",
+          "updated_at": "2021-10-14T18:01:10Z"
+        },
+        {
+          "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/custom_statuses/1633276.json",
+          "id": 1633276,
+          "status_category": "hold",
+          "agent_label": "待機中",
+          "end_user_label": "オープン",
+          "description": "スタッフによるサードパーティ待ち",
+          "end_user_description": "お客様への返信を処理しています",
+          "active": true,
+          "default": true,
+          "created_at": "2021-10-14T18:01:10Z",
+          "updated_at": "2023-02-08T02:48:32Z"
+        },
+        {
+          "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/custom_statuses/1633296.json",
+          "id": 1633296,
+          "status_category": "solved",
+          "agent_label": "解決済み",
+          "end_user_label": "解決済み",
+          "description": "このチケットを解決済みにする",
+          "end_user_description": "このリクエストは解決されました",
+          "active": true,
+          "default": true,
+          "created_at": "2021-10-14T18:01:10Z",
+          "updated_at": "2021-10-14T18:01:10Z"
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/8650844746511.json",
+      "id": 8650844746511,
+      "type": "tagger",
+      "title": "Language",
+      "raw_title": "Language",
+      "description": "Language",
+      "raw_description": "Language",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Language",
+      "raw_title_in_portal": "Language",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-12-21T08:32:13Z",
+      "updated_at": "2023-12-21T08:32:13Z",
+      "removable": true,
+      "key": "ml_triage_language",
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 8650844724623,
+          "name": "Afrikaans",
+          "raw_name": "Afrikaans",
+          "value": "language__af",
+          "default": false
+        },
+        {
+          "id": 8650844724751,
+          "name": "Albanian",
+          "raw_name": "Albanian",
+          "value": "language__als",
+          "default": false
+        },
+        {
+          "id": 8650844724879,
+          "name": "Albanian",
+          "raw_name": "Albanian",
+          "value": "language__sq",
+          "default": false
+        },
+        {
+          "id": 8650844725007,
+          "name": "Amharic",
+          "raw_name": "Amharic",
+          "value": "language__am",
+          "default": false
+        },
+        {
+          "id": 8650844725135,
+          "name": "Arabic",
+          "raw_name": "Arabic",
+          "value": "language__ar",
+          "default": false
+        },
+        {
+          "id": 8650844725263,
+          "name": "Aragonese",
+          "raw_name": "Aragonese",
+          "value": "language__an",
+          "default": false
+        },
+        {
+          "id": 8650844725391,
+          "name": "Armenian",
+          "raw_name": "Armenian",
+          "value": "language__hy",
+          "default": false
+        },
+        {
+          "id": 8650844725519,
+          "name": "Assamese",
+          "raw_name": "Assamese",
+          "value": "language__as",
+          "default": false
+        },
+        {
+          "id": 8650844725647,
+          "name": "Asturian",
+          "raw_name": "Asturian",
+          "value": "language__ast",
+          "default": false
+        },
+        {
+          "id": 8650844725775,
+          "name": "Avaric",
+          "raw_name": "Avaric",
+          "value": "language__av",
+          "default": false
+        },
+        {
+          "id": 8650844725903,
+          "name": "Azerbaijani",
+          "raw_name": "Azerbaijani",
+          "value": "language__az",
+          "default": false
+        },
+        {
+          "id": 8650844726031,
+          "name": "Bangla",
+          "raw_name": "Bangla",
+          "value": "language__bn",
+          "default": false
+        },
+        {
+          "id": 8650844726159,
+          "name": "Bashkir",
+          "raw_name": "Bashkir",
+          "value": "language__ba",
+          "default": false
+        },
+        {
+          "id": 8650844726287,
+          "name": "Basque",
+          "raw_name": "Basque",
+          "value": "language__eu",
+          "default": false
+        },
+        {
+          "id": 8650844726415,
+          "name": "Bavarian",
+          "raw_name": "Bavarian",
+          "value": "language__bar",
+          "default": false
+        },
+        {
+          "id": 8650844726543,
+          "name": "Belarusian",
+          "raw_name": "Belarusian",
+          "value": "language__be",
+          "default": false
+        },
+        {
+          "id": 8650844726671,
+          "name": "Bhojpuri",
+          "raw_name": "Bhojpuri",
+          "value": "language__bh",
+          "default": false
+        },
+        {
+          "id": 8650844726799,
+          "name": "Bikol",
+          "raw_name": "Bikol",
+          "value": "language__bcl",
+          "default": false
+        },
+        {
+          "id": 8650844726927,
+          "name": "Bishnupriya",
+          "raw_name": "Bishnupriya",
+          "value": "language__bpy",
+          "default": false
+        },
+        {
+          "id": 8650844727055,
+          "name": "Bosnian",
+          "raw_name": "Bosnian",
+          "value": "language__bs",
+          "default": false
+        },
+        {
+          "id": 8650844727183,
+          "name": "Breton",
+          "raw_name": "Breton",
+          "value": "language__br",
+          "default": false
+        },
+        {
+          "id": 8650844727311,
+          "name": "Bulgarian",
+          "raw_name": "Bulgarian",
+          "value": "language__bg",
+          "default": false
+        },
+        {
+          "id": 8650844727439,
+          "name": "Buriat",
+          "raw_name": "Buriat",
+          "value": "language__bxr",
+          "default": false
+        },
+        {
+          "id": 8650844727567,
+          "name": "Burmese",
+          "raw_name": "Burmese",
+          "value": "language__my",
+          "default": false
+        },
+        {
+          "id": 8650844727695,
+          "name": "Cantonese",
+          "raw_name": "Cantonese",
+          "value": "language__yue",
+          "default": false
+        },
+        {
+          "id": 8650844727823,
+          "name": "Catalan",
+          "raw_name": "Catalan",
+          "value": "language__ca",
+          "default": false
+        },
+        {
+          "id": 8650844727951,
+          "name": "Cebuano",
+          "raw_name": "Cebuano",
+          "value": "language__ceb",
+          "default": false
+        },
+        {
+          "id": 8650844728079,
+          "name": "Central kurdish",
+          "raw_name": "Central kurdish",
+          "value": "language__ckb",
+          "default": false
+        },
+        {
+          "id": 8650844728207,
+          "name": "Chechen",
+          "raw_name": "Chechen",
+          "value": "language__ce",
+          "default": false
+        },
+        {
+          "id": 8650844728335,
+          "name": "Chinese",
+          "raw_name": "Chinese",
+          "value": "language__zh",
+          "default": false
+        },
+        {
+          "id": 8650844728463,
+          "name": "Chuvash",
+          "raw_name": "Chuvash",
+          "value": "language__cv",
+          "default": false
+        },
+        {
+          "id": 8650844728591,
+          "name": "Cornish",
+          "raw_name": "Cornish",
+          "value": "language__kw",
+          "default": false
+        },
+        {
+          "id": 8650844728719,
+          "name": "Corsican",
+          "raw_name": "Corsican",
+          "value": "language__co",
+          "default": false
+        },
+        {
+          "id": 8650844728847,
+          "name": "Croatian",
+          "raw_name": "Croatian",
+          "value": "language__hr",
+          "default": false
+        },
+        {
+          "id": 8650844728975,
+          "name": "Czech",
+          "raw_name": "Czech",
+          "value": "language__cs",
+          "default": false
+        },
+        {
+          "id": 8650844729103,
+          "name": "Danish",
+          "raw_name": "Danish",
+          "value": "language__da",
+          "default": false
+        },
+        {
+          "id": 8650844729231,
+          "name": "Divehi",
+          "raw_name": "Divehi",
+          "value": "language__dv",
+          "default": false
+        },
+        {
+          "id": 8650844729359,
+          "name": "Dutch",
+          "raw_name": "Dutch",
+          "value": "language__nl",
+          "default": false
+        },
+        {
+          "id": 8650844729487,
+          "name": "Egyptian arabic",
+          "raw_name": "Egyptian arabic",
+          "value": "language__arz",
+          "default": false
+        },
+        {
+          "id": 8650844729615,
+          "name": "English",
+          "raw_name": "English",
+          "value": "language__en",
+          "default": false
+        },
+        {
+          "id": 8650844729743,
+          "name": "Erzya",
+          "raw_name": "Erzya",
+          "value": "language__myv",
+          "default": false
+        },
+        {
+          "id": 8650844729871,
+          "name": "Esperanto",
+          "raw_name": "Esperanto",
+          "value": "language__eo",
+          "default": false
+        },
+        {
+          "id": 8650844729999,
+          "name": "Estonian",
+          "raw_name": "Estonian",
+          "value": "language__et",
+          "default": false
+        },
+        {
+          "id": 8650844730127,
+          "name": "Fiji hindi",
+          "raw_name": "Fiji hindi",
+          "value": "language__hif",
+          "default": false
+        },
+        {
+          "id": 8650844730255,
+          "name": "Finnish",
+          "raw_name": "Finnish",
+          "value": "language__fi",
+          "default": false
+        },
+        {
+          "id": 8650844730383,
+          "name": "French",
+          "raw_name": "French",
+          "value": "language__fr",
+          "default": false
+        },
+        {
+          "id": 8650844730511,
+          "name": "Galician",
+          "raw_name": "Galician",
+          "value": "language__gl",
+          "default": false
+        },
+        {
+          "id": 8650844730639,
+          "name": "Georgian",
+          "raw_name": "Georgian",
+          "value": "language__ka",
+          "default": false
+        },
+        {
+          "id": 8650844730767,
+          "name": "German",
+          "raw_name": "German",
+          "value": "language__de",
+          "default": false
+        },
+        {
+          "id": 8650844730895,
+          "name": "Goan konkani",
+          "raw_name": "Goan konkani",
+          "value": "language__gom",
+          "default": false
+        },
+        {
+          "id": 8650844731023,
+          "name": "Greek",
+          "raw_name": "Greek",
+          "value": "language__el",
+          "default": false
+        },
+        {
+          "id": 8650844731151,
+          "name": "Guarani",
+          "raw_name": "Guarani",
+          "value": "language__gn",
+          "default": false
+        },
+        {
+          "id": 8650844731279,
+          "name": "Gujarati",
+          "raw_name": "Gujarati",
+          "value": "language__gu",
+          "default": false
+        },
+        {
+          "id": 8650844731407,
+          "name": "Haitian creole",
+          "raw_name": "Haitian creole",
+          "value": "language__ht",
+          "default": false
+        },
+        {
+          "id": 8650844731535,
+          "name": "Hebrew",
+          "raw_name": "Hebrew",
+          "value": "language__he",
+          "default": false
+        },
+        {
+          "id": 8650844731663,
+          "name": "Hindi",
+          "raw_name": "Hindi",
+          "value": "language__hi",
+          "default": false
+        },
+        {
+          "id": 8650844731791,
+          "name": "Hungarian",
+          "raw_name": "Hungarian",
+          "value": "language__hu",
+          "default": false
+        },
+        {
+          "id": 8650844731919,
+          "name": "Icelandic",
+          "raw_name": "Icelandic",
+          "value": "language__is",
+          "default": false
+        },
+        {
+          "id": 8650844732047,
+          "name": "Ido",
+          "raw_name": "Ido",
+          "value": "language__io",
+          "default": false
+        },
+        {
+          "id": 8650844732175,
+          "name": "Iloko",
+          "raw_name": "Iloko",
+          "value": "language__ilo",
+          "default": false
+        },
+        {
+          "id": 8650844732303,
+          "name": "Indonesian",
+          "raw_name": "Indonesian",
+          "value": "language__id",
+          "default": false
+        },
+        {
+          "id": 8650844732431,
+          "name": "Interlingua",
+          "raw_name": "Interlingua",
+          "value": "language__ia",
+          "default": false
+        },
+        {
+          "id": 8650844732559,
+          "name": "Interlingue",
+          "raw_name": "Interlingue",
+          "value": "language__ie",
+          "default": false
+        },
+        {
+          "id": 8650844732687,
+          "name": "Irish",
+          "raw_name": "Irish",
+          "value": "language__ga",
+          "default": false
+        },
+        {
+          "id": 8650844732815,
+          "name": "Italian",
+          "raw_name": "Italian",
+          "value": "language__it",
+          "default": false
+        },
+        {
+          "id": 8650844732943,
+          "name": "Japanese",
+          "raw_name": "Japanese",
+          "value": "language__ja",
+          "default": false
+        },
+        {
+          "id": 8650844733071,
+          "name": "Javanese",
+          "raw_name": "Javanese",
+          "value": "language__jv",
+          "default": false
+        },
+        {
+          "id": 8650844733199,
+          "name": "Kalmyk",
+          "raw_name": "Kalmyk",
+          "value": "language__xal",
+          "default": false
+        },
+        {
+          "id": 8650844733327,
+          "name": "Kannada",
+          "raw_name": "Kannada",
+          "value": "language__kn",
+          "default": false
+        },
+        {
+          "id": 8650844733455,
+          "name": "Karachay-balkar",
+          "raw_name": "Karachay-balkar",
+          "value": "language__krc",
+          "default": false
+        },
+        {
+          "id": 8650844733583,
+          "name": "Kazakh",
+          "raw_name": "Kazakh",
+          "value": "language__kk",
+          "default": false
+        },
+        {
+          "id": 8650844733711,
+          "name": "Khmer",
+          "raw_name": "Khmer",
+          "value": "language__km",
+          "default": false
+        },
+        {
+          "id": 8650844733839,
+          "name": "Komi",
+          "raw_name": "Komi",
+          "value": "language__kv",
+          "default": false
+        },
+        {
+          "id": 8650844733967,
+          "name": "Korean",
+          "raw_name": "Korean",
+          "value": "language__ko",
+          "default": false
+        },
+        {
+          "id": 8650844734095,
+          "name": "Kurdish",
+          "raw_name": "Kurdish",
+          "value": "language__ku",
+          "default": false
+        },
+        {
+          "id": 8650844734223,
+          "name": "Kyrgyz",
+          "raw_name": "Kyrgyz",
+          "value": "language__ky",
+          "default": false
+        },
+        {
+          "id": 8650844734351,
+          "name": "Lao",
+          "raw_name": "Lao",
+          "value": "language__lo",
+          "default": false
+        },
+        {
+          "id": 8650844734479,
+          "name": "Latin",
+          "raw_name": "Latin",
+          "value": "language__la",
+          "default": false
+        },
+        {
+          "id": 8650844734607,
+          "name": "Latvian",
+          "raw_name": "Latvian",
+          "value": "language__lv",
+          "default": false
+        },
+        {
+          "id": 8650844734735,
+          "name": "Lezghian",
+          "raw_name": "Lezghian",
+          "value": "language__lez",
+          "default": false
+        },
+        {
+          "id": 8650844734863,
+          "name": "Limburgish",
+          "raw_name": "Limburgish",
+          "value": "language__li",
+          "default": false
+        },
+        {
+          "id": 8650844734991,
+          "name": "Lithuanian",
+          "raw_name": "Lithuanian",
+          "value": "language__lt",
+          "default": false
+        },
+        {
+          "id": 8650844735119,
+          "name": "Lojban",
+          "raw_name": "Lojban",
+          "value": "language__jbo",
+          "default": false
+        },
+        {
+          "id": 8650844735247,
+          "name": "Lombard",
+          "raw_name": "Lombard",
+          "value": "language__lmo",
+          "default": false
+        },
+        {
+          "id": 8650844735375,
+          "name": "Low german",
+          "raw_name": "Low german",
+          "value": "language__nds",
+          "default": false
+        },
+        {
+          "id": 8650844735503,
+          "name": "Lower sorbian",
+          "raw_name": "Lower sorbian",
+          "value": "language__dsb",
+          "default": false
+        },
+        {
+          "id": 8650844735631,
+          "name": "Luxembourgish",
+          "raw_name": "Luxembourgish",
+          "value": "language__lb",
+          "default": false
+        },
+        {
+          "id": 8650844735759,
+          "name": "Macedonian",
+          "raw_name": "Macedonian",
+          "value": "language__mk",
+          "default": false
+        },
+        {
+          "id": 8650844735887,
+          "name": "Maithili",
+          "raw_name": "Maithili",
+          "value": "language__mai",
+          "default": false
+        },
+        {
+          "id": 8650844736015,
+          "name": "Malagasy",
+          "raw_name": "Malagasy",
+          "value": "language__mg",
+          "default": false
+        },
+        {
+          "id": 8650844736143,
+          "name": "Malay",
+          "raw_name": "Malay",
+          "value": "language__ms",
+          "default": false
+        },
+        {
+          "id": 8650844736271,
+          "name": "Malayalam",
+          "raw_name": "Malayalam",
+          "value": "language__ml",
+          "default": false
+        },
+        {
+          "id": 8650844736399,
+          "name": "Maltese",
+          "raw_name": "Maltese",
+          "value": "language__mt",
+          "default": false
+        },
+        {
+          "id": 8650844736527,
+          "name": "Manx",
+          "raw_name": "Manx",
+          "value": "language__gv",
+          "default": false
+        },
+        {
+          "id": 8650844736655,
+          "name": "Marathi",
+          "raw_name": "Marathi",
+          "value": "language__mr",
+          "default": false
+        },
+        {
+          "id": 8650844736783,
+          "name": "Mari",
+          "raw_name": "Mari",
+          "value": "language__mhr",
+          "default": false
+        },
+        {
+          "id": 8650844736911,
+          "name": "Mazanderani",
+          "raw_name": "Mazanderani",
+          "value": "language__mzn",
+          "default": false
+        },
+        {
+          "id": 8650844737039,
+          "name": "Minangkabau",
+          "raw_name": "Minangkabau",
+          "value": "language__min",
+          "default": false
+        },
+        {
+          "id": 8650844737167,
+          "name": "Mingrelian",
+          "raw_name": "Mingrelian",
+          "value": "language__xmf",
+          "default": false
+        },
+        {
+          "id": 8650844737295,
+          "name": "Mirandese",
+          "raw_name": "Mirandese",
+          "value": "language__mwl",
+          "default": false
+        },
+        {
+          "id": 8650844737423,
+          "name": "Mongolian",
+          "raw_name": "Mongolian",
+          "value": "language__mn",
+          "default": false
+        },
+        {
+          "id": 8650844737551,
+          "name": "Neapolitan",
+          "raw_name": "Neapolitan",
+          "value": "language__nap",
+          "default": false
+        },
+        {
+          "id": 8650844737679,
+          "name": "Nepali",
+          "raw_name": "Nepali",
+          "value": "language__ne",
+          "default": false
+        },
+        {
+          "id": 8650844737807,
+          "name": "Newari",
+          "raw_name": "Newari",
+          "value": "language__new",
+          "default": false
+        },
+        {
+          "id": 8650844737935,
+          "name": "Northern frisian",
+          "raw_name": "Northern frisian",
+          "value": "language__frr",
+          "default": false
+        },
+        {
+          "id": 8650844738063,
+          "name": "Northern luri",
+          "raw_name": "Northern luri",
+          "value": "language__lrc",
+          "default": false
+        },
+        {
+          "id": 8650844738191,
+          "name": "Norwegian",
+          "raw_name": "Norwegian",
+          "value": "language__no",
+          "default": false
+        },
+        {
+          "id": 8650844738319,
+          "name": "Norwegian nynorsk",
+          "raw_name": "Norwegian nynorsk",
+          "value": "language__nn",
+          "default": false
+        },
+        {
+          "id": 8650844738447,
+          "name": "Occitan",
+          "raw_name": "Occitan",
+          "value": "language__oc",
+          "default": false
+        },
+        {
+          "id": 8650844738575,
+          "name": "Odia",
+          "raw_name": "Odia",
+          "value": "language__or",
+          "default": false
+        },
+        {
+          "id": 8650844738703,
+          "name": "Ossetic",
+          "raw_name": "Ossetic",
+          "value": "language__os",
+          "default": false
+        },
+        {
+          "id": 8650844738831,
+          "name": "Palatine german",
+          "raw_name": "Palatine german",
+          "value": "language__pfl",
+          "default": false
+        },
+        {
+          "id": 8650844738959,
+          "name": "Pampanga",
+          "raw_name": "Pampanga",
+          "value": "language__pam",
+          "default": false
+        },
+        {
+          "id": 8650844739087,
+          "name": "Pashto",
+          "raw_name": "Pashto",
+          "value": "language__ps",
+          "default": false
+        },
+        {
+          "id": 8650844739215,
+          "name": "Persian",
+          "raw_name": "Persian",
+          "value": "language__fa",
+          "default": false
+        },
+        {
+          "id": 8650844739343,
+          "name": "Piedmontese",
+          "raw_name": "Piedmontese",
+          "value": "language__pms",
+          "default": false
+        },
+        {
+          "id": 8650844739471,
+          "name": "Polish",
+          "raw_name": "Polish",
+          "value": "language__pl",
+          "default": false
+        },
+        {
+          "id": 8650844739599,
+          "name": "Portuguese",
+          "raw_name": "Portuguese",
+          "value": "language__pt",
+          "default": false
+        },
+        {
+          "id": 8650844739727,
+          "name": "Punjabi",
+          "raw_name": "Punjabi",
+          "value": "language__pa",
+          "default": false
+        },
+        {
+          "id": 8650844739855,
+          "name": "Quechua",
+          "raw_name": "Quechua",
+          "value": "language__qu",
+          "default": false
+        },
+        {
+          "id": 8650844739983,
+          "name": "Romanian",
+          "raw_name": "Romanian",
+          "value": "language__ro",
+          "default": false
+        },
+        {
+          "id": 8650844740111,
+          "name": "Romansh",
+          "raw_name": "Romansh",
+          "value": "language__rm",
+          "default": false
+        },
+        {
+          "id": 8650844740239,
+          "name": "Russian",
+          "raw_name": "Russian",
+          "value": "language__ru",
+          "default": false
+        },
+        {
+          "id": 8650844740367,
+          "name": "Rusyn",
+          "raw_name": "Rusyn",
+          "value": "language__rue",
+          "default": false
+        },
+        {
+          "id": 8650844740495,
+          "name": "Sanskrit",
+          "raw_name": "Sanskrit",
+          "value": "language__sa",
+          "default": false
+        },
+        {
+          "id": 8650844740623,
+          "name": "Sardinian",
+          "raw_name": "Sardinian",
+          "value": "language__sc",
+          "default": false
+        },
+        {
+          "id": 8650844740751,
+          "name": "Scots",
+          "raw_name": "Scots",
+          "value": "language__sco",
+          "default": false
+        },
+        {
+          "id": 8650844740879,
+          "name": "Scottish gaelic",
+          "raw_name": "Scottish gaelic",
+          "value": "language__gd",
+          "default": false
+        },
+        {
+          "id": 8650844741007,
+          "name": "Serbian",
+          "raw_name": "Serbian",
+          "value": "language__sr",
+          "default": false
+        },
+        {
+          "id": 8650844741135,
+          "name": "Serbo-croatian",
+          "raw_name": "Serbo-croatian",
+          "value": "language__sh",
+          "default": false
+        },
+        {
+          "id": 8650844741263,
+          "name": "Sicilian",
+          "raw_name": "Sicilian",
+          "value": "language__scn",
+          "default": false
+        },
+        {
+          "id": 8650844741391,
+          "name": "Sindhi",
+          "raw_name": "Sindhi",
+          "value": "language__sd",
+          "default": false
+        },
+        {
+          "id": 8650844741519,
+          "name": "Sinhala",
+          "raw_name": "Sinhala",
+          "value": "language__si",
+          "default": false
+        },
+        {
+          "id": 8650844741647,
+          "name": "Slovak",
+          "raw_name": "Slovak",
+          "value": "language__sk",
+          "default": false
+        },
+        {
+          "id": 8650844741775,
+          "name": "Slovenian",
+          "raw_name": "Slovenian",
+          "value": "language__sl",
+          "default": false
+        },
+        {
+          "id": 8650844741903,
+          "name": "Somali",
+          "raw_name": "Somali",
+          "value": "language__so",
+          "default": false
+        },
+        {
+          "id": 8650844742031,
+          "name": "Spanish",
+          "raw_name": "Spanish",
+          "value": "language__es",
+          "default": false
+        },
+        {
+          "id": 8650844742159,
+          "name": "Sundanese",
+          "raw_name": "Sundanese",
+          "value": "language__su",
+          "default": false
+        },
+        {
+          "id": 8650844742287,
+          "name": "Swahili",
+          "raw_name": "Swahili",
+          "value": "language__sw",
+          "default": false
+        },
+        {
+          "id": 8650844742415,
+          "name": "Swedish",
+          "raw_name": "Swedish",
+          "value": "language__sv",
+          "default": false
+        },
+        {
+          "id": 8650844742543,
+          "name": "Tagalog",
+          "raw_name": "Tagalog",
+          "value": "language__tl",
+          "default": false
+        },
+        {
+          "id": 8650844742671,
+          "name": "Tajik",
+          "raw_name": "Tajik",
+          "value": "language__tg",
+          "default": false
+        },
+        {
+          "id": 8650844742799,
+          "name": "Tamil",
+          "raw_name": "Tamil",
+          "value": "language__ta",
+          "default": false
+        },
+        {
+          "id": 8650844742927,
+          "name": "Tatar",
+          "raw_name": "Tatar",
+          "value": "language__tt",
+          "default": false
+        },
+        {
+          "id": 8650844743055,
+          "name": "Telugu",
+          "raw_name": "Telugu",
+          "value": "language__te",
+          "default": false
+        },
+        {
+          "id": 8650844743183,
+          "name": "Thai",
+          "raw_name": "Thai",
+          "value": "language__th",
+          "default": false
+        },
+        {
+          "id": 8650844743311,
+          "name": "Tibetan",
+          "raw_name": "Tibetan",
+          "value": "language__bo",
+          "default": false
+        },
+        {
+          "id": 8650844743439,
+          "name": "Turkish",
+          "raw_name": "Turkish",
+          "value": "language__tr",
+          "default": false
+        },
+        {
+          "id": 8650844743567,
+          "name": "Turkmen",
+          "raw_name": "Turkmen",
+          "value": "language__tk",
+          "default": false
+        },
+        {
+          "id": 8650844743695,
+          "name": "Tuvinian",
+          "raw_name": "Tuvinian",
+          "value": "language__tyv",
+          "default": false
+        },
+        {
+          "id": 8650844743823,
+          "name": "Ukrainian",
+          "raw_name": "Ukrainian",
+          "value": "language__uk",
+          "default": false
+        },
+        {
+          "id": 8650844743951,
+          "name": "Upper sorbian",
+          "raw_name": "Upper sorbian",
+          "value": "language__hsb",
+          "default": false
+        },
+        {
+          "id": 8650844744079,
+          "name": "Urdu",
+          "raw_name": "Urdu",
+          "value": "language__ur",
+          "default": false
+        },
+        {
+          "id": 8650844744207,
+          "name": "Uyghur",
+          "raw_name": "Uyghur",
+          "value": "language__ug",
+          "default": false
+        },
+        {
+          "id": 8650844744335,
+          "name": "Uzbek",
+          "raw_name": "Uzbek",
+          "value": "language__uz",
+          "default": false
+        },
+        {
+          "id": 8650844744463,
+          "name": "Venetian",
+          "raw_name": "Venetian",
+          "value": "language__vec",
+          "default": false
+        },
+        {
+          "id": 8650844744591,
+          "name": "Veps",
+          "raw_name": "Veps",
+          "value": "language__vep",
+          "default": false
+        },
+        {
+          "id": 8650844744719,
+          "name": "Vietnamese",
+          "raw_name": "Vietnamese",
+          "value": "language__vi",
+          "default": false
+        },
+        {
+          "id": 8650844744847,
+          "name": "Volapük",
+          "raw_name": "Volapük",
+          "value": "language__vo",
+          "default": false
+        },
+        {
+          "id": 8650844744975,
+          "name": "Walloon",
+          "raw_name": "Walloon",
+          "value": "language__wa",
+          "default": false
+        },
+        {
+          "id": 8650844745103,
+          "name": "Waray",
+          "raw_name": "Waray",
+          "value": "language__war",
+          "default": false
+        },
+        {
+          "id": 8650844745231,
+          "name": "Welsh",
+          "raw_name": "Welsh",
+          "value": "language__cy",
+          "default": false
+        },
+        {
+          "id": 8650844745359,
+          "name": "West flemish",
+          "raw_name": "West flemish",
+          "value": "language__vls",
+          "default": false
+        },
+        {
+          "id": 8650844745487,
+          "name": "Western frisian",
+          "raw_name": "Western frisian",
+          "value": "language__fy",
+          "default": false
+        },
+        {
+          "id": 8650844745615,
+          "name": "Western mari",
+          "raw_name": "Western mari",
+          "value": "language__mrj",
+          "default": false
+        },
+        {
+          "id": 8650844745743,
+          "name": "Western panjabi",
+          "raw_name": "Western panjabi",
+          "value": "language__pnb",
+          "default": false
+        },
+        {
+          "id": 8650844745871,
+          "name": "Wu chinese",
+          "raw_name": "Wu chinese",
+          "value": "language__wuu",
+          "default": false
+        },
+        {
+          "id": 8650844745999,
+          "name": "Yakut",
+          "raw_name": "Yakut",
+          "value": "language__sah",
+          "default": false
+        },
+        {
+          "id": 8650844746127,
+          "name": "Yiddish",
+          "raw_name": "Yiddish",
+          "value": "language__yi",
+          "default": false
+        },
+        {
+          "id": 8650844746255,
+          "name": "Yoruba",
+          "raw_name": "Yoruba",
+          "value": "language__yo",
+          "default": false
+        },
+        {
+          "id": 8650844746383,
+          "name": "Zaza",
+          "raw_name": "Zaza",
+          "value": "language__diq",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7586589783311.json",
+      "id": 7586589783311,
+      "type": "tagger",
+      "title": "Category",
+      "raw_title": "Category",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Category",
+      "raw_title_in_portal": "Category",
+      "visible_in_portal": true,
+      "editable_in_portal": true,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-08-02T13:49:44Z",
+      "updated_at": "2023-08-07T09:46:39Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 7586622225935,
+          "name": "Others",
+          "raw_name": "{{dc.others}}",
+          "value": "__dc.others__",
+          "default": false
+        },
+        {
+          "id": 7586622226063,
+          "name": "Product-Related",
+          "raw_name": "{{dc.product-related}}",
+          "value": "__dc.product-related__",
+          "default": false
+        },
+        {
+          "id": 7586622226191,
+          "name": "Pre-Sales",
+          "raw_name": "{{dc.pre-sales}}",
+          "value": "__dc.pre-sales__",
+          "default": false
+        },
+        {
+          "id": 7586622226319,
+          "name": "Logistics",
+          "raw_name": "{{dc.logistics}}",
+          "value": "__dc.logistics__",
+          "default": false
+        },
+        {
+          "id": 7586622226447,
+          "name": "Defectives",
+          "raw_name": "{{dc.defectives}}",
+          "value": "__dc.defectives__",
+          "default": false
+        },
+        {
+          "id": 7586622226575,
+          "name": " Order-Related",
+          "raw_name": " {{dc.order-related}}",
+          "value": "___dc.order-related__",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6726143261199.json",
+      "id": 6726143261199,
+      "type": "integer",
+      "title": "Organization score (0-10)",
+      "raw_title": "Organization score (0-10)",
+      "description": "Organization score (0-10)",
+      "raw_description": "Organization score (0-10)",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": "\\A[-+]?\\d+\\z",
+      "title_in_portal": "Organization score (0-10)",
+      "raw_title_in_portal": "Organization score (0-10)",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-04-05T14:27:48Z",
+      "updated_at": "2023-04-05T14:27:48Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6726126554383.json",
+      "id": 6726126554383,
+      "type": "textarea",
+      "title": "Organization score comment",
+      "raw_title": "Organization score comment",
+      "description": "Organization score comment",
+      "raw_description": "Organization score comment",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Organization score comment",
+      "raw_title_in_portal": "Organization score comment",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-04-05T14:27:49Z",
+      "updated_at": "2023-04-05T14:27:49Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7238586752271.json",
+      "id": 7238586752271,
+      "type": "multiselect",
+      "title": "多选测试",
+      "raw_title": "多选测试",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": false,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "多选测试",
+      "raw_title_in_portal": "多选测试",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-06-20T02:58:04Z",
+      "updated_at": "2023-07-03T06:38:24Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 7238570261775,
+          "name": "email::a",
+          "raw_name": "email::a",
+          "value": "email__a",
+          "default": false
+        },
+        {
+          "id": 7238570261903,
+          "name": "email::b",
+          "raw_name": "email::b",
+          "value": "email__b",
+          "default": false
+        },
+        {
+          "id": 7238570262031,
+          "name": "email::c",
+          "raw_name": "email::c",
+          "value": "email__c",
+          "default": false
+        },
+        {
+          "id": 7238570262159,
+          "name": "Voice::a",
+          "raw_name": "Voice::a",
+          "value": "voice__a",
+          "default": false
+        },
+        {
+          "id": 7238570262287,
+          "name": "Voice::b",
+          "raw_name": "Voice::b",
+          "value": "voice__b",
+          "default": false
+        },
+        {
+          "id": 7238570262415,
+          "name": "Voice::c",
+          "raw_name": "Voice::c",
+          "value": "voice__c",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7299148780815.json",
+      "id": 7299148780815,
+      "type": "decimal",
+      "title": "质检得分",
+      "raw_title": "质检得分",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": "\\A[-+]?[0-9]*[.,]?[0-9]+\\z",
+      "title_in_portal": "质检得分",
+      "raw_title_in_portal": "质检得分",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-06-28T11:05:28Z",
+      "updated_at": "2023-06-28T11:05:28Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6726145513743.json",
+      "id": 6726145513743,
+      "type": "integer",
+      "title": "Ticket score (0-10)",
+      "raw_title": "Ticket score (0-10)",
+      "description": "Ticket score (0-10)",
+      "raw_description": "Ticket score (0-10)",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": "\\A[-+]?\\d+\\z",
+      "title_in_portal": "Ticket score (0-10)",
+      "raw_title_in_portal": "Ticket score (0-10)",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-04-05T14:27:48Z",
+      "updated_at": "2023-04-05T14:27:48Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/8650827147535.json",
+      "id": 8650827147535,
+      "type": "tagger",
+      "title": "Sentiment",
+      "raw_title": "Sentiment",
+      "description": "Sentiment",
+      "raw_description": "Sentiment",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Sentiment",
+      "raw_title_in_portal": "Sentiment",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-12-21T08:32:13Z",
+      "updated_at": "2023-12-21T08:32:13Z",
+      "removable": true,
+      "key": "ml_triage_sentiment",
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 8650844747663,
+          "name": "Very positive",
+          "raw_name": "Very positive",
+          "value": "sentiment__very_positive",
+          "default": false
+        },
+        {
+          "id": 8650844747791,
+          "name": "Positive",
+          "raw_name": "Positive",
+          "value": "sentiment__positive",
+          "default": false
+        },
+        {
+          "id": 8650844747919,
+          "name": "Neutral",
+          "raw_name": "Neutral",
+          "value": "sentiment__neutral",
+          "default": false
+        },
+        {
+          "id": 8650844748047,
+          "name": "Negative",
+          "raw_name": "Negative",
+          "value": "sentiment__negative",
+          "default": false
+        },
+        {
+          "id": 8650844748175,
+          "name": "Very negative",
+          "raw_name": "Very negative",
+          "value": "sentiment__very_negative",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7329440902415.json",
+      "id": 7329440902415,
+      "type": "date",
+      "title": "质检日期",
+      "raw_title": "质检日期",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": "\\A([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])\\z",
+      "title_in_portal": "质检日期",
+      "raw_title_in_portal": "质检日期",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-07-03T06:40:33Z",
+      "updated_at": "2023-07-03T06:40:33Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7585726191375.json",
+      "id": 7585726191375,
+      "type": "tagger",
+      "title": "用户问题下拉项",
+      "raw_title": "用户问题下拉项",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Category",
+      "raw_title_in_portal": "Category",
+      "visible_in_portal": true,
+      "editable_in_portal": true,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-08-02T10:22:46Z",
+      "updated_at": "2023-08-02T10:22:46Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 7585711541903,
+          "name": "1",
+          "raw_name": "1",
+          "value": "1",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7638368969231.json",
+      "id": 7638368969231,
+      "type": "tagger",
+      "title": "Contact Form Site",
+      "raw_title": "Contact Form Site",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Contact Form Site",
+      "raw_title_in_portal": "Contact Form Site",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-08-10T06:18:23Z",
+      "updated_at": "2024-01-23T02:23:50Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 7638345361679,
+          "name": "DE Site",
+          "raw_name": "DE Site",
+          "value": "de_site",
+          "default": false
+        },
+        {
+          "id": 7670880208527,
+          "name": "EU Site ",
+          "raw_name": "EU Site ",
+          "value": "eu_site",
+          "default": false
+        },
+        {
+          "id": 7646111954447,
+          "name": "UK Site",
+          "raw_name": "UK Site",
+          "value": "uk_site",
+          "default": false
+        },
+        {
+          "id": 7646111954575,
+          "name": "US Site",
+          "raw_name": "US Site",
+          "value": "us_site",
+          "default": false
+        },
+        {
+          "id": 7646111954703,
+          "name": "CA Site",
+          "raw_name": "CA Site",
+          "value": "ca_site",
+          "default": false
+        },
+        {
+          "id": 8120927063823,
+          "name": "ES Site",
+          "raw_name": "ES Site",
+          "value": "es_site",
+          "default": false
+        },
+        {
+          "id": 8120927063951,
+          "name": "JP Site",
+          "raw_name": "JP Site",
+          "value": "jp_site",
+          "default": false
+        },
+        {
+          "id": 8120927064079,
+          "name": "AU Site",
+          "raw_name": "AU Site",
+          "value": "au_site",
+          "default": false
+        },
+        {
+          "id": 8120927064207,
+          "name": "FR Site",
+          "raw_name": "FR Site",
+          "value": "fr_site",
+          "default": false
+        },
+        {
+          "id": 8120927064335,
+          "name": "IT Site",
+          "raw_name": "IT Site",
+          "value": "it_site",
+          "default": false
+        },
+        {
+          "id": 8861883325071,
+          "name": "KR Site",
+          "raw_name": "KR Site",
+          "value": "kr_site",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6690872228367.json",
+      "id": 6690872228367,
+      "type": "integer",
+      "title": "Nicereply CES",
+      "raw_title": "Nicereply CES",
+      "description": "Nicereply CES",
+      "raw_description": "Nicereply CES",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": "\\A[-+]?\\d+\\z",
+      "title_in_portal": "Nicereply CES",
+      "raw_title_in_portal": "Nicereply CES",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-03-30T15:13:40Z",
+      "updated_at": "2023-03-30T15:13:40Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/5870535509647.json",
+      "id": 5870535509647,
+      "type": "tagger",
+      "title": "QA & Appeal",
+      "raw_title": "QA & Appeal",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": false,
+      "required": true,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "QA & Appeal",
+      "raw_title_in_portal": "QA & Appeal",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2022-11-16T09:28:27Z",
+      "updated_at": "2023-07-03T06:16:19Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 5870535509263,
+          "name": "待客服确认",
+          "raw_name": "待客服确认",
+          "value": "1",
+          "default": true
+        },
+        {
+          "id": 5870535509391,
+          "name": "客服申诉",
+          "raw_name": "客服申诉",
+          "value": "2",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7299103921295.json",
+      "id": 7299103921295,
+      "type": "tagger",
+      "title": "被质检人",
+      "raw_title": "被质检人",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": false,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "被质检人",
+      "raw_title_in_portal": "被质检人",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-06-28T11:08:31Z",
+      "updated_at": "2023-07-03T06:16:47Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 7299184686351,
+          "name": "a",
+          "raw_name": "a",
+          "value": "a",
+          "default": false
+        },
+        {
+          "id": 7299184686479,
+          "name": "b",
+          "raw_name": "b",
+          "value": "b",
+          "default": false
+        },
+        {
+          "id": 7299184686607,
+          "name": "c",
+          "raw_name": "c",
+          "value": "c",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/8650844749199.json",
+      "id": 8650844749199,
+      "type": "tagger",
+      "title": "Sentiment confidence",
+      "raw_title": "Sentiment confidence",
+      "description": "Sentiment confidence",
+      "raw_description": "Sentiment confidence",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Sentiment confidence",
+      "raw_title_in_portal": "Sentiment confidence",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-12-21T08:32:13Z",
+      "updated_at": "2023-12-21T08:32:13Z",
+      "removable": true,
+      "key": "ml_triage_sentiment_confidence",
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 8650844748815,
+          "name": "Low",
+          "raw_name": "Low",
+          "value": "sentiment_confidence__low",
+          "default": false
+        },
+        {
+          "id": 8650844748943,
+          "name": "Medium",
+          "raw_name": "Medium",
+          "value": "sentiment_confidence__medium",
+          "default": false
+        },
+        {
+          "id": 8650844749071,
+          "name": "High",
+          "raw_name": "High",
+          "value": "sentiment_confidence__high",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6292377404559.json",
+      "id": 6292377404559,
+      "type": "tagger",
+      "title": "test for LEAFWORKS",
+      "raw_title": "test for LEAFWORKS",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "test for LEAFWORKS",
+      "raw_title_in_portal": "test for LEAFWORKS",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-01-28T03:19:54Z",
+      "updated_at": "2023-01-28T03:19:54Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 6292377404047,
+          "name": "macro test 1",
+          "raw_name": "macro test 1",
+          "value": "macro_test_1",
+          "default": false
+        },
+        {
+          "id": 6292377404175,
+          "name": "macro test 2",
+          "raw_name": "macro test 2",
+          "value": "macro_test_2",
+          "default": false
+        },
+        {
+          "id": 6292377404303,
+          "name": "macro test 3",
+          "raw_name": "macro test 3",
+          "value": "macro_test_3",
+          "default": false
+        },
+        {
+          "id": 6292377404431,
+          "name": "bulk macro test 4",
+          "raw_name": "bulk macro test 4",
+          "value": "bulk_macro_test_4",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/8650827147151.json",
+      "id": 8650827147151,
+      "type": "tagger",
+      "title": "Language confidence",
+      "raw_title": "Language confidence",
+      "description": "Language confidence",
+      "raw_description": "Language confidence",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Language confidence",
+      "raw_title_in_portal": "Language confidence",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-12-21T08:32:13Z",
+      "updated_at": "2023-12-21T08:32:13Z",
+      "removable": true,
+      "key": "ml_triage_language_confidence",
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 8650827146639,
+          "name": "Low",
+          "raw_name": "Low",
+          "value": "language_confidence__low",
+          "default": false
+        },
+        {
+          "id": 8650827146767,
+          "name": "Medium",
+          "raw_name": "Medium",
+          "value": "language_confidence__medium",
+          "default": false
+        },
+        {
+          "id": 8650827146895,
+          "name": "High",
+          "raw_name": "High",
+          "value": "language_confidence__high",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6360783040143.json",
+      "id": 6360783040143,
+      "type": "tagger",
+      "title": "欧洲工单升级",
+      "raw_title": "欧洲工单升级",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "欧洲工单升级",
+      "raw_title_in_portal": "欧洲工单升级",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-02-08T02:45:14Z",
+      "updated_at": "2023-02-08T02:45:14Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 6360798382991,
+          "name": "Group A",
+          "raw_name": "Group A",
+          "value": "group_a",
+          "default": false
+        },
+        {
+          "id": 6360798383119,
+          "name": "Group B",
+          "raw_name": "Group B",
+          "value": "group_b",
+          "default": false
+        },
+        {
+          "id": 6360798383247,
+          "name": "Group C",
+          "raw_name": "Group C",
+          "value": "group_c",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/9704553495439.json",
+      "id": 9704553495439,
+      "type": "multiselect",
+      "title": "Test User‘s intent",
+      "raw_title": "Test User‘s intent",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Test User‘s intent",
+      "raw_title_in_portal": "Test User‘s intent",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2024-05-08T08:39:55Z",
+      "updated_at": "2024-05-08T08:39:55Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 9704553485455,
+          "name": "Product Info::Product Promotion",
+          "raw_name": "Product Info::Product Promotion",
+          "value": "product_info_product_promotion",
+          "default": false
+        },
+        {
+          "id": 9704553485583,
+          "name": "Product Info::Product Recommendation",
+          "raw_name": "Product Info::Product Recommendation",
+          "value": "product_info_product_recommendation",
+          "default": false
+        },
+        {
+          "id": 9704553485711,
+          "name": "Product Info::Product Compatibility",
+          "raw_name": "Product Info::Product Compatibility",
+          "value": "product_info_product_compatibility",
+          "default": false
+        },
+        {
+          "id": 9704553485839,
+          "name": "Product Info::Product Pricing",
+          "raw_name": "Product Info::Product Pricing",
+          "value": "product_info_product_pricing",
+          "default": false
+        },
+        {
+          "id": 9704553485967,
+          "name": "Product Info::Product Ports",
+          "raw_name": "Product Info::Product Ports",
+          "value": "product_info_product_ports",
+          "default": false
+        },
+        {
+          "id": 9704553486095,
+          "name": "Product Info::Product Output Power",
+          "raw_name": "Product Info::Product Output Power",
+          "value": "product_info_product_output_power",
+          "default": false
+        },
+        {
+          "id": 9704553486223,
+          "name": "Product Info::Product Weight & Dimensions",
+          "raw_name": "Product Info::Product Weight & Dimensions",
+          "value": "product_info_product_weight___dimensions",
+          "default": false
+        },
+        {
+          "id": 9704553486351,
+          "name": "Product Info::Product Battery Cycle Life",
+          "raw_name": "Product Info::Product Battery Cycle Life",
+          "value": "product_info_product_battery_cycle_life",
+          "default": false
+        },
+        {
+          "id": 9704553486479,
+          "name": "Product Info::Product Battery Capacity",
+          "raw_name": "Product Info::Product Battery Capacity",
+          "value": "product_info_product_battery_capacity",
+          "default": false
+        },
+        {
+          "id": 9704553486607,
+          "name": "Product Info::Product Charging Time",
+          "raw_name": "Product Info::Product Charging Time",
+          "value": "product_info_product_charging_time",
+          "default": false
+        },
+        {
+          "id": 9704553486735,
+          "name": "Product Info::New Product Launch",
+          "raw_name": "Product Info::New Product Launch",
+          "value": "product_info_new_product_launch",
+          "default": false
+        },
+        {
+          "id": 9704553486863,
+          "name": "Product Info::Product Sample Request",
+          "raw_name": "Product Info::Product Sample Request",
+          "value": "product_info_product_sample_request",
+          "default": false
+        },
+        {
+          "id": 9704553486991,
+          "name": "Product Info::Invitation Review Event",
+          "raw_name": "Product Info::Invitation Review Event",
+          "value": "product_info_invitation_review_event",
+          "default": false
+        },
+        {
+          "id": 9704553487119,
+          "name": "Orders::Discount",
+          "raw_name": "Orders::Discount",
+          "value": "orders_discount",
+          "default": false
+        },
+        {
+          "id": 9704553487247,
+          "name": "Orders::How to buy",
+          "raw_name": "Orders::How to buy",
+          "value": "orders_how_to_buy",
+          "default": false
+        },
+        {
+          "id": 9704553487375,
+          "name": "Orders::Payment",
+          "raw_name": "Orders::Payment",
+          "value": "orders_payment",
+          "default": false
+        },
+        {
+          "id": 9704553487503,
+          "name": "Orders::Price Adjustment",
+          "raw_name": "Orders::Price Adjustment",
+          "value": "orders_price_adjustment",
+          "default": false
+        },
+        {
+          "id": 9704553487631,
+          "name": "Orders::Apply for Document",
+          "raw_name": "Orders::Apply for Document",
+          "value": "orders_apply_for_document",
+          "default": false
+        },
+        {
+          "id": 9704553487759,
+          "name": "Orders::Modify Order",
+          "raw_name": "Orders::Modify Order",
+          "value": "orders_modify_order",
+          "default": false
+        },
+        {
+          "id": 9704553487887,
+          "name": "Orders::Cancel Order",
+          "raw_name": "Orders::Cancel Order",
+          "value": "orders_cancel_order",
+          "default": false
+        },
+        {
+          "id": 9704553488015,
+          "name": "Account::Member Registration",
+          "raw_name": "Account::Member Registration",
+          "value": "account_member_registration",
+          "default": false
+        },
+        {
+          "id": 9704553488143,
+          "name": "Account::Points Redemption",
+          "raw_name": "Account::Points Redemption",
+          "value": "account_points_redemption",
+          "default": false
+        },
+        {
+          "id": 9704553488271,
+          "name": "Account::Login to Account",
+          "raw_name": "Account::Login to Account",
+          "value": "account_login_to_account",
+          "default": false
+        },
+        {
+          "id": 9704553488399,
+          "name": "Account::Reset Password",
+          "raw_name": "Account::Reset Password",
+          "value": "account_reset_password",
+          "default": false
+        },
+        {
+          "id": 9704553488527,
+          "name": "Account::Change Account",
+          "raw_name": "Account::Change Account",
+          "value": "account_change_account",
+          "default": false
+        },
+        {
+          "id": 9704553488655,
+          "name": "Account::Delete Account",
+          "raw_name": "Account::Delete Account",
+          "value": "account_delete_account",
+          "default": false
+        },
+        {
+          "id": 9704553488783,
+          "name": "Product Usage::Product Unboxing",
+          "raw_name": "Product Usage::Product Unboxing",
+          "value": "product_usage_product_unboxing",
+          "default": false
+        },
+        {
+          "id": 9704553488911,
+          "name": "Product Usage::Installation",
+          "raw_name": "Product Usage::Installation",
+          "value": "product_usage_installation",
+          "default": false
+        },
+        {
+          "id": 9704553489039,
+          "name": "Product Usage::Charging Method",
+          "raw_name": "Product Usage::Charging Method",
+          "value": "product_usage_charging_method",
+          "default": false
+        },
+        {
+          "id": 9704553489167,
+          "name": "Product Usage::Connection Method",
+          "raw_name": "Product Usage::Connection Method",
+          "value": "product_usage_connection_method",
+          "default": false
+        },
+        {
+          "id": 9704553489295,
+          "name": "Product Usage::Output Method",
+          "raw_name": "Product Usage::Output Method",
+          "value": "product_usage_output_method",
+          "default": false
+        },
+        {
+          "id": 9704553489423,
+          "name": "Product Usage::Storage Method",
+          "raw_name": "Product Usage::Storage Method",
+          "value": "product_usage_storage_method",
+          "default": false
+        },
+        {
+          "id": 9704553489551,
+          "name": "Product Usage::Energy Saving Mode",
+          "raw_name": "Product Usage::Energy Saving Mode",
+          "value": "product_usage_energy_saving_mode",
+          "default": false
+        },
+        {
+          "id": 9704553489679,
+          "name": "Product Usage::Accessory Usage",
+          "raw_name": "Product Usage::Accessory Usage",
+          "value": "product_usage_accessory_usage",
+          "default": false
+        },
+        {
+          "id": 9704553489807,
+          "name": "Product Usage::Product Usage",
+          "raw_name": "Product Usage::Product Usage",
+          "value": "product_usage_product_usage",
+          "default": false
+        },
+        {
+          "id": 9704553489935,
+          "name": "Product Usage::APP Usage",
+          "raw_name": "Product Usage::APP Usage",
+          "value": "product_usage_app_usage",
+          "default": false
+        },
+        {
+          "id": 9704553490063,
+          "name": "Service::Returns and Refunds",
+          "raw_name": "Service::Returns and Refunds",
+          "value": "service_returns_and_refunds",
+          "default": false
+        },
+        {
+          "id": 9704553490191,
+          "name": "Service::Exchanges",
+          "raw_name": "Service::Exchanges",
+          "value": "service_exchanges",
+          "default": false
+        },
+        {
+          "id": 9704553490319,
+          "name": "Service::Repair Services",
+          "raw_name": "Service::Repair Services",
+          "value": "service_repair_services",
+          "default": false
+        },
+        {
+          "id": 9704553490447,
+          "name": "Service::Reshipment",
+          "raw_name": "Service::Reshipment",
+          "value": "service_reshipment",
+          "default": false
+        },
+        {
+          "id": 9704553490575,
+          "name": "Service::Trade-In Program",
+          "raw_name": "Service::Trade-In Program",
+          "value": "service_trade-in_program",
+          "default": false
+        },
+        {
+          "id": 9704553490703,
+          "name": "Service::Recycling Services",
+          "raw_name": "Service::Recycling Services",
+          "value": "service_recycling_services",
+          "default": false
+        },
+        {
+          "id": 9704553490831,
+          "name": "Service::Warranty",
+          "raw_name": "Service::Warranty",
+          "value": "service_warranty",
+          "default": false
+        },
+        {
+          "id": 9704553490959,
+          "name": "Service::Service problem-solving skills",
+          "raw_name": "Service::Service problem-solving skills",
+          "value": "service_service_problem-solving_skills",
+          "default": false
+        },
+        {
+          "id": 9704553491087,
+          "name": "Service::Service Attitude",
+          "raw_name": "Service::Service Attitude",
+          "value": "service_service_attitude",
+          "default": false
+        },
+        {
+          "id": 9704553491215,
+          "name": "Service::Service Efficiency",
+          "raw_name": "Service::Service Efficiency",
+          "value": "service_service_efficiency",
+          "default": false
+        },
+        {
+          "id": 9704553491343,
+          "name": "product failure::Power On/Off",
+          "raw_name": "product failure::Power On/Off",
+          "value": "product_failure_power_on/off",
+          "default": false
+        },
+        {
+          "id": 9704553491471,
+          "name": "product failure::Charging",
+          "raw_name": "product failure::Charging",
+          "value": "product_failure_charging",
+          "default": false
+        },
+        {
+          "id": 9704553491599,
+          "name": "product failure::Power Supply",
+          "raw_name": "product failure::Power Supply",
+          "value": "product_failure_power_supply",
+          "default": false
+        },
+        {
+          "id": 9704553491727,
+          "name": "product failure::Shell",
+          "raw_name": "product failure::Shell",
+          "value": "product_failure_shell",
+          "default": false
+        },
+        {
+          "id": 9704553491855,
+          "name": "product failure::Photonic Charging",
+          "raw_name": "product failure::Photonic Charging",
+          "value": "product_failure_photonic_charging",
+          "default": false
+        },
+        {
+          "id": 9704553491983,
+          "name": "product failure::Capacity",
+          "raw_name": "product failure::Capacity",
+          "value": "product_failure_capacity",
+          "default": false
+        },
+        {
+          "id": 9704553492111,
+          "name": "product failure::Error Code",
+          "raw_name": "product failure::Error Code",
+          "value": "product_failure_error_code",
+          "default": false
+        },
+        {
+          "id": 9704553492239,
+          "name": "product failure::Display Screen",
+          "raw_name": "product failure::Display Screen",
+          "value": "product_failure_display_screen",
+          "default": false
+        },
+        {
+          "id": 9704553492367,
+          "name": "product failure::Overheating",
+          "raw_name": "product failure::Overheating",
+          "value": "product_failure_overheating",
+          "default": false
+        },
+        {
+          "id": 9704553492495,
+          "name": "product failure::Noise",
+          "raw_name": "product failure::Noise",
+          "value": "product_failure_noise",
+          "default": false
+        },
+        {
+          "id": 9704553492623,
+          "name": "product failure::Liquid Ingress",
+          "raw_name": "product failure::Liquid Ingress",
+          "value": "product_failure_liquid_ingress",
+          "default": false
+        },
+        {
+          "id": 9704553492751,
+          "name": "product failure::Handle",
+          "raw_name": "product failure::Handle",
+          "value": "product_failure_handle",
+          "default": false
+        },
+        {
+          "id": 9704553492879,
+          "name": "product failure::Wheels",
+          "raw_name": "product failure::Wheels",
+          "value": "product_failure_wheels",
+          "default": false
+        },
+        {
+          "id": 9704553493007,
+          "name": "product failure::Accessory",
+          "raw_name": "product failure::Accessory",
+          "value": "product_failure_accessory",
+          "default": false
+        },
+        {
+          "id": 9704553493135,
+          "name": "product failure::APP",
+          "raw_name": "product failure::APP",
+          "value": "product_failure_app",
+          "default": false
+        },
+        {
+          "id": 9704553493263,
+          "name": "Logistics::Delivery Area",
+          "raw_name": "Logistics::Delivery Area",
+          "value": "logistics_delivery_area",
+          "default": false
+        },
+        {
+          "id": 9704553493391,
+          "name": "Logistics::Delivery Time",
+          "raw_name": "Logistics::Delivery Time",
+          "value": "logistics_delivery_time",
+          "default": false
+        },
+        {
+          "id": 9704553493519,
+          "name": "Logistics::Delivery Status",
+          "raw_name": "Logistics::Delivery Status",
+          "value": "logistics_delivery_status",
+          "default": false
+        },
+        {
+          "id": 9704553493647,
+          "name": "Logistics::Delivery Method",
+          "raw_name": "Logistics::Delivery Method",
+          "value": "logistics_delivery_method",
+          "default": false
+        },
+        {
+          "id": 9704553493775,
+          "name": "Logistics::Delivery Quality",
+          "raw_name": "Logistics::Delivery Quality",
+          "value": "logistics_delivery_quality",
+          "default": false
+        },
+        {
+          "id": 9704553493903,
+          "name": "Logistics::Logistics Cost",
+          "raw_name": "Logistics::Logistics Cost",
+          "value": "logistics_logistics_cost",
+          "default": false
+        },
+        {
+          "id": 9704553494031,
+          "name": "Logistics::Logistics Modification",
+          "raw_name": "Logistics::Logistics Modification",
+          "value": "logistics_logistics_modification",
+          "default": false
+        },
+        {
+          "id": 9704553494159,
+          "name": "Company::About Us",
+          "raw_name": "Company::About Us",
+          "value": "company_about_us",
+          "default": false
+        },
+        {
+          "id": 9704553494287,
+          "name": "Company::Career Opportunities",
+          "raw_name": "Company::Career Opportunities",
+          "value": "company_career_opportunities",
+          "default": false
+        },
+        {
+          "id": 9704553494415,
+          "name": "Company::Store",
+          "raw_name": "Company::Store",
+          "value": "company_store",
+          "default": false
+        },
+        {
+          "id": 9704553494543,
+          "name": "Company::Wholesale",
+          "raw_name": "Company::Wholesale",
+          "value": "company_wholesale",
+          "default": false
+        },
+        {
+          "id": 9704553494671,
+          "name": "Company::Marketing Cooperation",
+          "raw_name": "Company::Marketing Cooperation",
+          "value": "company_marketing_cooperation",
+          "default": false
+        },
+        {
+          "id": 9704553494799,
+          "name": "Company::Support Info",
+          "raw_name": "Company::Support Info",
+          "value": "company_support_info",
+          "default": false
+        },
+        {
+          "id": 9704553494927,
+          "name": "web page::Product Details Page",
+          "raw_name": "web page::Product Details Page",
+          "value": "web_page_product_details_page",
+          "default": false
+        },
+        {
+          "id": 9704553495055,
+          "name": "web page::Product Knowledge Page",
+          "raw_name": "web page::Product Knowledge Page",
+          "value": "web_page_product_knowledge_page",
+          "default": false
+        },
+        {
+          "id": 9704553495183,
+          "name": "web page::Jackery Advertisement",
+          "raw_name": "web page::Jackery Advertisement",
+          "value": "web_page_jackery_advertisement",
+          "default": false
+        },
+        {
+          "id": 9704553495311,
+          "name": "Others::Fake Sites",
+          "raw_name": "Others::Fake Sites",
+          "value": "others_fake_sites",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7329425441679.json",
+      "id": 7329425441679,
+      "type": "multiselect",
+      "title": "质检问题",
+      "raw_title": "质检问题",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "质检问题",
+      "raw_title_in_portal": "质检问题",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-07-03T06:40:10Z",
+      "updated_at": "2023-07-03T06:40:10Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 7329455424399,
+          "name": "Basic Standards::Languages",
+          "raw_name": "Basic Standards::Languages",
+          "value": "basic_standards_languages",
+          "default": false
+        },
+        {
+          "id": 7329455424527,
+          "name": "Basic Standards::Email Format",
+          "raw_name": "Basic Standards::Email Format",
+          "value": "basic_standards_email_format",
+          "default": false
+        },
+        {
+          "id": 7329455424655,
+          "name": "Basic Standards::Reception Standards",
+          "raw_name": "Basic Standards::Reception Standards",
+          "value": "basic_standards_reception_standards",
+          "default": false
+        },
+        {
+          "id": 7329455424783,
+          "name": "Business Competence::Completeness",
+          "raw_name": "Business Competence::Completeness",
+          "value": "business_competence_completeness",
+          "default": false
+        },
+        {
+          "id": 7329455424911,
+          "name": "Business Competence::Professionality",
+          "raw_name": "Business Competence::Professionality",
+          "value": "business_competence_professionality",
+          "default": false
+        },
+        {
+          "id": 7329455425039,
+          "name": "Business Competence::Consistency",
+          "raw_name": "Business Competence::Consistency",
+          "value": "business_competence_consistency",
+          "default": false
+        },
+        {
+          "id": 7329455425167,
+          "name": "Business Competence::Carefullness",
+          "raw_name": "Business Competence::Carefullness",
+          "value": "business_competence_carefullness",
+          "default": false
+        },
+        {
+          "id": 7329455425295,
+          "name": "Business Competence::Efficiency",
+          "raw_name": "Business Competence::Efficiency",
+          "value": "business_competence_efficiency",
+          "default": false
+        },
+        {
+          "id": 7329455425423,
+          "name": "Attitude::Emotional comfort",
+          "raw_name": "Attitude::Emotional comfort",
+          "value": "attitude_emotional_comfort",
+          "default": false
+        },
+        {
+          "id": 7329455425551,
+          "name": "Attitude::Proactiveness",
+          "raw_name": "Attitude::Proactiveness",
+          "value": "attitude_proactiveness",
+          "default": false
+        },
+        {
+          "id": 7329455425679,
+          "name": "Attitude::lack appology",
+          "raw_name": "Attitude::lack appology",
+          "value": "attitude_lack_appology",
+          "default": false
+        },
+        {
+          "id": 7329455425807,
+          "name": "System Operations::OMS",
+          "raw_name": "System Operations::OMS",
+          "value": "system_operations_oms",
+          "default": false
+        },
+        {
+          "id": 7329455425935,
+          "name": "System Operations::Zendesk",
+          "raw_name": "System Operations::Zendesk",
+          "value": "system_operations_zendesk",
+          "default": false
+        },
+        {
+          "id": 7329455426063,
+          "name": "System Operations::Esclation",
+          "raw_name": "System Operations::Esclation",
+          "value": "system_operations_esclation",
+          "default": false
+        },
+        {
+          "id": 7329455426191,
+          "name": "Red Line Guidelines::Rude attitude",
+          "raw_name": "Red Line Guidelines::Rude attitude",
+          "value": "red_line_guidelines_rude_attitude",
+          "default": false
+        },
+        {
+          "id": 7329455426319,
+          "name": "Red Line Guidelines::Confidential Information Disclosure",
+          "raw_name": "Red Line Guidelines::Confidential Information Disclosure",
+          "value": "red_line_guidelines_confidential_information_disclosure",
+          "default": false
+        },
+        {
+          "id": 7329455426447,
+          "name": "Red Line Guidelines::Failure to Report Major Customer Complaints",
+          "raw_name": "Red Line Guidelines::Failure to Report Major Customer Complaints",
+          "value": "red_line_guidelines_failure_to_report_major_customer_complaints",
+          "default": false
+        },
+        {
+          "id": 7329455426575,
+          "name": "Red Line Guidelines::Violation of Platform Policies",
+          "raw_name": "Red Line Guidelines::Violation of Platform Policies",
+          "value": "red_line_guidelines_violation_of_platform_policies",
+          "default": false
+        },
+        {
+          "id": 7329455426703,
+          "name": "Red Line Guidelines::Company Reputation Loss",
+          "raw_name": "Red Line Guidelines::Company Reputation Loss",
+          "value": "red_line_guidelines_company_reputation_loss",
+          "default": false
+        },
+        {
+          "id": 7329455426831,
+          "name": "Red Line Guidelines::Procrastination",
+          "raw_name": "Red Line Guidelines::Procrastination",
+          "value": "red_line_guidelines_procrastination",
+          "default": false
+        },
+        {
+          "id": 7329455426959,
+          "name": "Red Line Guidelines::Company Financial Loss",
+          "raw_name": "Red Line Guidelines::Company Financial Loss",
+          "value": "red_line_guidelines_company_financial_loss",
+          "default": false
+        },
+        {
+          "id": 7329455427087,
+          "name": "Bonus::Reducing Losses",
+          "raw_name": "Bonus::Reducing Losses",
+          "value": "bonus_reducing_losses",
+          "default": false
+        },
+        {
+          "id": 7329455427215,
+          "name": "Bonus::Good ideas",
+          "raw_name": "Bonus::Good ideas",
+          "value": "bonus_good_ideas",
+          "default": false
+        },
+        {
+          "id": 7329455427343,
+          "name": "Bonus::Well Performed",
+          "raw_name": "Bonus::Well Performed",
+          "value": "bonus_well_performed",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/8815136003983.json",
+      "id": 8815136003983,
+      "type": "tagger",
+      "title": "転送先",
+      "raw_title": "転送先",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "転送先",
+      "raw_title_in_portal": "転送先",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2024-01-16T11:00:08Z",
+      "updated_at": "2024-01-16T11:00:08Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 8815161251087,
+          "name": "技術サポート",
+          "raw_name": "技術サポート",
+          "value": "技術サポート",
+          "default": false
+        },
+        {
+          "id": 8815161251215,
+          "name": "修理センター",
+          "raw_name": "修理センター",
+          "value": "修理センター",
+          "default": false
+        },
+        {
+          "id": 8815161251343,
+          "name": "返信文確認依頼",
+          "raw_name": "返信文確認依頼",
+          "value": "深センcs",
+          "default": false
+        },
+        {
+          "id": 8815161251471,
+          "name": "財務センター",
+          "raw_name": "財務センター",
+          "value": "財務センター",
+          "default": false
+        },
+        {
+          "id": 8815161251599,
+          "name": "Pauline",
+          "raw_name": "Pauline",
+          "value": "pauline",
+          "default": false
+        },
+        {
+          "id": 8815161251727,
+          "name": "荒井に確認依頼",
+          "raw_name": "荒井に確認依頼",
+          "value": "荒井に確認依頼",
+          "default": false
+        },
+        {
+          "id": 8815161251855,
+          "name": "齋藤に確認依頼",
+          "raw_name": "齋藤に確認依頼",
+          "value": "齋藤に確認依頼",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/8772823868559.json",
+      "id": 8772823868559,
+      "type": "tagger",
+      "title": "問題カテゴリV4.0",
+      "raw_title": "問題カテゴリV4.0",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "問題カテゴリV4.0",
+      "raw_title_in_portal": "問題カテゴリV4.0",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2024-01-10T09:59:57Z",
+      "updated_at": "2024-01-10T09:59:57Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null,
+      "custom_field_options": [
+        {
+          "id": 8772823834639,
+          "name": "仕様::UPS機能",
+          "raw_name": "仕様::UPS機能",
+          "value": "仕様__ups機能",
+          "default": false
+        },
+        {
+          "id": 8772823834767,
+          "name": "仕様::パススルー上限値",
+          "raw_name": "仕様::パススルー上限値",
+          "value": "仕様__パススルー上限値",
+          "default": false
+        },
+        {
+          "id": 8772823834895,
+          "name": "仕様::安全性認証",
+          "raw_name": "仕様::安全性認証",
+          "value": "仕様__安全性認証",
+          "default": false
+        },
+        {
+          "id": 8772823835023,
+          "name": "仕様::海外で使用輸送",
+          "raw_name": "仕様::海外で使用輸送",
+          "value": "仕様__海外で使用輸送",
+          "default": false
+        },
+        {
+          "id": 8772823835151,
+          "name": "仕様::環境認証",
+          "raw_name": "仕様::環境認証",
+          "value": "仕様__環境認証",
+          "default": false
+        },
+        {
+          "id": 8772823835279,
+          "name": "仕様::サイズ/重量",
+          "raw_name": "仕様::サイズ/重量",
+          "value": "仕様__サイズ/重量",
+          "default": false
+        },
+        {
+          "id": 8772823835407,
+          "name": "仕様::周波数ヘルツ",
+          "raw_name": "仕様::周波数ヘルツ",
+          "value": "仕様__周波数ヘルツ",
+          "default": false
+        },
+        {
+          "id": 8772823835535,
+          "name": "仕様::出力",
+          "raw_name": "仕様::出力",
+          "value": "仕様__出力",
+          "default": false
+        },
+        {
+          "id": 8772823835663,
+          "name": "仕様::寿命",
+          "raw_name": "仕様::寿命",
+          "value": "仕様__寿命",
+          "default": false
+        },
+        {
+          "id": 8772823835791,
+          "name": "仕様::使用環境",
+          "raw_name": "仕様::使用環境",
+          "value": "仕様__使用環境",
+          "default": false
+        },
+        {
+          "id": 8772823835919,
+          "name": "仕様::正弦波",
+          "raw_name": "仕様::正弦波",
+          "value": "仕様__正弦波",
+          "default": false
+        },
+        {
+          "id": 8772823836047,
+          "name": "仕様::ソラパ延長コード",
+          "raw_name": "仕様::ソラパ延長コード",
+          "value": "仕様__ソラパ延長コード",
+          "default": false
+        },
+        {
+          "id": 8772823836175,
+          "name": "仕様::ソラパ蓄電可能か",
+          "raw_name": "仕様::ソラパ蓄電可能か",
+          "value": "仕様__ソラパ蓄電可能か",
+          "default": false
+        },
+        {
+          "id": 8772823836303,
+          "name": "仕様::中古品性能",
+          "raw_name": "仕様::中古品性能",
+          "value": "仕様__中古品性能",
+          "default": false
+        },
+        {
+          "id": 8772823836431,
+          "name": "仕様::電波干渉",
+          "raw_name": "仕様::電波干渉",
+          "value": "仕様__電波干渉",
+          "default": false
+        },
+        {
+          "id": 8772823836559,
+          "name": "使用方法::バッテリー節約モード",
+          "raw_name": "使用方法::バッテリー節約モード",
+          "value": "使用方法__バッテリー節約モード",
+          "default": false
+        },
+        {
+          "id": 8772823836687,
+          "name": "使用方法::並列運転",
+          "raw_name": "使用方法::並列運転",
+          "value": "使用方法__並列運転",
+          "default": false
+        },
+        {
+          "id": 8772823836815,
+          "name": "使用方法::拡張バッテリー単体充電",
+          "raw_name": "使用方法::拡張バッテリー単体充電",
+          "value": "使用方法__拡張バッテリー単体充電",
+          "default": false
+        },
+        {
+          "id": 8772823836943,
+          "name": "使用方法::アース接続",
+          "raw_name": "使用方法::アース接続",
+          "value": "使用方法__アース接続",
+          "default": false
+        },
+        {
+          "id": 8772823837071,
+          "name": "使用方法::アクセサリー",
+          "raw_name": "使用方法::アクセサリー",
+          "value": "使用方法__アクセサリー",
+          "default": false
+        },
+        {
+          "id": 8772823837199,
+          "name": "使用方法::異臭",
+          "raw_name": "使用方法::異臭",
+          "value": "使用方法__異臭",
+          "default": false
+        },
+        {
+          "id": 8772823837327,
+          "name": "使用方法::室内使用可能か",
+          "raw_name": "使用方法::室内使用可能か",
+          "value": "使用方法__室内使用可能か",
+          "default": false
+        },
+        {
+          "id": 8772823837455,
+          "name": "使用方法::充電時間",
+          "raw_name": "使用方法::充電時間",
+          "value": "使用方法__充電時間",
+          "default": false
+        },
+        {
+          "id": 8772823837583,
+          "name": "使用方法::充電方法",
+          "raw_name": "使用方法::充電方法",
+          "value": "使用方法__充電方法",
+          "default": false
+        },
+        {
+          "id": 8772823837711,
+          "name": "使用方法::高速充電モード",
+          "raw_name": "使用方法::高速充電モード",
+          "value": "使用方法__高速充電モード",
+          "default": false
+        },
+        {
+          "id": 8772823837839,
+          "name": "使用方法::静音充電モード",
+          "raw_name": "使用方法::静音充電モード",
+          "value": "使用方法__静音充電モード",
+          "default": false
+        },
+        {
+          "id": 8772823837967,
+          "name": "使用方法::周波数の切り替え方法",
+          "raw_name": "使用方法::周波数の切り替え方法",
+          "value": "使用方法__周波数の切り替え方法",
+          "default": false
+        },
+        {
+          "id": 8772823838095,
+          "name": "使用方法::重量サイズ",
+          "raw_name": "使用方法::重量サイズ",
+          "value": "使用方法__重量サイズ",
+          "default": false
+        },
+        {
+          "id": 8772823838223,
+          "name": "使用方法::出力方法",
+          "raw_name": "使用方法::出力方法",
+          "value": "使用方法__出力方法",
+          "default": false
+        },
+        {
+          "id": 8772823838351,
+          "name": "使用方法::残量更新遅れ",
+          "raw_name": "使用方法::残量更新遅れ",
+          "value": "使用方法__残量更新遅れ",
+          "default": false
+        },
+        {
+          "id": 8772823838479,
+          "name": "使用方法::偽充電",
+          "raw_name": "使用方法::偽充電",
+          "value": "使用方法__偽充電",
+          "default": false
+        },
+        {
+          "id": 8772823838607,
+          "name": "使用方法::省エネモード",
+          "raw_name": "使用方法::省エネモード",
+          "value": "使用方法__省エネモード",
+          "default": false
+        },
+        {
+          "id": 8772823838735,
+          "name": "使用方法::使用上の注意点",
+          "raw_name": "使用方法::使用上の注意点",
+          "value": "使用方法__使用上の注意点",
+          "default": false
+        },
+        {
+          "id": 8772823838863,
+          "name": "使用方法::接続端子",
+          "raw_name": "使用方法::接続端子",
+          "value": "使用方法__接続端子",
+          "default": false
+        },
+        {
+          "id": 8772823838991,
+          "name": "使用方法::接続方法",
+          "raw_name": "使用方法::接続方法",
+          "value": "使用方法__接続方法",
+          "default": false
+        },
+        {
+          "id": 8772823839119,
+          "name": "使用方法::トランスジャックの接続",
+          "raw_name": "使用方法::トランスジャックの接続",
+          "value": "使用方法__トランスジャックの接続",
+          "default": false
+        },
+        {
+          "id": 8772823839247,
+          "name": "使用方法::設置場所方法",
+          "raw_name": "使用方法::設置場所方法",
+          "value": "使用方法__設置場所方法",
+          "default": false
+        },
+        {
+          "id": 8772823839375,
+          "name": "使用方法::ソーラーパネル発電力に不満",
+          "raw_name": "使用方法::ソーラーパネル発電力に不満",
+          "value": "使用方法__ソーラーパネル発電力に不満",
+          "default": false
+        },
+        {
+          "id": 8772823839503,
+          "name": "使用方法::手入れ方法",
+          "raw_name": "使用方法::手入れ方法",
+          "value": "使用方法__手入れ方法",
+          "default": false
+        },
+        {
+          "id": 8772823839631,
+          "name": "使用方法::動作環境",
+          "raw_name": "使用方法::動作環境",
+          "value": "使用方法__動作環境",
+          "default": false
+        },
+        {
+          "id": 8772823839759,
+          "name": "使用方法::パススルー",
+          "raw_name": "使用方法::パススルー",
+          "value": "使用方法__パススルー",
+          "default": false
+        },
+        {
+          "id": 8772823839887,
+          "name": "使用方法::ファン",
+          "raw_name": "使用方法::ファン",
+          "value": "使用方法__ファン",
+          "default": false
+        },
+        {
+          "id": 8772823840015,
+          "name": "使用方法::防水防塵",
+          "raw_name": "使用方法::防水防塵",
+          "value": "使用方法__防水防塵",
+          "default": false
+        },
+        {
+          "id": 8772823840143,
+          "name": "使用方法::保管方法",
+          "raw_name": "使用方法::保管方法",
+          "value": "使用方法__保管方法",
+          "default": false
+        },
+        {
+          "id": 8772823840271,
+          "name": "不具合症状::100%まで充電できない",
+          "raw_name": "不具合症状::100%まで充電できない",
+          "value": "不具合症状__100_まで充電できない",
+          "default": false
+        },
+        {
+          "id": 8772823840399,
+          "name": "レビュープレゼント::注文番号記入漏れ",
+          "raw_name": "レビュープレゼント::注文番号記入漏れ",
+          "value": "レビュープレゼント__注文番号記入漏れ",
+          "default": false
+        },
+        {
+          "id": 8772823840527,
+          "name": "レビュープレゼント::発送漏れ",
+          "raw_name": "レビュープレゼント::発送漏れ",
+          "value": "レビュープレゼント__発送漏れ",
+          "default": false
+        },
+        {
+          "id": 8772823840655,
+          "name": "レビュープレゼント::レビューから一週間以内",
+          "raw_name": "レビュープレゼント::レビューから一週間以内",
+          "value": "レビュープレゼント__レビューから一週間以内",
+          "default": false
+        },
+        {
+          "id": 8772823840783,
+          "name": "キャンセル::キャンセル（物流の原因）",
+          "raw_name": "キャンセル::キャンセル（物流の原因）",
+          "value": "キャンセル__キャンセル（物流の原因）",
+          "default": false
+        },
+        {
+          "id": 8772823840911,
+          "name": "キャンセル::キャンセル（セールの原因）",
+          "raw_name": "キャンセル::キャンセル（セールの原因）",
+          "value": "キャンセル__キャンセル（セールの原因）",
+          "default": false
+        },
+        {
+          "id": 8772823841039,
+          "name": "キャンセル::キャンセル（商品詳細ページの原因）",
+          "raw_name": "キャンセル::キャンセル（商品詳細ページの原因）",
+          "value": "キャンセル__キャンセル（商品詳細ページの原因）",
+          "default": false
+        },
+        {
+          "id": 8772823841167,
+          "name": "キャンセル::キャンセル（お客様自身の原因）",
+          "raw_name": "キャンセル::キャンセル（お客様自身の原因）",
+          "value": "キャンセル__キャンセル（お客様自身の原因）",
+          "default": false
+        },
+        {
+          "id": 8772823841295,
+          "name": "キャンセル::キャンセル（品質の原因）",
+          "raw_name": "キャンセル::キャンセル（品質の原因）",
+          "value": "キャンセル__キャンセル（品質の原因）",
+          "default": false
+        },
+        {
+          "id": 8772823841423,
+          "name": "キャンセル::キャンセル（原因不明）",
+          "raw_name": "キャンセル::キャンセル（原因不明）",
+          "value": "キャンセル__キャンセル（原因不明）",
+          "default": false
+        },
+        {
+          "id": 8772823841551,
+          "name": "キャンセル::キャンセル撤回",
+          "raw_name": "キャンセル::キャンセル撤回",
+          "value": "キャンセル__キャンセル撤回",
+          "default": false
+        },
+        {
+          "id": 8772823841679,
+          "name": "キャンセル::発送前",
+          "raw_name": "キャンセル::発送前",
+          "value": "キャンセル__発送前",
+          "default": false
+        },
+        {
+          "id": 8772823841807,
+          "name": "キャンセル::未開封",
+          "raw_name": "キャンセル::未開封",
+          "value": "キャンセル__未開封",
+          "default": false
+        },
+        {
+          "id": 8772823841935,
+          "name": "キャンセル::開封済",
+          "raw_name": "キャンセル::開封済",
+          "value": "キャンセル__開封済",
+          "default": false
+        },
+        {
+          "id": 8772823842063,
+          "name": "キャンセル::不正注文",
+          "raw_name": "キャンセル::不正注文",
+          "value": "キャンセル__不正注文",
+          "default": false
+        },
+        {
+          "id": 8772823842191,
+          "name": "キャンセル::一部キャンセル",
+          "raw_name": "キャンセル::一部キャンセル",
+          "value": "キャンセル__一部キャンセル",
+          "default": false
+        },
+        {
+          "id": 8772823842319,
+          "name": "支払い::クーポン適用",
+          "raw_name": "支払い::クーポン適用",
+          "value": "支払い__クーポン適用",
+          "default": false
+        },
+        {
+          "id": 8772823842447,
+          "name": "支払い::支払い方法",
+          "raw_name": "支払い::支払い方法",
+          "value": "支払い__支払い方法",
+          "default": false
+        },
+        {
+          "id": 8772823842575,
+          "name": "支払い::支払い方法変更",
+          "raw_name": "支払い::支払い方法変更",
+          "value": "支払い__支払い方法変更",
+          "default": false
+        },
+        {
+          "id": 8772823842703,
+          "name": "支払い::名義人と購入者違う",
+          "raw_name": "支払い::名義人と購入者違う",
+          "value": "支払い__名義人と購入者違う",
+          "default": false
+        },
+        {
+          "id": 8772823842831,
+          "name": "支払い::クーポン適用できない（公式）",
+          "raw_name": "支払い::クーポン適用できない（公式）",
+          "value": "支払い__クーポン適用できない（公式）",
+          "default": false
+        },
+        {
+          "id": 8772823842959,
+          "name": "支払い::クーポン適用できない（楽天）",
+          "raw_name": "支払い::クーポン適用できない（楽天）",
+          "value": "支払い__クーポン適用できない（楽天）",
+          "default": false
+        },
+        {
+          "id": 8772823843087,
+          "name": "支払い::クーポン適用できない（ヤフー）",
+          "raw_name": "支払い::クーポン適用できない（ヤフー）",
+          "value": "支払い__クーポン適用できない（ヤフー）",
+          "default": false
+        },
+        {
+          "id": 8772823843215,
+          "name": "支払い::クーポン適用できない（アマゾン）",
+          "raw_name": "支払い::クーポン適用できない（アマゾン）",
+          "value": "支払い__クーポン適用できない（アマゾン）",
+          "default": false
+        },
+        {
+          "id": 8772823843343,
+          "name": "支払い::チャージバック",
+          "raw_name": "支払い::チャージバック",
+          "value": "支払い__チャージバック",
+          "default": false
+        },
+        {
+          "id": 8772823843471,
+          "name": "支払い::払い戻し",
+          "raw_name": "支払い::払い戻し",
+          "value": "支払い__払い戻し",
+          "default": false
+        },
+        {
+          "id": 8772823843599,
+          "name": "書類::請求書",
+          "raw_name": "書類::請求書",
+          "value": "書類__請求書",
+          "default": false
+        },
+        {
+          "id": 8772823843727,
+          "name": "書類::納品書",
+          "raw_name": "書類::納品書",
+          "value": "書類__納品書",
+          "default": false
+        },
+        {
+          "id": 8772823843855,
+          "name": "書類::領収書",
+          "raw_name": "書類::領収書",
+          "value": "書類__領収書",
+          "default": false
+        },
+        {
+          "id": 8772823843983,
+          "name": "書類::見積書",
+          "raw_name": "書類::見積書",
+          "value": "書類__見積書",
+          "default": false
+        },
+        {
+          "id": 8772823844111,
+          "name": "書類::助成金関係書類",
+          "raw_name": "書類::助成金関係書類",
+          "value": "書類__助成金関係書類",
+          "default": false
+        },
+        {
+          "id": 8772823844239,
+          "name": "書類::領収書内容不備",
+          "raw_name": "書類::領収書内容不備",
+          "value": "書類__領収書内容不備",
+          "default": false
+        },
+        {
+          "id": 8772823844367,
+          "name": "書類::保険弁償のため損害証明書",
+          "raw_name": "書類::保険弁償のため損害証明書",
+          "value": "書類__保険弁償のため損害証明書",
+          "default": false
+        },
+        {
+          "id": 8772823844495,
+          "name": "配送::発送状況確認",
+          "raw_name": "配送::発送状況確認",
+          "value": "配送__発送状況確認",
+          "default": false
+        },
+        {
+          "id": 8772823844623,
+          "name": "配送::配送時間指定",
+          "raw_name": "配送::配送時間指定",
+          "value": "配送__配送時間指定",
+          "default": false
+        },
+        {
+          "id": 8772823844751,
+          "name": "配送::一部アクセサリー同梱不備",
+          "raw_name": "配送::一部アクセサリー同梱不備",
+          "value": "配送__一部アクセサリー同梱不備",
+          "default": false
+        },
+        {
+          "id": 8772823844879,
+          "name": "配送::指定時間通り配送してなかった",
+          "raw_name": "配送::指定時間通り配送してなかった",
+          "value": "配送__指定時間通り配送してなかった",
+          "default": false
+        },
+        {
+          "id": 8772823845007,
+          "name": "配送::住所変更",
+          "raw_name": "配送::住所変更",
+          "value": "配送__住所変更",
+          "default": false
+        },
+        {
+          "id": 8772823845135,
+          "name": "配送::引取り交換不備",
+          "raw_name": "配送::引取り交換不備",
+          "value": "配送__引取り交換不備",
+          "default": false
+        },
+        {
+          "id": 8772823845263,
+          "name": "配送::出荷漏れ",
+          "raw_name": "配送::出荷漏れ",
+          "value": "配送__出荷漏れ",
+          "default": false
+        },
+        {
+          "id": 8772823845391,
+          "name": "配送::付属品発送間違い",
+          "raw_name": "配送::付属品発送間違い",
+          "value": "配送__付属品発送間違い",
+          "default": false
+        },
+        {
+          "id": 8772823845519,
+          "name": "配送::新品を買ったのに中古品が届いた",
+          "raw_name": "配送::新品を買ったのに中古品が届いた",
+          "value": "配送__新品を買ったのに中古品が届いた",
+          "default": false
+        },
+        {
+          "id": 8772823845647,
+          "name": "配送::代引き請求金額不備あり",
+          "raw_name": "配送::代引き請求金額不備あり",
+          "value": "配送__代引き請求金額不備あり",
+          "default": false
+        },
+        {
+          "id": 8772823845775,
+          "name": "配送::代引きの代金未支払",
+          "raw_name": "配送::代引きの代金未支払",
+          "value": "配送__代引きの代金未支払",
+          "default": false
+        },
+        {
+          "id": 8772823845903,
+          "name": "配送::遅延",
+          "raw_name": "配送::遅延",
+          "value": "配送__遅延",
+          "default": false
+        },
+        {
+          "id": 8772823846031,
+          "name": "配送::梱包不備",
+          "raw_name": "配送::梱包不備",
+          "value": "配送__梱包不備",
+          "default": false
+        },
+        {
+          "id": 8772823846159,
+          "name": "配送::違う住所に届いた",
+          "raw_name": "配送::違う住所に届いた",
+          "value": "配送__違う住所に届いた",
+          "default": false
+        },
+        {
+          "id": 8772823846287,
+          "name": "配送::違うものが届いた",
+          "raw_name": "配送::違うものが届いた",
+          "value": "配送__違うものが届いた",
+          "default": false
+        },
+        {
+          "id": 8772823846415,
+          "name": "配送::注文より多くの商品が届いた",
+          "raw_name": "配送::注文より多くの商品が届いた",
+          "value": "配送__注文より多くの商品が届いた",
+          "default": false
+        },
+        {
+          "id": 8772823846543,
+          "name": "配送::荷物紛失",
+          "raw_name": "配送::荷物紛失",
+          "value": "配送__荷物紛失",
+          "default": false
+        },
+        {
+          "id": 8772823846671,
+          "name": "配送::箱か製品破損",
+          "raw_name": "配送::箱か製品破損",
+          "value": "配送__箱か製品破損",
+          "default": false
+        },
+        {
+          "id": 8772823846799,
+          "name": "配送::バラバラ配送のため",
+          "raw_name": "配送::バラバラ配送のため",
+          "value": "配送__バラバラ配送のため",
+          "default": false
+        },
+        {
+          "id": 8772823846927,
+          "name": "配送::番地確認",
+          "raw_name": "配送::番地確認",
+          "value": "配送__番地確認",
+          "default": false
+        },
+        {
+          "id": 8772823847055,
+          "name": "配送::まとめて発送",
+          "raw_name": "配送::まとめて発送",
+          "value": "配送__まとめて発送",
+          "default": false
+        },
+        {
+          "id": 8772823847183,
+          "name": "選び方::おすすめの機種",
+          "raw_name": "選び方::おすすめの機種",
+          "value": "選び方__おすすめの機種",
+          "default": false
+        },
+        {
+          "id": 8772823847311,
+          "name": "選び方::新発売製品と従来品の相違点",
+          "raw_name": "選び方::新発売製品と従来品の相違点",
+          "value": "選び方__新発売製品と従来品の相違点",
+          "default": false
+        },
+        {
+          "id": 8772823847439,
+          "name": "選び方::拡張バッテリの適応性",
+          "raw_name": "選び方::拡張バッテリの適応性",
+          "value": "選び方__拡張バッテリの適応性",
+          "default": false
+        },
+        {
+          "id": 8772823847567,
+          "name": "選び方::稼働時間",
+          "raw_name": "選び方::稼働時間",
+          "value": "選び方__稼働時間",
+          "default": false
+        },
+        {
+          "id": 8772823847695,
+          "name": "選び方::互換性",
+          "raw_name": "選び方::互換性",
+          "value": "選び方__互換性",
+          "default": false
+        },
+        {
+          "id": 8772823847823,
+          "name": "選び方::必要なアクセサリー",
+          "raw_name": "選び方::必要なアクセサリー",
+          "value": "選び方__必要なアクセサリー",
+          "default": false
+        },
+        {
+          "id": 8772823847951,
+          "name": "選び方::ポタ電とソラパのおすすめの組み合わせ",
+          "raw_name": "選び方::ポタ電とソラパのおすすめの組み合わせ",
+          "value": "選び方__ポタ電とソラパのおすすめの組み合わせ",
+          "default": false
+        },
+        {
+          "id": 8772823848079,
+          "name": "支払い::カード拒否エラー",
+          "raw_name": "支払い::カード拒否エラー",
+          "value": "支払い__カード拒否エラー",
+          "default": false
+        },
+        {
+          "id": 8772823848207,
+          "name": "支払い::銀行振込に変更（ヤフー楽天決済失敗の場合）",
+          "raw_name": "支払い::銀行振込に変更（ヤフー楽天決済失敗の場合）",
+          "value": "支払い__銀行振込に変更（ヤフー楽天決済失敗の場合）",
+          "default": false
+        },
+        {
+          "id": 8772823848335,
+          "name": "支払い::分割払い",
+          "raw_name": "支払い::分割払い",
+          "value": "支払い__分割払い",
+          "default": false
+        },
+        {
+          "id": 8772823848463,
+          "name": "製品::在庫情報",
+          "raw_name": "製品::在庫情報",
+          "value": "製品__在庫情報",
+          "default": false
+        },
+        {
+          "id": 8772823848591,
+          "name": "製品::パネル60販売停止",
+          "raw_name": "製品::パネル60販売停止",
+          "value": "製品__パネル60販売停止",
+          "default": false
+        },
+        {
+          "id": 8772823848719,
+          "name": "製品::カタログ",
+          "raw_name": "製品::カタログ",
+          "value": "製品__カタログ",
+          "default": false
+        },
+        {
+          "id": 8772823848847,
+          "name": "製品::三元系とリン酸鉄",
+          "raw_name": "製品::三元系とリン酸鉄",
+          "value": "製品__三元系とリン酸鉄",
+          "default": false
+        },
+        {
+          "id": 8772823848975,
+          "name": "製品::新製品発売",
+          "raw_name": "製品::新製品発売",
+          "value": "製品__新製品発売",
+          "default": false
+        },
+        {
+          "id": 8772823849103,
+          "name": "製品::新製品の価格",
+          "raw_name": "製品::新製品の価格",
+          "value": "製品__新製品の価格",
+          "default": false
+        },
+        {
+          "id": 8772823849231,
+          "name": "セール::セールエラー",
+          "raw_name": "セール::セールエラー",
+          "value": "セール__セールエラー",
+          "default": false
+        },
+        {
+          "id": 8772823849359,
+          "name": "セール::セールプレゼント発送漏れ",
+          "raw_name": "セール::セールプレゼント発送漏れ",
+          "value": "セール__セールプレゼント発送漏れ",
+          "default": false
+        },
+        {
+          "id": 8772823849487,
+          "name": "セール::セール情報",
+          "raw_name": "セール::セール情報",
+          "value": "セール__セール情報",
+          "default": false
+        },
+        {
+          "id": 8772823849615,
+          "name": "セール::セール差額返金、差のお問合せ",
+          "raw_name": "セール::セール差額返金、差のお問合せ",
+          "value": "セール__セール差額返金、差のお問合せ",
+          "default": false
+        },
+        {
+          "id": 8772823849743,
+          "name": "活動::地球の日",
+          "raw_name": "活動::地球の日",
+          "value": "活動__地球の日",
+          "default": false
+        },
+        {
+          "id": 8772823849871,
+          "name": "注文::大口注文",
+          "raw_name": "注文::大口注文",
+          "value": "注文__大口注文",
+          "default": false
+        },
+        {
+          "id": 8772823849999,
+          "name": "注文::電話注文",
+          "raw_name": "注文::電話注文",
+          "value": "注文__電話注文",
+          "default": false
+        },
+        {
+          "id": 8772823850127,
+          "name": "注文::メールが届かない",
+          "raw_name": "注文::メールが届かない",
+          "value": "注文__メールが届かない",
+          "default": false
+        },
+        {
+          "id": 8772823850255,
+          "name": "注文::注文画面エラー",
+          "raw_name": "注文::注文画面エラー",
+          "value": "注文__注文画面エラー",
+          "default": false
+        },
+        {
+          "id": 8772823850383,
+          "name": "注文::注文方法",
+          "raw_name": "注文::注文方法",
+          "value": "注文__注文方法",
+          "default": false
+        },
+        {
+          "id": 8772823850511,
+          "name": "注文不具合::キャンセル後システム不備",
+          "raw_name": "注文不具合::キャンセル後システム不備",
+          "value": "注文不具合__キャンセル後システム不備",
+          "default": false
+        },
+        {
+          "id": 8772823850639,
+          "name": "注文不具合::キャンセル後対応漏れ",
+          "raw_name": "注文不具合::キャンセル後対応漏れ",
+          "value": "注文不具合__キャンセル後対応漏れ",
+          "default": false
+        },
+        {
+          "id": 8772823850767,
+          "name": "注文不具合::キャンセル後荷物到着",
+          "raw_name": "注文不具合::キャンセル後荷物到着",
+          "value": "注文不具合__キャンセル後荷物到着",
+          "default": false
+        },
+        {
+          "id": 8772823850895,
+          "name": "注文不具合::キャンセル後返金されない",
+          "raw_name": "注文不具合::キャンセル後返金されない",
+          "value": "注文不具合__キャンセル後返金されない",
+          "default": false
+        },
+        {
+          "id": 8772823851023,
+          "name": "廃棄／回収::回収/廃棄方法",
+          "raw_name": "廃棄／回収::回収/廃棄方法",
+          "value": "廃棄／回収__回収/廃棄方法",
+          "default": false
+        },
+        {
+          "id": 8772823851151,
+          "name": "保証::保証期間",
+          "raw_name": "保証::保証期間",
+          "value": "保証__保証期間",
+          "default": false
+        },
+        {
+          "id": 8772823851279,
+          "name": "保証::保証の依頼方法",
+          "raw_name": "保証::保証の依頼方法",
+          "value": "保証__保証の依頼方法",
+          "default": false
+        },
+        {
+          "id": 8772823851407,
+          "name": "ソラパ外観不良::キズ、異物、汚れ",
+          "raw_name": "ソラパ外観不良::キズ、異物、汚れ",
+          "value": "ソラパ外観不良__キズ、異物、汚れ",
+          "default": false
+        },
+        {
+          "id": 8772823851535,
+          "name": "ソラパ充電不良::USB部分破損、殻が溶解",
+          "raw_name": "ソラパ充電不良::USB部分破損、殻が溶解",
+          "value": "ソラパ充電不良__usb部分破損、殻が溶解",
+          "default": false
+        },
+        {
+          "id": 8772823851663,
+          "name": "ソラパ充電不良::USBランプ点灯しない",
+          "raw_name": "ソラパ充電不良::USBランプ点灯しない",
+          "value": "ソラパ充電不良__usbランプ点灯しない",
+          "default": false
+        },
+        {
+          "id": 8772823851791,
+          "name": "ソラパ充電不良::充電中止後自動充電開始できない",
+          "raw_name": "ソラパ充電不良::充電中止後自動充電開始できない",
+          "value": "ソラパ充電不良__充電中止後自動充電開始できない",
+          "default": false
+        },
+        {
+          "id": 8772823851919,
+          "name": "ソラパ充電不良::その他",
+          "raw_name": "ソラパ充電不良::その他",
+          "value": "ソラパ充電不良__その他",
+          "default": false
+        },
+        {
+          "id": 8772823852047,
+          "name": "ソラパ充電不良::発電できない",
+          "raw_name": "ソラパ充電不良::発電できない",
+          "value": "ソラパ充電不良__発電できない",
+          "default": false
+        },
+        {
+          "id": 8772823852175,
+          "name": "ソラパ充電不良::発電力低下",
+          "raw_name": "ソラパ充電不良::発電力低下",
+          "value": "ソラパ充電不良__発電力低下",
+          "default": false
+        },
+        {
+          "id": 8772823852303,
+          "name": "ソラパ収納バック::ボタン破損",
+          "raw_name": "ソラパ収納バック::ボタン破損",
+          "value": "ソラパ収納バック__ボタン破損",
+          "default": false
+        },
+        {
+          "id": 8772823852431,
+          "name": "ソラパ故障::保証期限切れ",
+          "raw_name": "ソラパ故障::保証期限切れ",
+          "value": "ソラパ故障__保証期限切れ",
+          "default": false
+        },
+        {
+          "id": 8772823852559,
+          "name": "AC出力不良::ACポート異常",
+          "raw_name": "AC出力不良::ACポート異常",
+          "value": "ac出力不良__acポート異常",
+          "default": false
+        },
+        {
+          "id": 8772823852687,
+          "name": "AC出力不良::出力途中で自動出力停止",
+          "raw_name": "AC出力不良::出力途中で自動出力停止",
+          "value": "ac出力不良__出力途中で自動出力停止",
+          "default": false
+        },
+        {
+          "id": 8772823852815,
+          "name": "AC出力不良::AC無出力",
+          "raw_name": "AC出力不良::AC無出力",
+          "value": "ac出力不良__ac無出力",
+          "default": false
+        },
+        {
+          "id": 8772823852943,
+          "name": "AC出力不良::出力ポートが硬い",
+          "raw_name": "AC出力不良::出力ポートが硬い",
+          "value": "ac出力不良__出力ポートが硬い",
+          "default": false
+        },
+        {
+          "id": 8772823853071,
+          "name": "DC出力不良::DCポート異常",
+          "raw_name": "DC出力不良::DCポート異常",
+          "value": "dc出力不良__dcポート異常",
+          "default": false
+        },
+        {
+          "id": 8772823853199,
+          "name": "DC出力不良::DC無出力",
+          "raw_name": "DC出力不良::DC無出力",
+          "value": "dc出力不良__dc無出力",
+          "default": false
+        },
+        {
+          "id": 8772823853327,
+          "name": "USB出力不良::USBポート異常",
+          "raw_name": "USB出力不良::USBポート異常",
+          "value": "usb出力不良__usbポート異常",
+          "default": false
+        },
+        {
+          "id": 8772823853455,
+          "name": "USB出力不良::UGREENとの互換性ない",
+          "raw_name": "USB出力不良::UGREENとの互換性ない",
+          "value": "usb出力不良__ugreenとの互換性ない",
+          "default": false
+        },
+        {
+          "id": 8772823853583,
+          "name": "USB出力不良::USB無出力",
+          "raw_name": "USB出力不良::USB無出力",
+          "value": "usb出力不良__usb無出力",
+          "default": false
+        },
+        {
+          "id": 8772823853711,
+          "name": "アクセサリー::ACアダプター故障",
+          "raw_name": "アクセサリー::ACアダプター故障",
+          "value": "アクセサリー__acアダプター故障",
+          "default": false
+        },
+        {
+          "id": 8772823853839,
+          "name": "アクセサリー::シガーソケット故障",
+          "raw_name": "アクセサリー::シガーソケット故障",
+          "value": "アクセサリー__シガーソケット故障",
+          "default": false
+        },
+        {
+          "id": 8772823853967,
+          "name": "アクセサリー::シガーソケットが差しにくい",
+          "raw_name": "アクセサリー::シガーソケットが差しにくい",
+          "value": "アクセサリー__シガーソケットが差しにくい",
+          "default": false
+        },
+        {
+          "id": 8772823854095,
+          "name": "アクセサリー::その他",
+          "raw_name": "アクセサリー::その他",
+          "value": "アクセサリー__その他",
+          "default": false
+        },
+        {
+          "id": 8772823854223,
+          "name": "アクセサリー::トランスジャック変形",
+          "raw_name": "アクセサリー::トランスジャック変形",
+          "value": "アクセサリー__トランスジャック変形",
+          "default": false
+        },
+        {
+          "id": 8772823854351,
+          "name": "アクセサリー::紛失",
+          "raw_name": "アクセサリー::紛失",
+          "value": "アクセサリー__紛失",
+          "default": false
+        },
+        {
+          "id": 8772823854479,
+          "name": "アクセサリー::予備用",
+          "raw_name": "アクセサリー::予備用",
+          "value": "アクセサリー__予備用",
+          "default": false
+        },
+        {
+          "id": 8772823854607,
+          "name": "異常::異音",
+          "raw_name": "異常::異音",
+          "value": "異常__異音",
+          "default": false
+        },
+        {
+          "id": 8772823854735,
+          "name": "異常::異臭（焦げ臭い、臭い、刺激臭）",
+          "raw_name": "異常::異臭（焦げ臭い、臭い、刺激臭）",
+          "value": "異常__異臭（焦げ臭い、臭い、刺激臭）",
+          "default": false
+        },
+        {
+          "id": 8772823854863,
+          "name": "異常::発煙",
+          "raw_name": "異常::発煙",
+          "value": "異常__発煙",
+          "default": false
+        },
+        {
+          "id": 8772823854991,
+          "name": "異常::発火",
+          "raw_name": "異常::発火",
+          "value": "異常__発火",
+          "default": false
+        },
+        {
+          "id": 8772823855119,
+          "name": "異常::本体高温",
+          "raw_name": "異常::本体高温",
+          "value": "異常__本体高温",
+          "default": false
+        },
+        {
+          "id": 8772823855247,
+          "name": "充電不良::充電不可",
+          "raw_name": "充電不良::充電不可",
+          "value": "充電不良__充電不可",
+          "default": false
+        },
+        {
+          "id": 8772823855375,
+          "name": "充電不良::充電時にACアダプターと本体が発熱",
+          "raw_name": "充電不良::充電時にACアダプターと本体が発熱",
+          "value": "充電不良__充電時にacアダプターと本体が発熱",
+          "default": false
+        },
+        {
+          "id": 8772823855503,
+          "name": "充電不良::パネル充電中止後自動充電開始できない",
+          "raw_name": "充電不良::パネル充電中止後自動充電開始できない",
+          "value": "充電不良__パネル充電中止後自動充電開始できない",
+          "default": false
+        },
+        {
+          "id": 8772823855631,
+          "name": "充電不良::フル充電できない",
+          "raw_name": "充電不良::フル充電できない",
+          "value": "充電不良__フル充電できない",
+          "default": false
+        },
+        {
+          "id": 8772823855759,
+          "name": "充電不良::本体無反応、充電不可",
+          "raw_name": "充電不良::本体無反応、充電不可",
+          "value": "充電不良__本体無反応、充電不可",
+          "default": false
+        },
+        {
+          "id": 8772823855887,
+          "name": "充電不良::本体ランプ点灯、充電W数異常",
+          "raw_name": "充電不良::本体ランプ点灯、充電W数異常",
+          "value": "充電不良__本体ランプ点灯、充電w数異常",
+          "default": false
+        },
+        {
+          "id": 8772823856015,
+          "name": "異音、異物混入",
+          "raw_name": "異音、異物混入",
+          "value": "異音、異物混入",
+          "default": false
+        },
+        {
+          "id": 8772823856143,
+          "name": "残量があるが、使用できない",
+          "raw_name": "残量があるが、使用できない",
+          "value": "残量があるが、使用できない",
+          "default": false
+        },
+        {
+          "id": 8772823856271,
+          "name": "自然消耗電力が異常",
+          "raw_name": "自然消耗電力が異常",
+          "value": "自然消耗電力が異常",
+          "default": false
+        },
+        {
+          "id": 8772823856399,
+          "name": "電源の落ちが早く、容量と合わない",
+          "raw_name": "電源の落ちが早く、容量と合わない",
+          "value": "電源の落ちが早く、容量と合わない",
+          "default": false
+        },
+        {
+          "id": 8772823856527,
+          "name": "故障::その他",
+          "raw_name": "故障::その他",
+          "value": "故障_その他",
+          "default": false
+        },
+        {
+          "id": 8772823856655,
+          "name": "故障::不良診断中",
+          "raw_name": "故障::不良診断中",
+          "value": "故障__不良診断中",
+          "default": false
+        },
+        {
+          "id": 8772823856783,
+          "name": "故障::保管時自然消耗異常",
+          "raw_name": "故障::保管時自然消耗異常",
+          "value": "故障__保管時自然消耗異常",
+          "default": false
+        },
+        {
+          "id": 8772823856911,
+          "name": "故障::容量不足",
+          "raw_name": "故障::容量不足",
+          "value": "故障__容量不足",
+          "default": false
+        },
+        {
+          "id": 8772823857039,
+          "name": "故障::取っ手壊れ",
+          "raw_name": "故障::取っ手壊れ",
+          "value": "故障__取っ手壊れ",
+          "default": false
+        },
+        {
+          "id": 8772823857167,
+          "name": "故障::故障コードF0",
+          "raw_name": "故障::故障コードF0",
+          "value": "故障__故障コードf0",
+          "default": false
+        },
+        {
+          "id": 8772823857295,
+          "name": "故障::故障コードF1",
+          "raw_name": "故障::故障コードF1",
+          "value": "故障__故障コードf1",
+          "default": false
+        },
+        {
+          "id": 8772823857423,
+          "name": "故障::故障コードF2",
+          "raw_name": "故障::故障コードF2",
+          "value": "故障__故障コードf2",
+          "default": false
+        },
+        {
+          "id": 8772823857551,
+          "name": "故障::故障コードF3",
+          "raw_name": "故障::故障コードF3",
+          "value": "故障__故障コードf3",
+          "default": false
+        },
+        {
+          "id": 8772823857679,
+          "name": "故障::故障コードF4",
+          "raw_name": "故障::故障コードF4",
+          "value": "故障__故障コードf4",
+          "default": false
+        },
+        {
+          "id": 8772823857807,
+          "name": "故障::故障コードF5",
+          "raw_name": "故障::故障コードF5",
+          "value": "故障__故障コードf5",
+          "default": false
+        },
+        {
+          "id": 8772823857935,
+          "name": "故障::故障コードF6",
+          "raw_name": "故障::故障コードF6",
+          "value": "故障__故障コードf6",
+          "default": false
+        },
+        {
+          "id": 8772823858063,
+          "name": "故障::故障コードF7",
+          "raw_name": "故障::故障コードF7",
+          "value": "故障__故障コードf7",
+          "default": false
+        },
+        {
+          "id": 8772823858191,
+          "name": "故障::故障コードF8",
+          "raw_name": "故障::故障コードF8",
+          "value": "故障__故障コードf8",
+          "default": false
+        },
+        {
+          "id": 8772823858319,
+          "name": "故障::故障コードF9",
+          "raw_name": "故障::故障コードF9",
+          "value": "故障__故障コードf9",
+          "default": false
+        },
+        {
+          "id": 8772823858447,
+          "name": "故障::故障コード温度マーク",
+          "raw_name": "故障::故障コード温度マーク",
+          "value": "故障__故障コード温度マーク",
+          "default": false
+        },
+        {
+          "id": 8772823858575,
+          "name": "故障::故障コード過放電",
+          "raw_name": "故障::故障コード過放電",
+          "value": "故障__故障コード過放電",
+          "default": false
+        },
+        {
+          "id": 8772823858703,
+          "name": "故障::故障コード過負荷",
+          "raw_name": "故障::故障コード過負荷",
+          "value": "故障__故障コード過負荷",
+          "default": false
+        },
+        {
+          "id": 8772823858831,
+          "name": "故障::パネル充電,input正常が残量上がらず",
+          "raw_name": "故障::パネル充電,input正常が残量上がらず",
+          "value": "故障__パネル充電_input正常が残量上がらず",
+          "default": false
+        },
+        {
+          "id": 8772823858959,
+          "name": "拡張バッテリー::本体と連動不具合",
+          "raw_name": "拡張バッテリー::本体と連動不具合",
+          "value": "拡張バッテリー__本体と連動不具合",
+          "default": false
+        },
+        {
+          "id": 8772823859087,
+          "name": "冷却ファン::うるさい",
+          "raw_name": "冷却ファン::うるさい",
+          "value": "冷却ファン__うるさい",
+          "default": false
+        },
+        {
+          "id": 8772823859215,
+          "name": "冷却ファン::の異音",
+          "raw_name": "冷却ファン::の異音",
+          "value": "冷却ファン__の異音",
+          "default": false
+        },
+        {
+          "id": 8772823859343,
+          "name": "ディスプレイ::残量表示正しくない",
+          "raw_name": "ディスプレイ::残量表示正しくない",
+          "value": "ディスプレイ__残量表示正しくない",
+          "default": false
+        },
+        {
+          "id": 8772823859471,
+          "name": "ディスプレイ::output表示正しくない",
+          "raw_name": "ディスプレイ::output表示正しくない",
+          "value": "ディスプレイ__output表示正しくない",
+          "default": false
+        },
+        {
+          "id": 8772823859599,
+          "name": "ディスプレイ::一部表示できない",
+          "raw_name": "ディスプレイ::一部表示できない",
+          "value": "ディスプレイ__一部表示できない",
+          "default": false
+        },
+        {
+          "id": 8772823859727,
+          "name": "ディスプレイ::黒点やホコリ、異物がある",
+          "raw_name": "ディスプレイ::黒点やホコリ、異物がある",
+          "value": "ディスプレイ__黒点やホコリ、異物がある",
+          "default": false
+        },
+        {
+          "id": 8772823859855,
+          "name": "ディスプレイ::自動点灯・消灯",
+          "raw_name": "ディスプレイ::自動点灯・消灯",
+          "value": "ディスプレイ__自動点灯・消灯",
+          "default": false
+        },
+        {
+          "id": 8772823859983,
+          "name": "ディスプレイ::ディスプレイ破損",
+          "raw_name": "ディスプレイ::ディスプレイ破損",
+          "value": "ディスプレイ__ディスプレイ破損",
+          "default": false
+        },
+        {
+          "id": 8772823860111,
+          "name": "ディスプレイ::ぼやけて読めない",
+          "raw_name": "ディスプレイ::ぼやけて読めない",
+          "value": "ディスプレイ__ぼやけて読めない",
+          "default": false
+        },
+        {
+          "id": 8772823860239,
+          "name": "ディスプレイ::無表示",
+          "raw_name": "ディスプレイ::無表示",
+          "value": "ディスプレイ__無表示",
+          "default": false
+        },
+        {
+          "id": 8772823860367,
+          "name": "ファン::異常な動作（電源オフでもファンが動く）",
+          "raw_name": "ファン::異常な動作（電源オフでもファンが動く）",
+          "value": "ファン__異常な動作（電源オフでもファンが動く）",
+          "default": false
+        },
+        {
+          "id": 8772823860495,
+          "name": "ファン::ファン動作しない",
+          "raw_name": "ファン::ファン動作しない",
+          "value": "ファン__ファン動作しない",
+          "default": false
+        },
+        {
+          "id": 8772823860623,
+          "name": "ライト不良",
+          "raw_name": "ライト不良",
+          "value": "ライト不良",
+          "default": false
+        },
+        {
+          "id": 8772823860751,
+          "name": "JVC製品の問合せ",
+          "raw_name": "JVC製品の問合せ",
+          "value": "jvc製品の問合せ",
+          "default": false
+        },
+        {
+          "id": 8772823860879,
+          "name": "アカウント::会員登録/ポイント",
+          "raw_name": "アカウント::会員登録/ポイント",
+          "value": "アカウント__会員登録/ポイント",
+          "default": false
+        },
+        {
+          "id": 8772823861007,
+          "name": "アカウント::会員登録不具合",
+          "raw_name": "アカウント::会員登録不具合",
+          "value": "アカウント__会員登録不具合",
+          "default": false
+        },
+        {
+          "id": 8772823861135,
+          "name": "アカウント::退会",
+          "raw_name": "アカウント::退会",
+          "value": "アカウント__退会",
+          "default": false
+        },
+        {
+          "id": 8772823861263,
+          "name": "アカウント::SNSアカウントで認証登録",
+          "raw_name": "アカウント::SNSアカウントで認証登録",
+          "value": "アカウント__snsアカウントで認証登録",
+          "default": false
+        },
+        {
+          "id": 8772823861391,
+          "name": "アカウント::アカウント登録",
+          "raw_name": "アカウント::アカウント登録",
+          "value": "アカウント__アカウント登録",
+          "default": false
+        },
+        {
+          "id": 8772823861519,
+          "name": "アカウント::パスワード変更",
+          "raw_name": "アカウント::パスワード変更",
+          "value": "アカウント__パスワード変更",
+          "default": false
+        },
+        {
+          "id": 8772823861647,
+          "name": "アカウント::保証登録",
+          "raw_name": "アカウント::保証登録",
+          "value": "アカウント__保証登録",
+          "default": false
+        },
+        {
+          "id": 8772823861775,
+          "name": "アカウント::保証登録不具合",
+          "raw_name": "アカウント::保証登録不具合",
+          "value": "アカウント__保証登録不具合",
+          "default": false
+        },
+        {
+          "id": 8772823861903,
+          "name": "アカウント::メールアドレス変更",
+          "raw_name": "アカウント::メールアドレス変更",
+          "value": "アカウント__メールアドレス変更",
+          "default": false
+        },
+        {
+          "id": 8772823862031,
+          "name": "アカウント::メルマガ解除",
+          "raw_name": "アカウント::メルマガ解除",
+          "value": "アカウント__メルマガ解除",
+          "default": false
+        },
+        {
+          "id": 8772823862159,
+          "name": "改善意見::説明書",
+          "raw_name": "改善意見::説明書",
+          "value": "改善意見__説明書",
+          "default": false
+        },
+        {
+          "id": 8772823862287,
+          "name": "改善意見::梱包",
+          "raw_name": "改善意見::梱包",
+          "value": "改善意見__梱包",
+          "default": false
+        },
+        {
+          "id": 8772823862415,
+          "name": "改善意見::システム",
+          "raw_name": "改善意見::システム",
+          "value": "改善意見__システム",
+          "default": false
+        },
+        {
+          "id": 8772823862543,
+          "name": "改善意見::物流配送",
+          "raw_name": "改善意見::物流配送",
+          "value": "改善意見__物流配送",
+          "default": false
+        },
+        {
+          "id": 8772823862671,
+          "name": "改善意見::サービス",
+          "raw_name": "改善意見::サービス",
+          "value": "改善意見__サービス",
+          "default": false
+        },
+        {
+          "id": 8772823862799,
+          "name": "改善意見::重要な情報が無い",
+          "raw_name": "改善意見::重要な情報が無い",
+          "value": "改善意見__重要な情報が無い",
+          "default": false
+        },
+        {
+          "id": 8772823862927,
+          "name": "改善意見::製品機能",
+          "raw_name": "改善意見::製品機能",
+          "value": "改善意見__製品機能",
+          "default": false
+        },
+        {
+          "id": 8772823863055,
+          "name": "改善意見::製品情報不備",
+          "raw_name": "改善意見::製品情報不備",
+          "value": "改善意見__製品情報不備",
+          "default": false
+        },
+        {
+          "id": 8772823863183,
+          "name": "改善意見::内容が理解できない",
+          "raw_name": "改善意見::内容が理解できない",
+          "value": "改善意見__内容が理解できない",
+          "default": false
+        },
+        {
+          "id": 8772823863311,
+          "name": "改善意見::その他",
+          "raw_name": "改善意見::その他",
+          "value": "改善意見__その他",
+          "default": false
+        },
+        {
+          "id": 8772823863439,
+          "name": "製品不満::動作中input/output 0のまま",
+          "raw_name": "製品不満::動作中input/output 0のまま",
+          "value": "製品不満__動作中input/output_0のまま",
+          "default": false
+        },
+        {
+          "id": 8772823863567,
+          "name": "製品不満::新しいトランスジャック不安定",
+          "raw_name": "製品不満::新しいトランスジャック不安定",
+          "value": "製品不満__新しいトランスジャック不安定",
+          "default": false
+        },
+        {
+          "id": 8772823863695,
+          "name": "製品不満::パネルの付属品が見つからない",
+          "raw_name": "製品不満::パネルの付属品が見つからない",
+          "value": "製品不満__パネルの付属品が見つからない",
+          "default": false
+        },
+        {
+          "id": 8772823863823,
+          "name": "製品不満::5m延長線",
+          "raw_name": "製品不満::5m延長線",
+          "value": "製品不満__5m延長線",
+          "default": false
+        },
+        {
+          "id": 8772823863951,
+          "name": "製品不満::接続ややこしい",
+          "raw_name": "製品不満::接続ややこしい",
+          "value": "製品不満__接続ややこしい",
+          "default": false
+        },
+        {
+          "id": 8772823864079,
+          "name": "製品不満::0%の残量で届いた",
+          "raw_name": "製品不満::0%の残量で届いた",
+          "value": "製品不満__0_の残量で届いた",
+          "default": false
+        },
+        {
+          "id": 8772823864207,
+          "name": "製品不満::値上がり",
+          "raw_name": "製品不満::値上がり",
+          "value": "製品不満__値上がり",
+          "default": false
+        },
+        {
+          "id": 8772823864335,
+          "name": "製品不満::出力わかるオレンジ色の線なし",
+          "raw_name": "製品不満::出力わかるオレンジ色の線なし",
+          "value": "製品不満__出力わかるオレンジ色の線なし",
+          "default": false
+        },
+        {
+          "id": 8772823864463,
+          "name": "製品不満::SN番号見つからない",
+          "raw_name": "製品不満::SN番号見つからない",
+          "value": "製品不満__sn番号見つからない",
+          "default": false
+        },
+        {
+          "id": 8772823864591,
+          "name": "製品不満::シガーソケット充電ケーブル付属されてない",
+          "raw_name": "製品不満::シガーソケット充電ケーブル付属されてない",
+          "value": "製品不満__シガーソケット充電ケーブル付属されてない",
+          "default": false
+        },
+        {
+          "id": 8772823864719,
+          "name": "修理不具合::連絡なしで返送",
+          "raw_name": "修理不具合::連絡なしで返送",
+          "value": "修理不具合__連絡なしで返送",
+          "default": false
+        },
+        {
+          "id": 8772823864847,
+          "name": "製品期待::旧製品の電池変更",
+          "raw_name": "製品期待::旧製品の電池変更",
+          "value": "製品期待__旧製品の電池変更",
+          "default": false
+        },
+        {
+          "id": 8772823864975,
+          "name": "製品期待::AC充電ケーブルもっと長く",
+          "raw_name": "製品期待::AC充電ケーブルもっと長く",
+          "value": "製品期待__ac充電ケーブルもっと長く",
+          "default": false
+        },
+        {
+          "id": 8772823865103,
+          "name": "製品期待::下取り",
+          "raw_name": "製品期待::下取り",
+          "value": "製品期待__下取り",
+          "default": false
+        },
+        {
+          "id": 8772823865231,
+          "name": "製品期待::電動自動車へ充電",
+          "raw_name": "製品期待::電動自動車へ充電",
+          "value": "製品期待__電動自動車へ充電",
+          "default": false
+        },
+        {
+          "id": 8772823865359,
+          "name": "製品期待::ポタ電用防水カバー",
+          "raw_name": "製品期待::ポタ電用防水カバー",
+          "value": "製品期待__ポタ電用防水カバー",
+          "default": false
+        },
+        {
+          "id": 8772823865487,
+          "name": "製品期待::蓋つき",
+          "raw_name": "製品期待::蓋つき",
+          "value": "製品期待__蓋つき",
+          "default": false
+        },
+        {
+          "id": 8772823865615,
+          "name": "サービス不満::迷惑メール大量届く",
+          "raw_name": "サービス不満::迷惑メール大量届く",
+          "value": "サービス不満__迷惑メール大量届く",
+          "default": false
+        },
+        {
+          "id": 8772823865743,
+          "name": "サービス期待::レンタルサービス",
+          "raw_name": "サービス期待::レンタルサービス",
+          "value": "サービス期待__レンタルサービス",
+          "default": false
+        },
+        {
+          "id": 8772823865871,
+          "name": "第三者お問い合わせ::警察署",
+          "raw_name": "第三者お問い合わせ::警察署",
+          "value": "第三者お問い合わせ__警察署",
+          "default": false
+        },
+        {
+          "id": 8772823865999,
+          "name": "第三者お問い合わせ::個人情報保護（情報漏洩）",
+          "raw_name": "第三者お問い合わせ::個人情報保護（情報漏洩）",
+          "value": "第三者お問い合わせ__個人情報保護（情報漏洩）",
+          "default": false
+        },
+        {
+          "id": 8772823866127,
+          "name": "第三者お問い合わせ::消費者センター",
+          "raw_name": "第三者お問い合わせ::消費者センター",
+          "value": "第三者お問い合わせ__消費者センター",
+          "default": false
+        },
+        {
+          "id": 8772823866255,
+          "name": "第三者お問い合わせ::物流業者",
+          "raw_name": "第三者お問い合わせ::物流業者",
+          "value": "第三者お問い合わせ__物流業者",
+          "default": false
+        },
+        {
+          "id": 8772823866383,
+          "name": "第三者お問い合わせ::弁護士",
+          "raw_name": "第三者お問い合わせ::弁護士",
+          "value": "第三者お問い合わせ__弁護士",
+          "default": false
+        },
+        {
+          "id": 8772823866511,
+          "name": "第三者お問い合わせ::実店舗",
+          "raw_name": "第三者お問い合わせ::実店舗",
+          "value": "第三者お問い合わせ__実店舗",
+          "default": false
+        },
+        {
+          "id": 8772823866639,
+          "name": "他部署お問い合わせ::営業部",
+          "raw_name": "他部署お問い合わせ::営業部",
+          "value": "他部署お問い合わせ__営業部",
+          "default": false
+        },
+        {
+          "id": 8772823866767,
+          "name": "他部署お問い合わせ::マーケ部",
+          "raw_name": "他部署お問い合わせ::マーケ部",
+          "value": "他部署お問い合わせ__マーケ部",
+          "default": false
+        },
+        {
+          "id": 8772823866895,
+          "name": "偽サイト::偽サイト確認",
+          "raw_name": "偽サイト::偽サイト確認",
+          "value": "偽サイト__偽サイト確認",
+          "default": false
+        },
+        {
+          "id": 8772823867023,
+          "name": "偽サイト::偽サイトで注文済み",
+          "raw_name": "偽サイト::偽サイトで注文済み",
+          "value": "偽サイト__偽サイトで注文済み",
+          "default": false
+        },
+        {
+          "id": 8772823867151,
+          "name": "偽サイト::偽サイト他社製品",
+          "raw_name": "偽サイト::偽サイト他社製品",
+          "value": "偽サイト__偽サイト他社製品",
+          "default": false
+        },
+        {
+          "id": 8772823867279,
+          "name": "その他::産地",
+          "raw_name": "その他::産地",
+          "value": "その他__産地",
+          "default": false
+        },
+        {
+          "id": 8772823867407,
+          "name": "統合されたチケット",
+          "raw_name": "統合されたチケット",
+          "value": "統合されたチケット",
+          "default": false
+        },
+        {
+          "id": 8772823867535,
+          "name": "Adminonly-Qcategory",
+          "raw_name": "Adminonly-Qcategory",
+          "value": "adminonly-qcategor",
+          "default": false
+        },
+        {
+          "id": 8772823867663,
+          "name": "APP",
+          "raw_name": "APP",
+          "value": "app",
+          "default": false
+        },
+        {
+          "id": 8772823867791,
+          "name": "APP::お問合せ",
+          "raw_name": "APP::お問合せ",
+          "value": "app__お問合せ",
+          "default": false
+        },
+        {
+          "id": 8772823867919,
+          "name": "APP::不具合",
+          "raw_name": "APP::不具合",
+          "value": "app__不具合",
+          "default": false
+        },
+        {
+          "id": 8772823868047,
+          "name": "災害支援::地震",
+          "raw_name": "災害支援::地震",
+          "value": "災害支援__地震",
+          "default": false
+        },
+        {
+          "id": 8772823868175,
+          "name": "災害支援::台風",
+          "raw_name": "災害支援::台風",
+          "value": "災害支援__台風",
+          "default": false
+        }
+      ]
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/7329447147151.json",
+      "id": 7329447147151,
+      "type": "text",
+      "title": "质检反馈",
+      "raw_title": "质检反馈",
+      "description": "",
+      "raw_description": "",
+      "position": 9999,
+      "active": true,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "质检反馈",
+      "raw_title_in_portal": "质检反馈",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-07-03T06:40:49Z",
+      "updated_at": "2023-07-03T09:28:52Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    },
+    {
+      "url": "https://d3v-jackeryjapan.zendesk.com/api/v2/ticket_fields/6555494055823.json",
+      "id": 6555494055823,
+      "type": "textarea",
+      "title": "Social Messaging Channel Info",
+      "raw_title": "Social Messaging Channel Info",
+      "description": "Social messaging channel info will be shown here",
+      "raw_description": "Social messaging channel info will be shown here",
+      "position": 9999,
+      "active": false,
+      "required": false,
+      "collapsed_for_agents": false,
+      "regexp_for_validation": null,
+      "title_in_portal": "Social Messaging Channel Info",
+      "raw_title_in_portal": "Social Messaging Channel Info",
+      "visible_in_portal": false,
+      "editable_in_portal": false,
+      "required_in_portal": false,
+      "tag": null,
+      "created_at": "2023-03-10T07:45:10Z",
+      "updated_at": "2023-07-12T07:08:05Z",
+      "removable": true,
+      "key": null,
+      "agent_description": null
+    }
+  ],
+  "next_page": null,
+  "previous_page": null,
+  "count": 45
+}
