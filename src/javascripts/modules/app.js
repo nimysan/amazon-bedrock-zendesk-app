@@ -21,9 +21,8 @@ import {
 } from "../../javascripts/lib/helpers";
 
 import {
-  build_intent_promot,
   findUserIntent,
-  set_user_intent
+  tag_intent_for_ticket
 } from "../../javascripts/lib/utils";
 
 const client = ZAFClient.init();
@@ -95,6 +94,7 @@ export default function App() {
   const composeSearchFilter = () => {
     return default_search_filter;
   };
+  
 
   const logToRemote = (action) => {
     const inputData = {
@@ -159,25 +159,6 @@ export default function App() {
   };
 
   //
-  const chat_with_bedrock = async (prompt, beforeCallback, callback) => {
-    const inputData = {
-      input: prompt,
-    };
-    beforeCallback();
-    const options = {
-      url: aiServerUrl + "/chat",
-      type: "POST",
-      headers: { Authorization: "Basic " + aiServerToken },
-      secure: API_ENDPOINTS.requestSecure, // very important
-      contentType: "application/json",
-      data: JSON.stringify(inputData),
-    };
-
-    client.request(options).then((response) => {
-      callback(response.result.content[0]["text"]);
-    });
-  };
-
   const callAISuggest = () => {
     const inputData = {
       input: questionContent,
@@ -280,20 +261,6 @@ export default function App() {
       );
     };
 
-    //自动给ticket打上用户意图
-    const user_intent = async (content) => {
-      let prompt = build_intent_promot(userIntentList, content);
-      let user_intent = await chat_with_bedrock(
-        prompt,
-        () => { },
-        (response) => {
-          console.log("----- " + response);
-        }
-      );
-      console.log("--------------xxxx--------------");
-      console.log(user_intent);
-    };
-
     const fetchData = async () => {
       const metadata = await client.metadata();
       // debugger;
@@ -319,20 +286,25 @@ export default function App() {
       const ticketInfo = await client.get([
         "ticket.description",
         "ticket.subject",
+        "ticket.id"
       ]);
-      setQuestionContent(
-        "subject " +
-        ticketInfo["ticket.subject"] +
-        "\r\ncontent " +
-        ticketInfo["ticket.description"]
-      );
+      const ticketContent = 
+      "subject " +
+      ticketInfo["ticket.subject"] +
+      "\r\ncontent " +
+      ticketInfo["ticket.description"];
+      setQuestionContent(ticketContent);
+      //tag it
+      let field_response = await client.request(API_ENDPOINTS.fields);
+      let userIntentList = JSON.stringify(findUserIntent(field_response))
+      await tag_intent_for_ticket(client, ticketInfo["ticket.id"], userIntentList, ticketContent,{
+        url: metadata.settings.aiServerUrl,
+        token: aiServerToken,
+        secure: API_ENDPOINTS.requestSecure
+      })
     };
 
     fetchData();
-    // fetchFields();
-    // user_intent(questionContent);
-    set_user_intent(client);
-    // fetchConfig();
   }, []);
 
   return (
