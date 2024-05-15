@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, DEFAULT_THEME } from "@zendeskgarden/react-theming";
 import { Grid, Row, Col } from "@zendeskgarden/react-grid";
+import { Well, Title } from "@zendeskgarden/react-notifications";
 import { Accordion } from "@zendeskgarden/react-accordions";
 import { Field, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Button } from "@zendeskgarden/react-buttons";
@@ -22,10 +23,13 @@ import {
 
 import {
   findUserIntent,
-  tag_intent_for_ticket
+  tag_intent_for_ticket,
+  setUserIntentToTicket
 } from "../../javascripts/lib/utils";
 
 const client = ZAFClient.init();
+
+const INTENT_FIELD_ID = 9704553495439; //可能需要后期配置修改
 
 export default function App() {
   //for dev debugger
@@ -72,7 +76,7 @@ export default function App() {
 
   //remote config list
   const [config, setConfig] = useState([]);
-  const [userIntentList, setUserIntentList] = useState("");
+  const [aiIntent, setAiInent] = useState({});
 
   //drawer
   const [isOpen, setIsOpen] = useState(false);
@@ -94,7 +98,6 @@ export default function App() {
   const composeSearchFilter = () => {
     return default_search_filter;
   };
-  
 
   const logToRemote = (action) => {
     const inputData = {
@@ -241,6 +244,38 @@ export default function App() {
   };
 
   /**
+   * handle intent retrieve
+   */
+  const handleIntentRetrieve = async ()=>{
+    setVisible(true);
+    //tag it
+    let field_response = await client.request(API_ENDPOINTS.fields);
+    let userIntentList = JSON.stringify(findUserIntent(field_response));
+    // debugger
+    let intent = await tag_intent_for_ticket(
+      client,
+      ticket.id,
+      userIntentList,
+      questionContent,
+      {
+        url: aiServerUrl,
+        token: aiServerToken,
+        secure: API_ENDPOINTS.requestSecure,
+      }
+    );
+    debugger
+    setAiInent(intent);
+    setVisible(false);
+  }
+
+  const adoptionIntent = async ()=>{
+    setVisible(true);
+    // debugger
+    setUserIntentToTicket(client, ticket.id, INTENT_FIELD_ID, [aiIntent.intent.value])
+    setVisible(false)
+  }
+
+  /**
    * initialize data
    */
   useEffect(() => {
@@ -286,22 +321,15 @@ export default function App() {
       const ticketInfo = await client.get([
         "ticket.description",
         "ticket.subject",
-        "ticket.id"
+        "ticket.id",
       ]);
-      const ticketContent = 
-      "subject " +
-      ticketInfo["ticket.subject"] +
-      "\r\ncontent " +
-      ticketInfo["ticket.description"];
+      const ticketContent =
+        "subject " +
+        ticketInfo["ticket.subject"] +
+        "\r\ncontent " +
+        ticketInfo["ticket.description"];
       setQuestionContent(ticketContent);
-      //tag it
-      let field_response = await client.request(API_ENDPOINTS.fields);
-      let userIntentList = JSON.stringify(findUserIntent(field_response))
-      await tag_intent_for_ticket(client, ticketInfo["ticket.id"], userIntentList, ticketContent,{
-        url: metadata.settings.aiServerUrl,
-        token: aiServerToken,
-        secure: API_ENDPOINTS.requestSecure
-      })
+      
     };
 
     fetchData();
@@ -310,7 +338,7 @@ export default function App() {
   return (
     <ThemeProvider theme={{ ...DEFAULT_THEME }}>
       <Grid>
-        <Row>
+      <Row>
           <Col>
             <Label>Amazon Bedrock with Claude 3 for AI asserts</Label>
             <Button
@@ -321,6 +349,33 @@ export default function App() {
             >
               Show RAG Prompt
             </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Well>
+            <Button
+              size="small"
+              isDanger
+              onClick={handleIntentRetrieve}
+              style={{ marginLeft: 10 }}
+            >
+              识别意图
+            </Button>
+            <Well>
+              {JSON.stringify(aiIntent)}
+            </Well>
+            <Label>{aiIntent.reasaon}</Label>
+            <Label>{aiIntent.value}</Label>
+            <Button
+              size="small"
+              isDanger
+              onClick={adoptionIntent}
+              style={{ marginLeft: 10 }}
+            >
+              采纳意图
+            </Button>
+            </Well>
           </Col>
         </Row>
         <Row>
@@ -339,6 +394,7 @@ export default function App() {
             </Modal>
           )}
         </Row>
+        
         <Row>
           <DrawerModal isOpen={isOpen} onClose={close}>
             <DrawerModal.Header tag="h2">Show RAG Prompt</DrawerModal.Header>

@@ -2,15 +2,15 @@ const TICKET_URL = "/api/v2/tickets/";
 const INTENT_FIELD_ID = 9704553495439; //可能需要后期配置修改
 
 export const findUserIntent = (fields) => {
-    const fields_array = fields.ticket_fields;
+  const fields_array = fields.ticket_fields;
 
-    const userIntent = fields_array.find((obj) => obj.id == INTENT_FIELD_ID);
-    // debugger
-    let filed_options = userIntent.custom_field_options;
-    return filed_options;
+  const userIntent = fields_array.find((obj) => obj.id == INTENT_FIELD_ID);
+  // debugger
+  let filed_options = userIntent.custom_field_options;
+  return filed_options;
 };
 
-const intent_description=`
+const intent_description = `
 备注：各级指标分别展示正面、负面提及次数及占比（根据情感分析判别正面、负面），同一条评论里面同一标签的情感正、负向标记去重计算，分别最多只计算一条；										
 一级指标	二级指标	二级指标 (En)	三级指标	三级指标-20240401	描述	评论举例-正向	评论举例-负向	描述-en	评论举例-正向-en	评论举例-负向-en
 服务咨询	产品信息	Product Info	促销活动	Product Promotion	客户向客服了解特定促销活动的细节、优惠条件及参与方式			Customers inquire about the details, conditions, and participation methods of specific promotional activities.		
@@ -91,78 +91,75 @@ const intent_description=`
 			产品知识页面	Product Knowledge Page	信息内容存在错误或与其他宣传相矛盾					
 			Jackery广告	Jackery Advertisement	价格，产品型号，折扣力度等错误					
 其他	其他	Others	虚假网站	Fake Sites	虚假网站识别与受理			Identification and handling of fake websites.		
-`
-
+`;
 
 export const build_intent_promot = (options, content) => {
-    return (
-        `你是一个客服服务人员, 请根据用户提交的内容去做用户意图识别. 
+  return (
+    `你是一个客服服务人员, 请根据用户提交的内容去做用户意图识别. 
         用户内容包含subject和content. 请以content为主要判别意图依据.
         意外, 永远只输出一个最匹配的意图.
         请从以下json数据中挑选匹配的意图.` +
-        JSON.stringify(options) +
-        "每个意图的详细说明请参考 "+intent_description
-        +"-------- 客户咨询的内容为 ------" +
-        content +
-        `请按照给定的意图列表, 输出意图, 给出一个完整的JSON对象. 
-        输出格式为json, 格式如下:
+    JSON.stringify(options) +
+    "每个意图的详细说明请参考 " +
+    intent_description +
+    "-------- 客户咨询的内容为 ------" +
+    content +
+    `请按照给定的意图列表, 输出意图, 给出一个完整的JSON对象. 
+        输出格式为json, 格式如下(另外, 请确保输出的json是格式正确的, 包括有些转码设置):
         {
             "reason":"xxx",
             "intent": - 此处为intent对象
         }`
-    );
+  );
 };
 
-const chat_with_bedrock = async (client,clientSetup,prompt) => {
-    const inputData = {
-        input: prompt,
-    };
-    // beforeCallback();
-    const options = {
-        url: clientSetup.url+"/api/bedrock/chat",
-        type: "POST",
-        headers: { Authorization: "Basic " + clientSetup.token },
-        secure: clientSetup.secure, // very important
-        contentType: "application/json",
-        data: JSON.stringify(inputData),
-    };
+const chat_with_bedrock = async (client, clientSetup, prompt) => {
+  const inputData = {
+    input: prompt,
+  };
+  // beforeCallback();
+  const options = {
+    url: clientSetup.url + "/api/bedrock/chat",
+    type: "POST",
+    headers: { Authorization: "Basic " + clientSetup.token },
+    secure: clientSetup.secure, // very important
+    contentType: "application/json",
+    data: JSON.stringify(inputData),
+  };
 
-    let response = await client.request(options);
-    return response.result.content[0]["text"];
+  let response = await client.request(options);
+  debugger
+  return response.result.content[0]["text"];
 };
 
 export const setUserIntentToTicket = async (
-    client,
-    ticket_id,
-    field_id,
-    value_array
+  client,
+  ticket_id,
+  field_id,
+  value_array
 ) => {
-    let input_data = {
-        ticket: {
-            custom_fields: [
-                {
-                    id: field_id || INTENT_FIELD_ID, //9704553495439,
-                    value: value_array, // ["account_points_redemption", "account_reset_password","product_info_product_recommendation"]
-                },
-            ],
+  let input_data = {
+    ticket: {
+      custom_fields: [
+        {
+          id: field_id || INTENT_FIELD_ID, //9704553495439,
+          value: value_array, // ["account_points_redemption", "account_reset_password","product_info_product_recommendation"]
         },
-    };
+      ],
+    },
+  };
 
-    let test = await client.get("ticketFields:custom_field_9704553495439");
-    console.log(test);
-    const options = {
-        url: TICKET_URL + ticket_id,
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify(input_data),
-    };
-    await client.request(options).then((response) => {
-        console.log("Update successfully");
-        console.log("--- > " + JSON.stringify(response));
-    });
-    //   await client.set("ticket.customField:fieldName", value);
+  const options = {
+    url: TICKET_URL + ticket_id,
+    type: "PUT",
+    contentType: "application/json",
+    data: JSON.stringify(input_data),
+  };
+  debugger
+  response = await client.request(options);
+  debugger
+  console.log("--- > " + JSON.stringify(response));
 };
-
 
 /**
  * 
@@ -182,27 +179,32 @@ export const setUserIntentToTicket = async (
 }
  * ```
  */
-const parse_claude3_intent =  (output)=>{
-    console.log("---- ")
-    console.log(output);
-    let json = JSON.parse(output);
-    let intent = json.intent;
-    let reason = json.reason;
-    console.log("debug --- reaons " + reason)
-    return [intent.value];
+const parse_claude3_intent = (output) => {
+  console.log("=============");
+  console.log(output);
+  let json = JSON.parse(output);
+  let intent = json.intent;
+  let reason = json.reason;
+  return {
+    reason: reason,
+    intent: intent,
+  };
+};
 
-}
+export const tag_intent_for_ticket = async (
+  client,
+  ticket_id,
+  userIntentList,
+  ticketContent,
+  clientSetup
+) => {
+  //make prompt
 
-export const tag_intent_for_ticket = async (client, ticket_id, userIntentList, ticketContent, clientSetup) => {
-    //make prompt 
-    
-    let prompt = build_intent_promot(userIntentList, ticketContent);
-    console.log(prompt)
-    let user_intent = await chat_with_bedrock(client,clientSetup,prompt);
-    debugger
-    // intent_suggests = await chat_with_bedrock();
-    //call bedrock to give value
-    let intents = parse_claude3_intent(user_intent);//How to get intents
-    //set value to ticket
-    await setUserIntentToTicket(client, ticket_id, INTENT_FIELD_ID, intents)
-}
+  let prompt = build_intent_promot(userIntentList, ticketContent);
+  console.log(prompt);
+  let user_intent = await chat_with_bedrock(client, clientSetup, prompt);
+  let intents = parse_claude3_intent(user_intent);
+  //set value to ticket
+  return intents;
+  await setUserIntentToTicket(client, ticket_id, INTENT_FIELD_ID, intents)
+};
