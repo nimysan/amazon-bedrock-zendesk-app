@@ -8,7 +8,6 @@ import { Button } from "@zendeskgarden/react-buttons";
 // import { ReactComponent as LeafIcon } from '@zendeskgarden/svg-icons/src/16/leaf-stroke.svg';
 import { Tooltip } from "@zendeskgarden/react-tooltips";
 import JSONPretty from "react-json-pretty";
-import JSONPrettyMon from "react-json-pretty/themes/monikai.css";
 
 import { Modal, Body, Close, Header } from "@zendeskgarden/react-modals";
 import { DrawerModal } from "@zendeskgarden/react-modals";
@@ -620,7 +619,7 @@ export default function App() {
                         null,
                         2
                       )}
-                      theme={JSONPrettyMon}
+                      // theme={JSONPrettyMon}
                     ></JSONPretty>
                   </Accordion.Panel>
                 </Accordion.Section>
