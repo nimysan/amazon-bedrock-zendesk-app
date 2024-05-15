@@ -128,7 +128,7 @@ export default function App() {
       input: prompt + " --> " + content,
     };
     const options = {
-      url: aiServerUrl + "/chat",
+      url: aiServerUrl + "/api/bedrock/chat",
       type: "POST",
       headers: { Authorization: "Basic " + aiServerToken },
       secure: API_ENDPOINTS.requestSecure, // very important
