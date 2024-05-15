@@ -79,7 +79,11 @@ export default function App() {
 
   //remote config list
   const [config, setConfig] = useState([]);
+
+  //intent
   const [aiIntent, setAiInent] = useState({});
+  const [ticketIntent, setTicketIntent] = useState([])
+
 
   //drawer
   const [isOpen, setIsOpen] = useState(false);
@@ -166,14 +170,31 @@ export default function App() {
   };
 
   //
-  const callAISuggest = () => {
+  const callAISuggest = async () => {
+    const field_options = {
+      url: "/api/v2/tickets/" + ticket.id + ".json",
+      type: "GET",
+      contentType: "application/json"
+    };
+    let ticket_fiels_resonse = await client.request(field_options);
+    debugger
+    let field_value = ticket_fiels_resonse.ticket.custom_fields.find((obj) => obj.id == INTENT_FIELD_ID)
+    
+    let ticket_intent = "";
+    if(field_value && field_value.value && field_value.value.length>0){
+      setTicketIntent(field_value?.value || [])
+      ticket_intent = field_value.value[0];
+    }
+
     const inputData = {
       input: questionContent,
+      ticketIntent: ticket_intent, //传第一个值
+      ticketBrand: "" + ticket.brand.id || "",
       filter: composeSearchFilter(),
     };
     setTranslatedAiSuggestContent("");
     const options = {
-      url: aiServerUrl + "/api/bedrock/rag",
+      url: aiServerUrl + "/api/bedrock/rag_with_rewrite",
       type: "POST",
       headers: { Authorization: "Basic " + aiServerToken },
       secure: API_ENDPOINTS.requestSecure, // very important
@@ -181,13 +202,11 @@ export default function App() {
       data: JSON.stringify(inputData),
     };
     setVisible(true);
-    client.request(options).then((response) => {
-      setVisible(false);
-      setAiSuggestResponse(response);
-      setAiSuggestContent(response.result.response.output.text);
-      // debugger
-      setCitations(response.result.response.citations);
-    });
+    let response = await client.request(options);
+    setVisible(false);
+    setAiSuggestResponse(response);
+    setAiSuggestContent(response.result.rewrite_value);
+    setCitations(response.result.response.citations);
   };
   const pormptChange = (e) => {
     setPrompt(e.target.value);
@@ -255,11 +274,9 @@ export default function App() {
         });
       logToRemote("1");
     }
-
   };
 
   const needImproveAction = () => {
-    
     if (checkAiSuggestContent()) {
       logToRemote("2", {
         "feedback": feedback
@@ -308,6 +325,7 @@ export default function App() {
     setUserIntentToTicket(client, ticket.id, INTENT_FIELD_ID, [
       aiIntent.intent.value,
     ]);
+    setTicketIntent([aiIntent.intent.value])
     setVisible(false);
   };
 
@@ -335,25 +353,36 @@ export default function App() {
       }
 
       const ticketResponse = await client.get("ticket");
-      // debugger;
       setTicket(ticketResponse["ticket"]);
+      // debugger
 
       const response = await client.get("currentUser");
       setUser(response["currentUser"]);
 
-      // debugger
+
 
       const ticketInfo = await client.get([
         "ticket.description",
         "ticket.subject",
-        "ticket.id",
+        "ticket.id"
       ]);
+
       const ticketContent =
         "subject " +
         ticketInfo["ticket.subject"] +
         "\r\ncontent " +
         ticketInfo["ticket.description"];
       setQuestionContent(ticketContent);
+      // debugger
+      const options = {
+        url: "/api/v2/tickets/" + ticketInfo['ticket.id'] + ".json",
+        type: "GET",
+        contentType: "application/json"
+      };
+      let ticket_fiels_resonse = await client.request(options);
+      let field_value = ticket_fiels_resonse.ticket.custom_fields.find((obj) => obj.id == INTENT_FIELD_ID)
+      setTicketIntent(field_value || [])
+      // debugger
     };
 
     fetchData();
@@ -364,7 +393,7 @@ export default function App() {
       <Grid>
         <Row>
           <Col>
-            <Label>Amazon Bedrock with Claude 3 for AI asserts</Label>
+            <Label>AI By Amazon Bedrock(Claude 3)</Label>
             <Button
               size="small"
               isDanger
@@ -377,27 +406,28 @@ export default function App() {
         </Row>
         <Row>
           <Col>
-            <Well>
-              <Button
-                size="small"
-                isDanger
-                onClick={handleIntentRetrieve}
-                style={{ marginLeft: 10 }}
-              >
-                识别意图
-              </Button>
-              <Well>{JSON.stringify(aiIntent)}</Well>
-              <Label>{aiIntent.reasaon}</Label>
-              <Label>{aiIntent.value}</Label>
-              <Button
-                size="small"
-                isDanger
-                onClick={adoptionIntent}
-                style={{ marginLeft: 10 }}
-              >
-                采纳意图
-              </Button>
-            </Well>
+            <Button
+              size="small"
+              isDanger
+              onClick={handleIntentRetrieve}
+              style={{ marginLeft: 10 }}
+            >
+              识别意图
+            </Button>
+            <Button
+              size="small"
+              isDanger
+              onClick={adoptionIntent}
+              style={{ marginLeft: 10 }}
+              disabled={!aiIntent.intent}
+            >
+              采纳意图
+            </Button>
+          </Col>
+          <Col>
+
+            <Label>{aiIntent?.reason}</Label>
+            <Label>{aiIntent?.intent?.value}</Label>
           </Col>
         </Row>
         <Row>
@@ -619,7 +649,7 @@ export default function App() {
                         null,
                         2
                       )}
-                      // theme={JSONPrettyMon}
+                    // theme={JSONPrettyMon}
                     ></JSONPretty>
                   </Accordion.Panel>
                 </Accordion.Section>
