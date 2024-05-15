@@ -95,20 +95,16 @@ const intent_description = `
 
 export const build_intent_promot = (options, content) => {
   return (
-    `你是一个客服服务人员, 请根据用户提交的内容去做用户意图识别. 
-        用户内容包含subject和content. 请以content为主要判别意图依据.
-        意外, 永远只输出一个最匹配的意图.
-        请从以下json数据中挑选匹配的意图.` +
+    `You are a customer service representative. Please perform intent recognition based on the user's submitted content, which includes a subject and content. Rely primarily on the content to determine the intent. Always output only the single most relevant intent. Select the matching intent from the following JSON data` +
     JSON.stringify(options) +
-    "每个意图的详细说明请参考 " +
+    "Please refer to the detailed description for each intent " +
     intent_description +
-    "-------- 客户咨询的内容为 ------" +
+    "-------- The content of the customer's inquiry is ------" +
     content +
-    `请按照给定的意图列表, 输出意图, 给出一个完整的JSON对象. 
-    输出格式为json,另外, 请确保输出的json是格式正确的, 包括有些json转义设置, 确保输出的json能够被解析. 格式如下:
+    `Please output the intent according to the provided list of intents, and provide a complete JSON object. The output format should be JSON, and please ensure that the outputted JSON is correctly formatted, including any necessary JSON escape settings, to ensure that the outputted JSON can be parsed correctly.Avoid quotation mark within a quotation mark, if encountering a quotation mark within a quotation mark, it needs to be single quotation mark instead. The format is as follows:
         {
-            "reason":"xxx",
-            "intent": - 此处为intent对象
+            "reason": "xxx",
+            "intent": intent object
         }`
   );
 };
@@ -134,31 +130,30 @@ const chat_with_bedrock = async (client, clientSetup, prompt) => {
 
 export const setUserIntentToTicket = async (
   client,
-  ticket_id,
+  ticket,
   field_id,
   value_array
 ) => {
+  
   let input_data = {
     ticket: {
       custom_fields: [
         {
           id: field_id || INTENT_FIELD_ID, //9704553495439,
-          value: value_array, // ["account_points_redemption", "account_reset_password","product_info_product_recommendation"]
+          value:value_array// ["account_points_redemption", "account_reset_password","product_info_product_recommendation"]
         },
       ],
+      "status":	ticket.status
     },
   };
 
   const options = {
-    url: TICKET_URL + ticket_id,
+    url: TICKET_URL + ticket.id,
     type: "PUT",
     contentType: "application/json",
     data: JSON.stringify(input_data),
   };
-  debugger
-  response = await client.request(options);
-  debugger
-  console.log("--- > " + JSON.stringify(response));
+  await client.request(options);
 };
 
 /**
@@ -193,7 +188,7 @@ const parse_claude3_intent = (output) => {
 
 export const tag_intent_for_ticket = async (
   client,
-  ticket_id,
+  ticket,
   userIntentList,
   ticketContent,
   clientSetup
@@ -204,7 +199,5 @@ export const tag_intent_for_ticket = async (
   console.log(prompt);
   let user_intent = await chat_with_bedrock(client, clientSetup, prompt);
   let intents = parse_claude3_intent(user_intent);
-  //set value to ticket
   return intents;
-  await setUserIntentToTicket(client, ticket_id, INTENT_FIELD_ID, intents)
 };

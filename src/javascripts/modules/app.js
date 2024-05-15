@@ -177,7 +177,7 @@ export default function App() {
       contentType: "application/json"
     };
     let ticket_fiels_resonse = await client.request(field_options);
-    debugger
+   
     let field_value = ticket_fiels_resonse.ticket.custom_fields.find((obj) => obj.id == INTENT_FIELD_ID)
     
     let ticket_intent = "";
@@ -192,6 +192,7 @@ export default function App() {
       ticketBrand: "" + ticket.brand.id || "",
       filter: composeSearchFilter(),
     };
+    debugger
     setTranslatedAiSuggestContent("");
     const options = {
       url: aiServerUrl + "/api/bedrock/rag_with_rewrite",
@@ -321,8 +322,8 @@ export default function App() {
 
   const adoptionIntent = async () => {
     setVisible(true);
-    // debugger
-    setUserIntentToTicket(client, ticket.id, INTENT_FIELD_ID, [
+    debugger
+    setUserIntentToTicket(client, ticket, INTENT_FIELD_ID, [
       aiIntent.intent.value,
     ]);
     setTicketIntent([aiIntent.intent.value])
