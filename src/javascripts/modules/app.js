@@ -10,7 +10,7 @@ import { Tooltip } from "@zendeskgarden/react-tooltips";
 import JSONPretty from "react-json-pretty";
 import JSONPrettyMon from "react-json-pretty/themes/monikai.css";
 
-import { Modal, Body, Close } from "@zendeskgarden/react-modals";
+import { Modal, Body, Close, Header } from "@zendeskgarden/react-modals";
 import { DrawerModal } from "@zendeskgarden/react-modals";
 import { PALETTE } from "@zendeskgarden/react-theming";
 import { Dots } from "@zendeskgarden/react-loaders";
@@ -70,6 +70,10 @@ export default function App() {
   //modal visible
   const [visible, setVisible] = useState(false);
 
+  //feedback modal visible
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
+  const [feedback, setFeedback] = useState("");
+
   //configuration
   const [aiServerUrl, setAiServerUrl] = useState("");
   const [aiServerToken, setAiServerToken] = useState("{{setting.apiToken}}");
@@ -99,7 +103,7 @@ export default function App() {
     return default_search_filter;
   };
 
-  const logToRemote = (action) => {
+  const logToRemote = (action, feedback) => {
     const inputData = {
       action: action,
       user: user.name,
@@ -111,6 +115,7 @@ export default function App() {
         kb_reference: citations,
         prompt_template: aiSuggestResponse.result.prompt,
         cost: aiSuggestResponse.result.cost_time,
+        feedback: feedback
       },
     };
     const options = {
@@ -189,6 +194,10 @@ export default function App() {
     setPrompt(e.target.value);
   };
 
+  const feedbackChange = (e) => {
+    setFeedback(e.target.value);
+  };
+
   const translateContentToCN = () => {
     callTranslate(
       "please translate below content to Chinese(简体中文)",
@@ -229,21 +238,44 @@ export default function App() {
     );
   };
 
+  const checkAiSuggestContent = () => {
+    // debugger
+    if (!aiSuggestContent) {
+      alert("没有填充")
+      return false;
+    }
+    return true;
+  }
+
   const adoptionSuggestion = () => {
-    client
-      .invoke("ticket.comment.appendText", aiSuggestContent)
-      .then(function () {
-        console.log("text has been appended");
-      });
-    logToRemote("1");
+    if (checkAiSuggestContent()) {
+      client
+        .invoke("ticket.comment.appendText", aiSuggestContent)
+        .then(function () {
+          console.log("text has been appended");
+        });
+      logToRemote("1");
+    }
+
   };
 
   const needImproveAction = () => {
-    logToRemote("2");
+    
+    if (checkAiSuggestContent()) {
+      logToRemote("2", {
+        "feedback": feedback
+      });
+    }
+    setFeedback("")
+    setFeedbackVisible(false);
+
   };
 
   const needMinorImproveAction = () => {
-    logToRemote("3");
+    if (checkAiSuggestContent()) {
+      logToRemote("3");
+    }
+
   };
 
   /**
@@ -385,7 +417,37 @@ export default function App() {
             </Modal>
           )}
         </Row>
-
+        <Row>
+          {feedbackVisible && (
+            <Modal onClose={() => setFeedbackVisible(false)}>
+              <Header tag="h2">Feedback</Header>
+              <Body>
+                <Row>
+                  <Col textAlign="center">
+                    <Textarea
+                      isResizable
+                      rows="4"
+                      value={feedback}
+                      onChange={feedbackChange}
+                    ></Textarea>
+                  </Col>
+                </Row>
+                <Row>
+                  <Button
+                    size="small"
+                    isPrimary
+                    isDanger
+                    onClick={needImproveAction}
+                    style={{ marginRight: 10 }}
+                  >
+                    Submit Feedback
+                  </Button>
+                </Row>
+              </Body>
+              <Close aria-label="Close modal" />
+            </Modal>
+          )}
+        </Row>
         <Row>
           <DrawerModal isOpen={isOpen} onClose={close}>
             <DrawerModal.Header tag="h2">Show RAG Prompt</DrawerModal.Header>
@@ -478,6 +540,7 @@ export default function App() {
                   size="small"
                   isPrimary
                   // isDanger
+                  disabled={aiSuggestContent == undefined}
                   onClick={adoptionSuggestion}
                   style={{ marginRight: 10 }}
                 >
@@ -489,7 +552,7 @@ export default function App() {
                   size="small"
                   isPrimary
                   isDanger
-                  onClick={needImproveAction}
+                  onClick={() => { setFeedbackVisible(true) }}
                   style={{ marginRight: 10 }}
                 >
                   Need Improve
