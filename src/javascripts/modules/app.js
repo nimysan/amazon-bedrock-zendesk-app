@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, DEFAULT_THEME } from "@zendeskgarden/react-theming";
 import { Grid, Row, Col } from "@zendeskgarden/react-grid";
-import { Well, Title } from "@zendeskgarden/react-notifications";
+import { Well, Alert } from "@zendeskgarden/react-notifications";
 import { Accordion } from "@zendeskgarden/react-accordions";
 import { Field, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Button } from "@zendeskgarden/react-buttons";
@@ -24,7 +24,7 @@ import {
 import {
   findUserIntent,
   tag_intent_for_ticket,
-  setUserIntentToTicket
+  setUserIntentToTicket,
 } from "../../javascripts/lib/utils";
 
 const client = ZAFClient.init();
@@ -114,7 +114,7 @@ export default function App() {
       },
     };
     const options = {
-      url: aiServerUrl + "/log",
+      url: aiServerUrl + "/api/log",
       type: "POST",
       headers: { Authorization: "Basic " + aiServerToken },
       secure: API_ENDPOINTS.requestSecure, // very important
@@ -166,11 +166,10 @@ export default function App() {
     const inputData = {
       input: questionContent,
       filter: composeSearchFilter(),
-      prompt: prompt,
     };
     setTranslatedAiSuggestContent("");
     const options = {
-      url: aiServerUrl + "/suggest",
+      url: aiServerUrl + "/api/bedrock/rag",
       type: "POST",
       headers: { Authorization: "Basic " + aiServerToken },
       secure: API_ENDPOINTS.requestSecure, // very important
@@ -243,10 +242,14 @@ export default function App() {
     logToRemote("2");
   };
 
+  const needMinorImproveAction = () => {
+    logToRemote("3");
+  };
+
   /**
    * handle intent retrieve
    */
-  const handleIntentRetrieve = async ()=>{
+  const handleIntentRetrieve = async () => {
     setVisible(true);
     //tag it
     let field_response = await client.request(API_ENDPOINTS.fields);
@@ -263,17 +266,19 @@ export default function App() {
         secure: API_ENDPOINTS.requestSecure,
       }
     );
-    debugger
+    // debugger
     setAiInent(intent);
     setVisible(false);
-  }
+  };
 
-  const adoptionIntent = async ()=>{
+  const adoptionIntent = async () => {
     setVisible(true);
     // debugger
-    setUserIntentToTicket(client, ticket.id, INTENT_FIELD_ID, [aiIntent.intent.value])
-    setVisible(false)
-  }
+    setUserIntentToTicket(client, ticket.id, INTENT_FIELD_ID, [
+      aiIntent.intent.value,
+    ]);
+    setVisible(false);
+  };
 
   /**
    * initialize data
@@ -283,17 +288,6 @@ export default function App() {
       const response = await axios.get("/api/config");
       setConfig(response.data);
       setPrompt(get_config_item("prompt_rag"));
-    };
-
-    const fetchFields = async () => {
-      client.request(API_ENDPOINTS.fields).then(
-        function (fields_reponse) {
-          setUserIntentList(JSON.stringify(findUserIntent(fields_reponse)));
-        },
-        function (response) {
-          console.error(response.responseText);
-        }
-      );
     };
 
     const fetchData = async () => {
@@ -329,7 +323,6 @@ export default function App() {
         "\r\ncontent " +
         ticketInfo["ticket.description"];
       setQuestionContent(ticketContent);
-      
     };
 
     fetchData();
@@ -338,7 +331,7 @@ export default function App() {
   return (
     <ThemeProvider theme={{ ...DEFAULT_THEME }}>
       <Grid>
-      <Row>
+        <Row>
           <Col>
             <Label>Amazon Bedrock with Claude 3 for AI asserts</Label>
             <Button
@@ -354,27 +347,25 @@ export default function App() {
         <Row>
           <Col>
             <Well>
-            <Button
-              size="small"
-              isDanger
-              onClick={handleIntentRetrieve}
-              style={{ marginLeft: 10 }}
-            >
-              识别意图
-            </Button>
-            <Well>
-              {JSON.stringify(aiIntent)}
-            </Well>
-            <Label>{aiIntent.reasaon}</Label>
-            <Label>{aiIntent.value}</Label>
-            <Button
-              size="small"
-              isDanger
-              onClick={adoptionIntent}
-              style={{ marginLeft: 10 }}
-            >
-              采纳意图
-            </Button>
+              <Button
+                size="small"
+                isDanger
+                onClick={handleIntentRetrieve}
+                style={{ marginLeft: 10 }}
+              >
+                识别意图
+              </Button>
+              <Well>{JSON.stringify(aiIntent)}</Well>
+              <Label>{aiIntent.reasaon}</Label>
+              <Label>{aiIntent.value}</Label>
+              <Button
+                size="small"
+                isDanger
+                onClick={adoptionIntent}
+                style={{ marginLeft: 10 }}
+              >
+                采纳意图
+              </Button>
             </Well>
           </Col>
         </Row>
@@ -394,7 +385,7 @@ export default function App() {
             </Modal>
           )}
         </Row>
-        
+
         <Row>
           <DrawerModal isOpen={isOpen} onClose={close}>
             <DrawerModal.Header tag="h2">Show RAG Prompt</DrawerModal.Header>
@@ -502,6 +493,17 @@ export default function App() {
                   style={{ marginRight: 10 }}
                 >
                   Need Improve
+                </Button>
+              </Tooltip>
+              <Tooltip content="Feedback">
+                <Button
+                  size="small"
+                  isPrimary
+                  isDanger
+                  onClick={needMinorImproveAction}
+                  style={{ marginRight: 10 }}
+                >
+                  Use it with minor changes
                 </Button>
               </Tooltip>
               <Tooltip content="Primary leaf">

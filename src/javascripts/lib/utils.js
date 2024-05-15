@@ -105,7 +105,7 @@ export const build_intent_promot = (options, content) => {
     "-------- 客户咨询的内容为 ------" +
     content +
     `请按照给定的意图列表, 输出意图, 给出一个完整的JSON对象. 
-        输出格式为json, 格式如下(另外, 请确保输出的json是格式正确的, 包括有些转码设置):
+    输出格式为json,另外, 请确保输出的json是格式正确的, 包括有些json转义设置, 确保输出的json能够被解析. 格式如下:
         {
             "reason":"xxx",
             "intent": - 此处为intent对象
