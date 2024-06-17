@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, DEFAULT_THEME } from "@zendeskgarden/react-theming";
 import { Grid, Row, Col } from "@zendeskgarden/react-grid";
-import { Well, Alert } from "@zendeskgarden/react-notifications";
 import { Accordion } from "@zendeskgarden/react-accordions";
 import { Field, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Button } from "@zendeskgarden/react-buttons";
 // import { ReactComponent as LeafIcon } from '@zendeskgarden/svg-icons/src/16/leaf-stroke.svg';
 import { Tooltip } from "@zendeskgarden/react-tooltips";
 import JSONPretty from "react-json-pretty";
+import { Tabs, TabList, Tab, TabPanel } from "@zendeskgarden/react-tabs";
 
 import { Modal, Body, Close, Header } from "@zendeskgarden/react-modals";
 import { DrawerModal } from "@zendeskgarden/react-modals";
-import { PALETTE } from "@zendeskgarden/react-theming";
-import { Dots } from "@zendeskgarden/react-loaders";
 
-import I18n from "../../javascripts/lib/i18n";
 import {
   resizeContainer,
   escapeSpecialChars as escape,
@@ -24,6 +21,7 @@ import {
   findUserIntent,
   tag_intent_for_ticket,
   setUserIntentToTicket,
+  composeAnslysisPrompt,
 } from "../../javascripts/lib/utils";
 
 const client = ZAFClient.init();
@@ -49,7 +47,7 @@ export default function App() {
   
   $output_format_instructions$
   `;
-
+  const [selectedTab, setSelectedTab] = useState("tab-1");
   const [ticket, setTicket] = useState({});
   const [user, setUser] = useState({});
   /**
@@ -82,13 +80,15 @@ export default function App() {
 
   //intent
   const [aiIntent, setAiInent] = useState({});
-  const [ticketIntent, setTicketIntent] = useState([])
-
+  const [ticketIntent, setTicketIntent] = useState([]);
 
   //drawer
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+
+  const [analysisResultInText, setAnalysisResultInText] = useState("");
+  const [analysisPrompt, setAnalysisPrompt] = useState("");
 
   //get config value
   const get_config_item = (key) => {
@@ -118,7 +118,7 @@ export default function App() {
         kb_reference: citations,
         prompt_template: aiSuggestResponse.result.prompt,
         cost: aiSuggestResponse.result.cost_time,
-        feedback: feedback
+        feedback: feedback,
       },
     };
     const options = {
@@ -153,6 +153,27 @@ export default function App() {
     });
   };
 
+  /**
+   * 调用chat接口
+   * @param {*} prompt
+   * @param {*} callback
+   */
+  const callChat = async (prompt) => {
+    const inputData = {
+      input: prompt,
+    };
+    const options = {
+      url: aiServerUrl + "/api/bedrock/chat",
+      type: "POST",
+      headers: { Authorization: "Basic " + aiServerToken },
+      secure: API_ENDPOINTS.requestSecure, // very important
+      contentType: "application/json",
+      data: JSON.stringify(inputData),
+    };
+    // setVisible(true);
+    return await client.request(options);
+  };
+
   //获取aws fetch api
   const fetchRemoteApi = (api, callback, responseCallback) => {
     const options = {
@@ -174,15 +195,17 @@ export default function App() {
     const field_options = {
       url: "/api/v2/tickets/" + ticket.id + ".json",
       type: "GET",
-      contentType: "application/json"
+      contentType: "application/json",
     };
     let ticket_fiels_resonse = await client.request(field_options);
-   
-    let field_value = ticket_fiels_resonse.ticket.custom_fields.find((obj) => obj.id == INTENT_FIELD_ID)
-    
+
+    let field_value = ticket_fiels_resonse.ticket.custom_fields.find(
+      (obj) => obj.id == INTENT_FIELD_ID
+    );
+
     let ticket_intent = "";
-    if(field_value && field_value.value && field_value.value.length>0){
-      setTicketIntent(field_value?.value || [])
+    if (field_value && field_value.value && field_value.value.length > 0) {
+      setTicketIntent(field_value?.value || []);
       ticket_intent = field_value.value[0];
     }
 
@@ -192,7 +215,7 @@ export default function App() {
       ticketBrand: "" + ticket.brand.id || "",
       filter: composeSearchFilter(),
     };
-    debugger
+    debugger;
     setTranslatedAiSuggestContent("");
     const options = {
       url: aiServerUrl + "/api/bedrock/rag_with_rewrite",
@@ -260,11 +283,11 @@ export default function App() {
   const checkAiSuggestContent = () => {
     // debugger
     if (!aiSuggestContent) {
-      alert("没有填充")
+      alert("没有填充");
       return false;
     }
     return true;
-  }
+  };
 
   const adoptionSuggestion = () => {
     if (checkAiSuggestContent()) {
@@ -280,19 +303,17 @@ export default function App() {
   const needImproveAction = () => {
     if (checkAiSuggestContent()) {
       logToRemote("2", {
-        "feedback": feedback
+        feedback: feedback,
       });
     }
-    setFeedback("")
+    setFeedback("");
     setFeedbackVisible(false);
-
   };
 
   const needMinorImproveAction = () => {
     if (checkAiSuggestContent()) {
       logToRemote("3");
     }
-
   };
 
   /**
@@ -322,11 +343,22 @@ export default function App() {
 
   const adoptionIntent = async () => {
     setVisible(true);
-    debugger
+    debugger;
     setUserIntentToTicket(client, ticket, INTENT_FIELD_ID, [
       aiIntent.intent.value,
     ]);
-    setTicketIntent([aiIntent.intent.value])
+    setTicketIntent([aiIntent.intent.value]);
+    setVisible(false);
+  };
+
+  // 通过AI来检查ticket内客服回复的质量
+  const customerServiceQualityAnalytics = async () => {
+    // ticket content always be initialized to ticket state
+    setVisible(true);
+    let prompt = composeAnslysisPrompt(ticket);
+    setAnalysisPrompt(prompt)
+    let response = await callChat(prompt);
+    setAnalysisResultInText(response.result.content[0].text);
     setVisible(false);
   };
 
@@ -355,17 +387,16 @@ export default function App() {
 
       const ticketResponse = await client.get("ticket");
       setTicket(ticketResponse["ticket"]);
+      // composeAnslysisPrompt(ticketResponse["ticket"])
       // debugger
 
       const response = await client.get("currentUser");
       setUser(response["currentUser"]);
 
-
-
       const ticketInfo = await client.get([
         "ticket.description",
         "ticket.subject",
-        "ticket.id"
+        "ticket.id",
       ]);
 
       const ticketContent =
@@ -376,13 +407,15 @@ export default function App() {
       setQuestionContent(ticketContent);
       // debugger
       const options = {
-        url: "/api/v2/tickets/" + ticketInfo['ticket.id'] + ".json",
+        url: "/api/v2/tickets/" + ticketInfo["ticket.id"] + ".json",
         type: "GET",
-        contentType: "application/json"
+        contentType: "application/json",
       };
       let ticket_fiels_resonse = await client.request(options);
-      let field_value = ticket_fiels_resonse.ticket.custom_fields.find((obj) => obj.id == INTENT_FIELD_ID)
-      setTicketIntent(field_value || [])
+      let field_value = ticket_fiels_resonse.ticket.custom_fields.find(
+        (obj) => obj.id == INTENT_FIELD_ID
+      );
+      setTicketIntent(field_value || []);
       // debugger
     };
 
@@ -392,272 +425,312 @@ export default function App() {
   return (
     <ThemeProvider theme={{ ...DEFAULT_THEME }}>
       <Grid>
+
         <Row>
           <Col>
             <Label>AI By Amazon Bedrock(Claude 3)</Label>
-            <Button
-              size="small"
-              isDanger
-              onClick={open}
-              style={{ marginLeft: 10 }}
-            >
-              Show RAG Prompt
-            </Button>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <Button
-              size="small"
-              isDanger
-              onClick={handleIntentRetrieve}
-              style={{ marginLeft: 10 }}
-            >
-              识别意图
-            </Button>
-            <Button
-              size="small"
-              isDanger
-              onClick={adoptionIntent}
-              style={{ marginLeft: 10 }}
-              disabled={!aiIntent.intent}
-            >
-              采纳意图
-            </Button>
-          </Col>
-          <Col>
-
-            <Label>{aiIntent?.reason}</Label>
-            <Label>{aiIntent?.intent?.value}</Label>
-          </Col>
-        </Row>
-        <Row>
-          {visible && (
-            <Modal onClose={() => setVisible(false)}>
-              {/* <Header tag="h2">AI Working</Header> */}
-              <Body>
-                <Row>
-                  <Col textAlign="center">
-                    {/* <Dots size={128} color={PALETTE.green[600]} /> */}
-                    <img class="loader" src="spinner.gif" />
-                  </Col>
-                </Row>
-              </Body>
-              <Close aria-label="Close modal" />
-            </Modal>
-          )}
-        </Row>
-        <Row>
-          {feedbackVisible && (
-            <Modal onClose={() => setFeedbackVisible(false)}>
-              <Header tag="h2">Feedback</Header>
-              <Body>
-                <Row>
-                  <Col textAlign="center">
-                    <Textarea
-                      isResizable
-                      rows="4"
-                      value={feedback}
-                      onChange={feedbackChange}
-                    ></Textarea>
-                  </Col>
-                </Row>
-                <Row>
+        <Tabs selectedItem={selectedTab} onChange={setSelectedTab}>
+          <TabList>
+            <Tab item="tab-1">AI建议</Tab>
+            <Tab item="tab-2">AI质检</Tab>
+            <Tab item="tab-3">Next</Tab>
+          </TabList>
+          <TabPanel item="tab-1">
+            <Grid>
+              <Row>
+                <Col>
+                  <Label>意图识别</Label>
+                </Col>
+                <Col>
                   <Button
                     size="small"
-                    isPrimary
                     isDanger
-                    onClick={needImproveAction}
-                    style={{ marginRight: 10 }}
+                    onClick={handleIntentRetrieve}
+                    style={{ marginLeft: 10 }}
                   >
-                    Submit Feedback
+                    识别意图
                   </Button>
-                </Row>
-              </Body>
-              <Close aria-label="Close modal" />
-            </Modal>
-          )}
-        </Row>
-        <Row>
-          <DrawerModal isOpen={isOpen} onClose={close}>
-            <DrawerModal.Header tag="h2">Show RAG Prompt</DrawerModal.Header>
-            <DrawerModal.Body>
-              <Textarea
-                isResizable
-                rows="12"
-                value={prompt}
-                onChange={pormptChange}
-              ></Textarea>
-            </DrawerModal.Body>
-            <DrawerModal.Footer>
-              <DrawerModal.FooterItem>
-                <Button isPrimary onClick={close}>
-                  Close
-                </Button>
-              </DrawerModal.FooterItem>
-            </DrawerModal.Footer>
-            <DrawerModal.Close />
-          </DrawerModal>
-        </Row>
-        <Row>
-          <Col sm={8}>
-            <Field>
-              <Label>Ticket Content</Label>
-              <Textarea
-                isResizable
-                value={questionContent}
-                rows="6"
-                onChange={(e) => setQuestionContent(e.target.value)}
-              ></Textarea>
-            </Field>
-            <Field style={{ marginTop: 10 }}>
-              <Tooltip content="Primary leaf">
-                <Button
-                  size="small"
-                  isPrimary
-                  onClick={callAISuggest}
-                  style={{ marginRight: 10 }}
-                >
-                  AI Suggest
-                </Button>
-              </Tooltip>
-              <Tooltip content="Primary leaf">
-                <Button
-                  size="small"
-                  onClick={translateContentToCN}
-                  style={{ marginRight: 10 }}
-                >
-                  翻译为中文
-                </Button>
-              </Tooltip>
-              <Tooltip content="Primary leaf">
-                <Button
-                  size="small"
-                  onClick={translateContentToEN}
-                  style={{ marginRight: 10 }}
-                >
-                  To English
-                </Button>
-              </Tooltip>
-            </Field>
-          </Col>
-          <Col>
-            <Field>
-              <Label>Tranlsated</Label>
-              <Textarea
-                isResizable
-                readonly
-                rows="6"
-                value={translatedQuestionContent}
-              />
-            </Field>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={8}>
-            <Field>
-              <Label>AI Suggest</Label>
-              <Textarea
-                isResizable
-                rows="6"
-                value={aiSuggestContent}
-                onChange={(e) => setAiSuggestContent(e.target.value)}
-              />
-            </Field>
-            <Field style={{ marginTop: 10 }}>
-              <Tooltip content="Primary leaf">
-                <Button
-                  size="small"
-                  isPrimary
-                  // isDanger
-                  disabled={aiSuggestContent == undefined}
-                  onClick={adoptionSuggestion}
-                  style={{ marginRight: 10 }}
-                >
-                  Use it
-                </Button>
-              </Tooltip>
-              <Tooltip content="Feedback">
-                <Button
-                  size="small"
-                  isPrimary
-                  isDanger
-                  onClick={() => { setFeedbackVisible(true) }}
-                  style={{ marginRight: 10 }}
-                >
-                  Need Improve
-                </Button>
-              </Tooltip>
-              <Tooltip content="Feedback">
-                <Button
-                  size="small"
-                  isPrimary
-                  isDanger
-                  onClick={needMinorImproveAction}
-                  style={{ marginRight: 10 }}
-                >
-                  Use it with minor changes
-                </Button>
-              </Tooltip>
-              <Tooltip content="Primary leaf">
-                <Button
-                  size="small"
-                  onClick={translateSuggestToCN}
-                  style={{ marginRight: 10 }}
-                >
-                  翻译为中文
-                </Button>
-              </Tooltip>
-              <Tooltip content="Primary leaf">
-                <Button
-                  size="small"
-                  onClick={translateSuggestToEN}
-                  style={{ marginRight: 10 }}
-                >
-                  To English
-                </Button>
-              </Tooltip>
-            </Field>
-          </Col>
-          <Col>
-            <Field>
-              <Label>Tranlsated</Label>
-              <Textarea
-                isResizable
-                rows="6"
-                readonly
-                value={translatedAiSuggestContent}
-              />
-            </Field>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Label>Source details</Label>
-            <Accordion level={4}>
-              {citations.map((citation, index) => (
-                <Accordion.Section key={index}>
-                  <Accordion.Header>
-                    <Accordion.Label>
-                      {citation.generatedResponsePart.textResponsePart.text}
-                    </Accordion.Label>
-                  </Accordion.Header>
-                  <Accordion.Panel>
-                    <Label>References</Label>
-                    <JSONPretty
-                      data={JSON.stringify(
-                        citation.retrievedReferences,
-                        null,
-                        2
-                      )}
-                    // theme={JSONPrettyMon}
-                    ></JSONPretty>
-                  </Accordion.Panel>
-                </Accordion.Section>
-              ))}
-            </Accordion>
-          </Col>
-        </Row>
+                  <Button
+                    size="small"
+                    isDanger
+                    onClick={adoptionIntent}
+                    style={{ marginLeft: 10 }}
+                    disabled={!aiIntent.intent}
+                  >
+                    采纳意图
+                  </Button>
+                </Col>
+                <Col>
+                  <Label>{aiIntent?.reason}</Label>
+                  <Label>{aiIntent?.intent?.value}</Label>
+                </Col>
+              </Row>
+              <Row>
+                {visible && (
+                  <Modal onClose={() => setVisible(false)}>
+                    {/* <Header tag="h2">AI Working</Header> */}
+                    <Body>
+                      <Row>
+                        <Col textAlign="center">
+                          {/* <Dots size={128} color={PALETTE.green[600]} /> */}
+                          <img class="loader" src="spinner.gif" />
+                        </Col>
+                      </Row>
+                    </Body>
+                    <Close aria-label="Close modal" />
+                  </Modal>
+                )}
+              </Row>
+              <Row>
+                {feedbackVisible && (
+                  <Modal onClose={() => setFeedbackVisible(false)}>
+                    <Header tag="h2">Feedback</Header>
+                    <Body>
+                      <Row>
+                        <Col textAlign="center">
+                          <Textarea
+                            isResizable
+                            rows="4"
+                            value={feedback}
+                            onChange={feedbackChange}
+                          ></Textarea>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Button
+                          size="small"
+                          isPrimary
+                          isDanger
+                          onClick={needImproveAction}
+                          style={{ marginRight: 10 }}
+                        >
+                          Submit Feedback
+                        </Button>
+                      </Row>
+                    </Body>
+                    <Close aria-label="Close modal" />
+                  </Modal>
+                )}
+              </Row>
+              <Row>
+                <DrawerModal isOpen={isOpen} onClose={close}>
+                  <DrawerModal.Header tag="h2">Show RAG Prompt</DrawerModal.Header>
+                  <DrawerModal.Body>
+                    <Textarea
+                      isResizable
+                      rows="12"
+                      value={prompt}
+                      onChange={pormptChange}
+                    ></Textarea>
+                  </DrawerModal.Body>
+                  <DrawerModal.Footer>
+                    <DrawerModal.FooterItem>
+                      <Button isPrimary onClick={close}>
+                        Close
+                      </Button>
+                    </DrawerModal.FooterItem>
+                  </DrawerModal.Footer>
+                  <DrawerModal.Close />
+                </DrawerModal>
+              </Row>
+              <Row>
+                <Col sm={8}>
+                  <Field>
+                    <Label>Ticket Content</Label>
+                    <Textarea
+                      isResizable
+                      value={questionContent}
+                      rows="6"
+                      onChange={(e) => setQuestionContent(e.target.value)}
+                    ></Textarea>
+                  </Field>
+                  <Field style={{ marginTop: 10 }}>
+                    <Tooltip content="Primary leaf">
+                      <Button
+                        size="small"
+                        isPrimary
+                        onClick={callAISuggest}
+                        style={{ marginRight: 10 }}
+                      >
+                        AI Suggest
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="Primary leaf">
+                      <Button
+                        size="small"
+                        onClick={translateContentToCN}
+                        style={{ marginRight: 10 }}
+                      >
+                        翻译为中文
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="Primary leaf">
+                      <Button
+                        size="small"
+                        onClick={translateContentToEN}
+                        style={{ marginRight: 10 }}
+                      >
+                        To English
+                      </Button>
+                    </Tooltip>
+                  </Field>
+                </Col>
+                <Col>
+                  <Field>
+                    <Label>Tranlsated</Label>
+                    <Textarea
+                      isResizable
+                      readonly
+                      rows="6"
+                      value={translatedQuestionContent}
+                    />
+                  </Field>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={8}>
+                  <Field>
+                    <Label>AI Suggest</Label>
+                    <Textarea
+                      isResizable
+                      rows="6"
+                      value={aiSuggestContent}
+                      onChange={(e) => setAiSuggestContent(e.target.value)}
+                    />
+                  </Field>
+                  <Field style={{ marginTop: 10 }}>
+                    <Tooltip content="Primary leaf">
+                      <Button
+                        size="small"
+                        isPrimary
+                        // isDanger
+                        disabled={aiSuggestContent == undefined}
+                        onClick={adoptionSuggestion}
+                        style={{ marginRight: 10 }}
+                      >
+                        Use it
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="Feedback">
+                      <Button
+                        size="small"
+                        isPrimary
+                        isDanger
+                        onClick={() => {
+                          setFeedbackVisible(true);
+                        }}
+                        style={{ marginRight: 10 }}
+                      >
+                        Need Improve
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="Feedback">
+                      <Button
+                        size="small"
+                        isPrimary
+                        isDanger
+                        onClick={needMinorImproveAction}
+                        style={{ marginRight: 10 }}
+                      >
+                        Use it with minor changes
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="Primary leaf">
+                      <Button
+                        size="small"
+                        onClick={translateSuggestToCN}
+                        style={{ marginRight: 10 }}
+                      >
+                        翻译为中文
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="Primary leaf">
+                      <Button
+                        size="small"
+                        onClick={translateSuggestToEN}
+                        style={{ marginRight: 10 }}
+                      >
+                        To English
+                      </Button>
+                    </Tooltip>
+                  </Field>
+                </Col>
+                <Col>
+                  <Field>
+                    <Label>Tranlsated</Label>
+                    <Textarea
+                      isResizable
+                      rows="6"
+                      readonly
+                      value={translatedAiSuggestContent}
+                    />
+                  </Field>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Label>Source details</Label>
+                  <Accordion level={4}>
+                    {citations.map((citation, index) => (
+                      <Accordion.Section key={index}>
+                        <Accordion.Header>
+                          <Accordion.Label>
+                            {citation.generatedResponsePart.textResponsePart.text}
+                          </Accordion.Label>
+                        </Accordion.Header>
+                        <Accordion.Panel>
+                          <Label>References</Label>
+                          <JSONPretty
+                            data={JSON.stringify(
+                              citation.retrievedReferences,
+                              null,
+                              2
+                            )}
+                          // theme={JSONPrettyMon}
+                          ></JSONPretty>
+                        </Accordion.Panel>
+                      </Accordion.Section>
+                    ))}
+                  </Accordion>
+                </Col>
+              </Row>
+            </Grid>
+          </TabPanel>
+          <TabPanel item="tab-2">
+            <Grid>
+              <Row>
+                <Col>
+                <Col textAlign="center">
+                          <Textarea
+                            isResizable
+                            rows="4"
+                            value={analysisPrompt}
+                          ></Textarea>
+                        </Col>
+                  <Button
+                    size="small"
+                    isDanger
+                    onClick={customerServiceQualityAnalytics}
+                    style={{ marginLeft: 10 }}
+                  >
+                    开始质检
+                  </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <pre>{analysisResultInText}</pre>
+                </Col>
+              </Row>
+            </Grid>
+          </TabPanel>
+          <TabPanel item="tab-3">
+            Coming Soon...
+          </TabPanel>
+        </Tabs>
+
       </Grid>
     </ThemeProvider>
   );
