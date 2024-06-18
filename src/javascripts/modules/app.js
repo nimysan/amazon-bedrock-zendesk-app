@@ -11,7 +11,7 @@ import { Tabs, TabList, Tab, TabPanel } from "@zendeskgarden/react-tabs";
 
 import { Modal, Body, Close, Header } from "@zendeskgarden/react-modals";
 import { DrawerModal } from "@zendeskgarden/react-modals";
-
+import { Body as TableBody, Cell, GroupRow, Head, HeaderCell, HeaderRow, Row as TableRow, Table } from '@zendeskgarden/react-tables';
 import {
   resizeContainer,
   escapeSpecialChars as escape,
@@ -88,6 +88,30 @@ export default function App() {
   const close = () => setIsOpen(false);
 
   const [analysisResultInText, setAnalysisResultInText] = useState("");
+  const [analysisResult, setAnalysisResult] = useState({
+    "total_score": 9.5,
+    "negative_list": [
+      {
+        "category": "sample",
+        "subcategory": "sample",
+        "detail": "smple",
+        "deduction_score": -0.5,
+        "item_reason": "sample",
+        "refer": "xxx"
+      }
+    ],
+    "positive_list": [
+      {
+        "category": "sample",
+        "subcategory": "sample",
+        "detail": "smple",
+        "deduction_score": 1,
+        "item_reason": "sample",
+        "refer": "xxx"
+      }
+    ],
+    "feedback": "测试例子"
+  });
   const [analysisPrompt, setAnalysisPrompt] = useState("");
 
   //get config value
@@ -358,7 +382,9 @@ export default function App() {
     let prompt = composeAnslysisPrompt(ticket);
     setAnalysisPrompt(prompt)
     let response = await callChat(prompt);
-    setAnalysisResultInText(response.result.content[0].text);
+    let result_string = response.result.content[0].text;
+    setAnalysisResultInText(result_string);
+    setAnalysisResult(JSON.parse(result_string))
     setVisible(false);
   };
 
@@ -702,13 +728,13 @@ export default function App() {
             <Grid>
               <Row>
                 <Col>
-                <Col textAlign="center">
-                          <Textarea
-                            isResizable
-                            rows="4"
-                            value={analysisPrompt}
-                          ></Textarea>
-                        </Col>
+                  <Col textAlign="center">
+                    <Textarea
+                      isResizable
+                      rows="4"
+                      value={analysisPrompt}
+                    ></Textarea>
+                  </Col>
                   <Button
                     size="small"
                     isDanger
@@ -721,8 +747,74 @@ export default function App() {
               </Row>
               <Row>
                 <Col>
-                  <pre>{analysisResultInText}</pre>
+                  <div style={{ overflowX: 'auto' }}>
+                    <Table style={{ minWidth: 500 }}>
+                      <Head>
+                        <HeaderRow>
+                          <HeaderCell>Category</HeaderCell>
+                          <HeaderCell>Sub Category</HeaderCell>
+                          <HeaderCell>detail</HeaderCell>
+                          <HeaderCell>deduction_score</HeaderCell>
+                          <HeaderCell>item_reason</HeaderCell>
+                          <HeaderCell>refer</HeaderCell>
+                        </HeaderRow>
+                      </Head>
+                      <TableBody>
+                        <GroupRow>
+                          <Cell colSpan={1}>
+                            <b>total_score</b>
+                          </Cell>
+                          <Cell colSpan={5}>
+                            <b>{analysisResult.total_score}</b>
+                          </Cell>
+                        </GroupRow>
+                        <GroupRow>
+                          <Cell colSpan={1}>
+                            <b>feedback</b>
+                          </Cell>
+                          <Cell colSpan={5}>
+                            <b>{analysisResult.feedback}</b>
+                          </Cell>
+                        </GroupRow>
+                        <GroupRow>
+                          <Cell colSpan={6}>
+                            <b>positive_list</b>
+                          </Cell>
+                        </GroupRow>
+                        {analysisResult.positive_list.map((item, index) => (
+                          <TableRow key={index}>
+                            <Cell>{item.category}</Cell>
+                            <Cell>{item.subcategory}</Cell>
+                            <Cell>{item.detail}</Cell>
+                            <Cell>{item.item_score}</Cell>
+                            <Cell>{item.item_reason}</Cell>
+                            <Cell>{item.refer}</Cell>
+                          </TableRow>
+                        ))}
+                        <GroupRow>
+                          <Cell colSpan={6}>
+                            <b>negative_list</b>
+                          </Cell>
+                        </GroupRow>
+                        {analysisResult.negative_list.map((item, index) => (
+                          <TableRow key={index}>
+                            <Cell>{item.category}</Cell>
+                            <Cell>{item.subcategory}</Cell>
+                            <Cell>{item.detail}</Cell>
+                            <Cell>{item.item_score}</Cell>
+                            <Cell>{item.item_reason}</Cell>
+                            <Cell>{item.refer}</Cell>
+                          </TableRow>
+                        ))}
+
+
+                      </TableBody>
+                    </Table>
+                  </div>
                 </Col>
+                {/* <Col>
+                  <pre>{analysisResultInText}</pre>
+                </Col> */}
               </Row>
             </Grid>
           </TabPanel>

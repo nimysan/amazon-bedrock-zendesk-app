@@ -129,32 +129,18 @@ const service_analysis_prompt_template = `
 5. 生成质检报告。
 
 输出结果为一个质检结果报告, 报告包含
-1. 总分(total_score): 计算所有质检项目的得分之和。
-3. 扣分项说明(negative_list): 详细说明每个扣分项的原因, 并给出改进建议, 每一项都要包含Standards中的category,subcategory,和detail, 和原文内容(refer)
-4. 加分项说明(positive_list): 详细说明每个加分项的原因,每一项都要包含Standard中的category,subcategory,和detail和原文内容(refer)
-6. 综合反馈(feedback): 从管理角度提供综合的优缺点分析总结。
 
-请开始分析并输出, 输出为json格式,直接输出json如下: {
+1. 扣分项说明(negative_list): 详细说明每个扣分项的原因, 并给出改进建议, 每一项都要包含Standards中的category,subcategory,和detail, 和原文内容(refer)
+2. 加分项说明(positive_list): 详细说明每个加分项的原因,每一项都要包含Standard中的category,subcategory,和detail和原文内容(refer)
+3. 总分(total_score): 计算所有质检项目的得分之和。基础分为10分, 减去扣分项, 加上加分项
+4. 综合反馈(feedback): 从管理角度提供综合的优缺点分析总结。
+
+请开始分析并输出, 输出为json格式,输出的json需要能够被JSON.parse解析, 如果有内容有", 请转换为'. 
+不要任何其他导言和修饰
 `;
 const quality_analysis_standard = `
 <?xml version='1.0' encoding='utf-8'?>
 <Quality_Inspection_Standards>
-    <Standard>
-        <Category>Quality Inspection Standards</Category>
-        <Subcategory>None</Subcategory>
-        <Details>None</Details>
-        <Deduction_Score>None</Deduction_Score>
-        <Frequency>None</Frequency>
-        <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
-    </Standard>
-    <Standard>
-        <Category>Category</Category>
-        <Subcategory>Subcategory</Subcategory>
-        <Details>Details</Details>
-        <Deduction_Score>Deduction Score</Deduction_Score>
-        <Frequency>Frequency</Frequency>
-        <Deduction_Score_Cumulative>Deduction Score（Cumulative）</Deduction_Score_Cumulative>
-    </Standard>
     <Standard>
         <Category>Basic Standards</Category>
         <Subcategory>Languages</Subcategory>
@@ -164,8 +150,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
         <Details>Lack of polite expressions such as "please," "thank you," "sorry," "may I," "excuse me," "trouble,"
             "request," etc.
         </Details>
@@ -174,8 +160,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
         <Details>Instant Messaging: Reply content is too long without assisting the customer in filtering and
             summarizing information, making it inconvenient to read and understand.
         </Details>
@@ -184,8 +170,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
         <Details>Calling: Speaking too fast or with a low volume, causing customers to have difficulty hearing.
         </Details>
         <Deduction_Score>-0.5</Deduction_Score>
@@ -193,7 +179,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Basic Standards</Category>
         <Subcategory>Email Format</Subcategory>
         <Details>Lack an opening greeting and a closing signature.</Details>
         <Deduction_Score>-0.5</Deduction_Score>
@@ -201,15 +187,15 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Basic Standards</Category>
+        <Subcategory>Email Format</Subcategory>
         <Details>Customer's name not capitalized at the beginning.</Details>
         <Deduction_Score>-0.5</Deduction_Score>
         <Frequency>0</Frequency>
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Basic Standards</Category>
         <Subcategory>Reception Standards</Subcategory>
         <Details>Only replying to the customer with a screenshot or a link without any relevant text explanation.
         </Details>
@@ -218,8 +204,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Basic Standards</Category>
+        <Subcategory>Reception Standards</Subcategory>
         <Details>Not identifying oneself when answering the phone, lacking polite greetings or welcoming phrases; not
             expressing gratitude or using polite farewells when ending the call.
         </Details>
@@ -228,8 +214,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Basic Standards</Category>
+        <Subcategory>Reception Standards</Subcategory>
         <Details>Not expressing gratitude or using polite farewells at the end of a chat conversation.</Details>
         <Deduction_Score>-0.5</Deduction_Score>
         <Frequency>0</Frequency>
@@ -250,8 +236,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Business Competence</Category>
+        <Subcategory>Completeness</Subcategory>
         <Details>Failing to handle customer issues according to policy, completing only part of the required actions or
             responses. (In cases where the policy clearly outlines the procedures for handling these types of issues)
         </Details>
@@ -260,7 +246,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Business Competence</Category>
         <Subcategory>Professionality</Subcategory>
         <Details>Providing customers with incorrect information (despite having access to the correct information)
         </Details>
@@ -269,16 +255,16 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
         <Details>Offering incorrect solutions (when the policy clearly states the correct resolution).</Details>
         <Deduction_Score>-5</Deduction_Score>
         <Frequency>0</Frequency>
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
         <Details>Unclear or Ambiguous Expression: Responding with content that is unclear or ambiguous, leading to
             customer misunderstandings.
         </Details>
@@ -287,7 +273,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Business Competence</Category>
         <Subcategory>Consistency</Subcategory>
         <Details>Unilaterally providing customers with inconsistent solutions compared to previous communication,
             without explaining the reasons for the adjustments.
@@ -297,7 +283,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Business Competence</Category>
         <Subcategory>Carefulness</Subcategory>
         <Details>Failing to provide relevant warnings regarding product usage risks, resulting in dissatisfaction and
             complaints when customers encounter issues due to their own interpretations or actions.
@@ -307,16 +293,16 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Business Competence</Category>
+        <Subcategory>Carefulness</Subcategory>
         <Details>Repeatedly verifying information that has already been provided.</Details>
         <Deduction_Score>-1</Deduction_Score>
         <Frequency>0</Frequency>
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>Business Competence</Category>
+        <Subcategory>Carefulness</Subcategory>
         <Details>Neglecting to verify certain information during the communication process, leading to the need for
             repeated communication (such as order numbers, purchase platforms, complaint reasons, image/video evidence,
             serial numbers, etc.).
@@ -326,7 +312,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Business Competence</Category>
         <Subcategory>Professionality</Subcategory>
         <Details>Failing to understand the customer's intention and providing irrelevant responses that are unrelated to
             the customer's specific problem.
@@ -336,7 +322,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Business Competence</Category>
         <Subcategory>Professionality</Subcategory>
         <Details>Failing to correct customer misunderstandings (when the customer has an incorrect understanding of a
             certain matter, and the customer service representative does not rectify or confirm the customer's
@@ -347,7 +333,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Business Competence</Category>
         <Subcategory>Efficiency</Subcategory>
         <Details>Not actively guiding the conversation, resulting in the communication straying from the main topic and
             unnecessarily prolonging the duration of the interaction.
@@ -366,7 +352,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Attitude</Category>
         <Subcategory>Proactiveness</Subcategory>
         <Details>Lacking proactiveness in service, not directly providing information that the customer inquires about
             but could be readily provided (such as product manuals, instructional videos, basic product parameters,
@@ -378,7 +364,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Attitude</Category>
         <Subcategory>Lack apology</Subcategory>
         <Details>Failing to appologize when replying to the customer after more than 24 hours.
             Failing to appologize when realized the mistakes or errors.
@@ -396,15 +382,15 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>System Operations</Category>
+        <Subcategory>OMS</Subcategory>
         <Details>Selecting the wrong reason for an RMA</Details>
         <Deduction_Score>-0.5</Deduction_Score>
         <Frequency>0</Frequency>
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>System Operations</Category>
         <Subcategory>Zendesk</Subcategory>
         <Details>Selecting the wrong or failing to select the appropriate category for the inquiry</Details>
         <Deduction_Score>-0.5</Deduction_Score>
@@ -412,8 +398,8 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>System Operations</Category>
+        <Subcategory>Zendesk</Subcategory>
         <Details>Failing to effectively record information based on the phone conversation or omitting customer-provided
             details such as order numbers, email addresses, SN codes, requirements, discount codes, etc.
         </Details>
@@ -422,7 +408,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>System Operations</Category>
         <Subcategory>OMS</Subcategory>
         <Details>Failure to fill in refund remarks as required.</Details>
         <Deduction_Score>-0.5</Deduction_Score>
@@ -430,7 +416,292 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>System Operations</Category>
+        <Subcategory>Esclation</Subcategory>
+        <Details>Esclating tickets when it is not necessary OR
+            not esclating tickets when it is necessary
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard><?xml version='1.0' encoding='utf-8'?>
+<Quality_Inspection_Standards>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
+        <Details>Occurrence of grammar errors, spelling mistakes, and excessive use of punctuation marks</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
+        <Details>Lack of polite expressions such as "please," "thank you," "sorry," "may I," "excuse me," "trouble,"
+            "request," etc.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
+        <Details>Instant Messaging: Reply content is too long without assisting the customer in filtering and
+            summarizing information, making it inconvenient to read and understand.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Languages</Subcategory>
+        <Details>Calling: Speaking too fast or with a low volume, causing customers to have difficulty hearing.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Email Format</Subcategory>
+        <Details>Lack an opening greeting and a closing signature.</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Email Format</Subcategory>
+        <Details>Customer's name not capitalized at the beginning.</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Reception Standards</Subcategory>
+        <Details>Only replying to the customer with a screenshot or a link without any relevant text explanation.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Reception Standards</Subcategory>
+        <Details>Not identifying oneself when answering the phone, lacking polite greetings or welcoming phrases; not
+            expressing gratitude or using polite farewells when ending the call.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Basic Standards</Category>
+        <Subcategory>Reception Standards</Subcategory>
+        <Details>Not expressing gratitude or using polite farewells at the end of a chat conversation.</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Completeness</Subcategory>
+        <Details>*Providing incomplete responses when the customer asks multiple questions, only answering a portion of
+            them.
+            *Reference or paraphrase customer's problem statement.
+            Where the problem statement is unavailable or unclear, establish the reason through use of relevant
+            questions.
+            Indicate understanding of the customer's reason to reach out.
+        </Details>
+        <Deduction_Score>-2</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Completeness</Subcategory>
+        <Details>Failing to handle customer issues according to policy, completing only part of the required actions or
+            responses. (In cases where the policy clearly outlines the procedures for handling these types of issues)
+        </Details>
+        <Deduction_Score>-2</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
+        <Details>Providing customers with incorrect information (despite having access to the correct information)
+        </Details>
+        <Deduction_Score>-5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
+        <Details>Offering incorrect solutions (when the policy clearly states the correct resolution).</Details>
+        <Deduction_Score>-5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
+        <Details>Unclear or Ambiguous Expression: Responding with content that is unclear or ambiguous, leading to
+            customer misunderstandings.
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Consistency</Subcategory>
+        <Details>Unilaterally providing customers with inconsistent solutions compared to previous communication,
+            without explaining the reasons for the adjustments.
+        </Details>
+        <Deduction_Score>-2</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Carefulness</Subcategory>
+        <Details>Failing to provide relevant warnings regarding product usage risks, resulting in dissatisfaction and
+            complaints when customers encounter issues due to their own interpretations or actions.
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Carefulness</Subcategory>
+        <Details>Repeatedly verifying information that has already been provided.</Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Carefulness</Subcategory>
+        <Details>Neglecting to verify certain information during the communication process, leading to the need for
+            repeated communication (such as order numbers, purchase platforms, complaint reasons, image/video evidence,
+            serial numbers, etc.).
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
+        <Details>Failing to understand the customer's intention and providing irrelevant responses that are unrelated to
+            the customer's specific problem.
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Professionality</Subcategory>
+        <Details>Failing to correct customer misunderstandings (when the customer has an incorrect understanding of a
+            certain matter, and the customer service representative does not rectify or confirm the customer's
+            misunderstanding, leading to subsequent customer dissatisfaction).
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Business Competence</Category>
+        <Subcategory>Efficiency</Subcategory>
+        <Details>Not actively guiding the conversation, resulting in the communication straying from the main topic and
+            unnecessarily prolonging the duration of the interaction.
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Attitude</Category>
+        <Subcategory>Emotional comfort</Subcategory>
+        <Details>Ignoring the customer's emotions and attitude, failing to provide emotional support to the customer.
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Attitude</Category>
+        <Subcategory>Proactiveness</Subcategory>
+        <Details>Lacking proactiveness in service, not directly providing information that the customer inquires about
+            but could be readily provided (such as product manuals, instructional videos, basic product parameters,
+            product promotions, order status, extended warranty information, RMA status, etc.), instead requiring the
+            customer to search for it themselves.
+        </Details>
+        <Deduction_Score>-1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Attitude</Category>
+        <Subcategory>Lack apology</Subcategory>
+        <Details>Failing to appologize when replying to the customer after more than 24 hours.
+            Failing to appologize when realized the mistakes or errors.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>System Operations</Category>
+        <Subcategory>OMS</Subcategory>
+        <Details>Creating incorrect RMA types</Details>
+        <Deduction_Score>-2</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>System Operations</Category>
+        <Subcategory>OMS</Subcategory>
+        <Details>Selecting the wrong reason for an RMA</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>System Operations</Category>
+        <Subcategory>Zendesk</Subcategory>
+        <Details>Selecting the wrong or failing to select the appropriate category for the inquiry</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>System Operations</Category>
+        <Subcategory>Zendesk</Subcategory>
+        <Details>Failing to effectively record information based on the phone conversation or omitting customer-provided
+            details such as order numbers, email addresses, SN codes, requirements, discount codes, etc.
+        </Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>System Operations</Category>
+        <Subcategory>OMS</Subcategory>
+        <Details>Failure to fill in refund remarks as required.</Details>
+        <Deduction_Score>-0.5</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>System Operations</Category>
         <Subcategory>Esclation</Subcategory>
         <Details>Esclating tickets when it is not necessary OR
             not esclating tickets when it is necessary
@@ -450,7 +721,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Red Line Guidelines</Category>
         <Subcategory>Confidential Information Disclosure</Subcategory>
         <Details>Unauthorized disclosure of company or customer confidential and private information (e.g., customer
             information mix-up and leakage, leakage of internal system links, etc.).
@@ -460,7 +731,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Red Line Guidelines</Category>
         <Subcategory>Failure to Report Major Customer Complaints</Subcategory>
         <Details>Failure to timely report or provide feedback on significant customer complaints according to the
             required process (e.g., incidents involving smoke, fire, melting, property damage, personal safety).
@@ -470,7 +741,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Red Line Guidelines</Category>
         <Subcategory>Violation of Platform Policies</Subcategory>
         <Details>Amazon Internal Messaging: Providing text versions of email addresses, including non-Amazon hyperlinks,
             URLs, and product ASINs, or induce customers to leave positive reviews.
@@ -480,7 +751,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Red Line Guidelines</Category>
         <Subcategory>Company Reputation Loss</Subcategory>
         <Details>Company reputation loss directly caused by customer service errors (such as negative comments with 100+
             likes and shares, major complaints from government and public organizations, legal complaints).
@@ -490,7 +761,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Red Line Guidelines</Category>
         <Subcategory>Procrastination</Subcategory>
         <Details>Failing to promptly handle various complaints/disputes, resulting in losing cases and negatively
             impacting account performance.
@@ -500,7 +771,7 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>Red Line Guidelines</Category>
         <Subcategory>Company Financial Loss</Subcategory>
         <Details>Company financial loss equivalent to or exceeding 500 dollars caused directly by customer service
             errors.
@@ -518,15 +789,15 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>bonus items</Category>
+        <Subcategory>Good Point</Subcategory>
         <Details>Successfully retaining a customer's return for refund request.</Details>
         <Deduction_Score>1</Deduction_Score>
         <Frequency>0</Frequency>
         <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>bonus items</Category>
         <Subcategory>Good ideas</Subcategory>
         <Details>Found smart solutions</Details>
         <Deduction_Score>2</Deduction_Score>
@@ -534,15 +805,15 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>bonus items</Category>
+        <Subcategory>Good ideas</Subcategory>
         <Details>Found mistakes in our website, or give suggestions which have been adapted by Jackery</Details>
         <Deduction_Score>2</Deduction_Score>
         <Frequency>None</Frequency>
         <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
+        <Category>bonus items</Category>
         <Subcategory>Well Performed</Subcategory>
         <Details>Handled difficult cases</Details>
         <Deduction_Score>1</Deduction_Score>
@@ -550,8 +821,127 @@ const quality_analysis_standard = `
         <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
     </Standard>
     <Standard>
-        <Category>None</Category>
-        <Subcategory>None</Subcategory>
+        <Category>bonus items</Category>
+        <Subcategory>Well Performed</Subcategory>
+        <Details>Customer praised the agent's behaviour</Details>
+        <Deduction_Score>2</Deduction_Score>
+        <Frequency>None</Frequency>
+        <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
+    </Standard>
+</Quality_Inspection_Standards>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Rude attitude</Subcategory>
+        <Details>Use of offensive, discriminatory, contemptuous, threatening, challenging, or questioning words during
+            customer communication.
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Confidential Information Disclosure</Subcategory>
+        <Details>Unauthorized disclosure of company or customer confidential and private information (e.g., customer
+            information mix-up and leakage, leakage of internal system links, etc.).
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Failure to Report Major Customer Complaints</Subcategory>
+        <Details>Failure to timely report or provide feedback on significant customer complaints according to the
+            required process (e.g., incidents involving smoke, fire, melting, property damage, personal safety).
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Violation of Platform Policies</Subcategory>
+        <Details>Amazon Internal Messaging: Providing text versions of email addresses, including non-Amazon hyperlinks,
+            URLs, and product ASINs, or induce customers to leave positive reviews.
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Company Reputation Loss</Subcategory>
+        <Details>Company reputation loss directly caused by customer service errors (such as negative comments with 100+
+            likes and shares, major complaints from government and public organizations, legal complaints).
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Procrastination</Subcategory>
+        <Details>Failing to promptly handle various complaints/disputes, resulting in losing cases and negatively
+            impacting account performance.
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>Red Line Guidelines</Category>
+        <Subcategory>Company Financial Loss</Subcategory>
+        <Details>Company financial loss equivalent to or exceeding 500 dollars caused directly by customer service
+            errors.
+        </Details>
+        <Deduction_Score>-10</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>bonus items</Category>
+        <Subcategory>Good Point</Subcategory>
+        <Details>Successfully retaining a customer's request to cancel an order.</Details>
+        <Deduction_Score>1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>bonus items</Category>
+        <Subcategory>Good Point</Subcategory>
+        <Details>Successfully retaining a customer's return for refund request.</Details>
+        <Deduction_Score>1</Deduction_Score>
+        <Frequency>0</Frequency>
+        <Deduction_Score_Cumulative>0</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>bonus items</Category>
+        <Subcategory>Good ideas</Subcategory>
+        <Details>Found smart solutions</Details>
+        <Deduction_Score>2</Deduction_Score>
+        <Frequency>None</Frequency>
+        <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>bonus items</Category>
+        <Subcategory>Good ideas</Subcategory>
+        <Details>Found mistakes in our website, or give suggestions which have been adapted by Jackery</Details>
+        <Deduction_Score>2</Deduction_Score>
+        <Frequency>None</Frequency>
+        <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>bonus items</Category>
+        <Subcategory>Well Performed</Subcategory>
+        <Details>Handled difficult cases</Details>
+        <Deduction_Score>1</Deduction_Score>
+        <Frequency>None</Frequency>
+        <Deduction_Score_Cumulative>None</Deduction_Score_Cumulative>
+    </Standard>
+    <Standard>
+        <Category>bonus items</Category>
+        <Subcategory>Well Performed</Subcategory>
         <Details>Customer praised the agent's behaviour</Details>
         <Deduction_Score>2</Deduction_Score>
         <Frequency>None</Frequency>
