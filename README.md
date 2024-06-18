@@ -31,7 +31,7 @@
 ![端到端托管的RAG工作流](https://d1.awsstatic.com/xuefezha-steven/hbxin-jg-1.15b387969a1e1843beb49285af9c5324da4cff77.png)
 
 
-## 工作流
+## 自动回复 - 工作流
 
 1. 根据提供的意图分类, 使用Claude 3识别客户咨询意图(售前、售后、复购、换货等)
 
@@ -46,6 +46,12 @@
 ## 工作台展示
 
 ![app](./doc/app.png)
+
+## AI质检 工作台展示
+
+> 针对已经完结的咨询工单, 自动读取完整对话记录, 区分角色并使用Claude 3对客服的表现从多个维度进行打分
+
+![alt text](image-2.png)
 
 ## 架构说明
 
