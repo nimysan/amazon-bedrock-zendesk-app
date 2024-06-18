@@ -1,0 +1,55 @@
+{
+  "ticket": {
+    "external_id": null,
+    "brand_id": 360001901175,
+    "status": "solved",
+    "problem_id": "",
+    "group_id": 360008833015,
+    "assignee_id": 7440451595023,
+    "tags": [
+      "account_change_account",
+      "account_login_to_account",
+      "account_member_registration",
+      "account_points_redemption",
+      "account_reset_password",
+      "group_a"
+    ],
+    "via": { "channel": "Web form" },
+    "followers": [],
+    "email_ccs": [],
+    "requester_id": 9627049506959,
+    "updated_stamp": "2024-05-14T09:51:47.000Z",
+    "safe_update": true,
+    "custom_fields": [
+      { "id": 4447344337167, "value": "" },
+      { "id": 4714205117711, "value": "" },
+      { "id": 5375803293711, "value": "" },
+      { "id": 4411428538383, "value": "" },
+      { "id": 5845813794575, "value": "" },
+      { "id": 5193975314959, "value": "0" },
+      { "id": 360024548436, "value": "" },
+      { "id": 4411764395407, "value": "" },
+      { "id": 5290115433103, "value": "" },
+      { "id": 4411428543119, "value": "" },
+      { "id": 5290183600783, "value": "" },
+      { "id": 4412097609871, "value": "" },
+      { "id": 360024479916, "value": "" },
+      { "id": 7586589783311, "value": "" },
+      { "id": 7299148780815, "value": "" },
+      { "id": 7329440902415, "value": "" },
+      { "id": 7585726191375, "value": "" },
+      { "id": 7638368969231, "value": "" },
+      { "id": 6690872228367, "value": "" },
+      { "id": 6292377404559, "value": "" },
+      { "id": 6360783040143, "value": "group_a" },
+      {
+        "id": 9704553495439,
+        "value": ["account_points_redemption", "account_reset_password"]
+      },
+      { "id": 7329425441679, "value": "" },
+      { "id": 7329447147151, "value": "" }
+    ],
+    "subject": "Aemaild3v-jackeryjapan.zendesk.comAemail",
+    "ticket_form_id": 360011843555
+  }
+}
