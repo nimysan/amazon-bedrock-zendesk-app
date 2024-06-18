@@ -25,6 +25,9 @@
 
 5. Claude3支持多语言理解能力（MGSM），为面向日语、德语、英语等不同市场的客服提供统一的AI能力。
 
+
+> 开箱即用、端到端托管的RAG工作流 
+
 ![端到端托管的RAG工作流](https://d1.awsstatic.com/xuefezha-steven/hbxin-jg-1.15b387969a1e1843beb49285af9c5324da4cff77.png)
 
 
