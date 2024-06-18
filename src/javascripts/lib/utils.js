@@ -10,7 +10,7 @@ const INTENT_FIELD_ID = 9704553495439; //可能需要后期配置修改
  */
 function replaceKeywordsInTemplate(template, replacements) {
   let result = template;
-  debugger
+//   debugger 
   // 遍历需要替换的关键字和对应的值
   for (const [keyword, replacement] of Object.entries(replacements)) {
     // 使用正则表达式替换关键字
@@ -981,7 +981,7 @@ const chat_with_bedrock = async (client, clientSetup, prompt) => {
   };
 
   let response = await client.request(options);
-  debugger
+//   debugger 
   return response.result.content[0]["text"];
 };
 

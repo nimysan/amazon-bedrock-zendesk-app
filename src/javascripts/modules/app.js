@@ -383,6 +383,16 @@ export default function App() {
     setAnalysisPrompt(prompt)
     let response = await callChat(prompt);
     let result_string = response.result.content[0].text;
+    let json_obj = {}
+    try {
+      json_obj = JSON.parse(result_string);
+    } catch (error) {
+      //改写json内容, 确保可以被解析
+      debugger
+      let response = await callChat(result_string + " 修改前面的json, 确保能够json被解析, 主要影响的是属性的值里面包含有\", 请修改为', 然后如果出现 {}, 请转意");
+      result_string = response.result.content[0].text;
+      json_obj = JSON.parse(result_string);
+    }
     setAnalysisResultInText(result_string);
     setAnalysisResult(JSON.parse(result_string))
     setVisible(false);
