@@ -4,10 +4,12 @@ import { Grid, Row, Col } from "@zendeskgarden/react-grid";
 import { Accordion } from "@zendeskgarden/react-accordions";
 import { Field, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Button } from "@zendeskgarden/react-buttons";
-// import { ReactComponent as LeafIcon } from '@zendeskgarden/svg-icons/src/16/leaf-stroke.svg';
+
+// import { ReactComponent as SmileyIcon } from '@zendeskgarden/svg-icons/src/16/123-fill.svg';
 import { Tooltip } from "@zendeskgarden/react-tooltips";
 import JSONPretty from "react-json-pretty";
 import { Tabs, TabList, Tab, TabPanel } from "@zendeskgarden/react-tabs";
+// import { IconName } from "react-icons/gi";
 
 import { Modal, Body, Close, Header } from "@zendeskgarden/react-modals";
 import { DrawerModal } from "@zendeskgarden/react-modals";
@@ -583,7 +585,7 @@ export default function App() {
                     ></Textarea>
                   </Field>
                   <Field style={{ marginTop: 10 }}>
-                    <Tooltip content="Primary leaf">
+                    <Tooltip content="call ai suggest">
                       <Button
                         size="small"
                         isPrimary
@@ -751,7 +753,7 @@ export default function App() {
                     onClick={customerServiceQualityAnalytics}
                     style={{ marginLeft: 10 }}
                   >
-                    开始质检
+                    开始质检 
                   </Button>
                 </Col>
               </Row>
@@ -784,6 +786,22 @@ export default function App() {
                           </Cell>
                           <Cell colSpan={5}>
                             <b>{analysisResult.feedback}</b>
+                          </Cell>
+                        </GroupRow>
+                        <GroupRow>
+                          <Cell colSpan={1}>
+                            <b>customer_emotion</b>
+                          </Cell>
+                          <Cell colSpan={5}>
+                            <b>{analysisResult.customer_emotion}</b>
+                          </Cell>
+                        </GroupRow>
+                        <GroupRow>
+                          <Cell colSpan={1}>
+                            <b>agent_emotion</b>
+                          </Cell>
+                          <Cell colSpan={5}>
+                            <b>{analysisResult.agent_emotion}</b>
                           </Cell>
                         </GroupRow>
                         <GroupRow>
