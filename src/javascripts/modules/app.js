@@ -89,6 +89,8 @@ export default function App() {
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
 
+  // const [analysisResultInText, setAnalysisResultInText] = useState("");
+
   const [analysisResultInText, setAnalysisResultInText] = useState("");
   const [analysisResult, setAnalysisResult] = useState({
     "total_score": 9.5,
@@ -121,6 +123,28 @@ export default function App() {
     const prompt_rag_obj = config.find((obj) => obj.item_key === key);
     return prompt_rag_obj?.item_value;
   };
+
+  // Helper function to find the event before the last 'message_end' event
+
+  const findEventBeforeLastMessageEnd = (events) => {
+
+    let lastMessageEndIndex = events.length - 1;
+
+    while (lastMessageEndIndex >= 0 && events[lastMessageEndIndex].event !== 'message_end') {
+
+      lastMessageEndIndex--;
+
+    }
+
+
+
+    if (lastMessageEndIndex > 0) {
+
+      return events[lastMessageEndIndex - 1];
+
+    }
+    return null;
+  }
 
   const default_search_filter = {
     // "equals": {
@@ -184,20 +208,78 @@ export default function App() {
    * @param {*} prompt
    * @param {*} callback
    */
-  const callChat = async (prompt) => {
-    const inputData = {
-      input: prompt,
+  const callDifyAgent = async (message, conversationId = null) => {
+    const url = "https://dify.plaza.red/v1/chat-messages";
+
+    const headers = {
+      "Authorization": "Bearer app-22rGlxQJopqiOpZPfhKnMqfm",
+      "Content-Type": "application/json"
     };
-    const options = {
-      url: aiServerUrl + "/api/bedrock/chat",
-      type: "POST",
-      headers: { Authorization: "Basic " + aiServerToken },
-      secure: API_ENDPOINTS.requestSecure, // very important
-      contentType: "application/json",
-      data: JSON.stringify(inputData),
+    debugger
+
+    const payload = {
+      inputs: {},
+      query: message,
+      user: "abc-123",
+      response_mode: "streaming",
+      conversation_id: conversationId
     };
-    // setVisible(true);
-    return await client.request(options);
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(payload)
+      });
+
+      // debu
+      // console.log(await response.text());  // This is equivalent to logging the response content
+      const reader = await response.body.getReader();
+      const decoder = new TextDecoder();
+      let result = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        result += decoder.decode(value, { stream: true });
+      }
+
+      console.log(result);  // Log the full response
+      debugger
+      // Parse the result into JSON objects
+
+      const jsonObjects = result.split('\n\n')
+
+        .filter(line => line.trim() !== '')
+
+        .map(line => {
+
+          try {
+
+            return JSON.parse(line.replace(/^data: /, ''));
+
+          } catch (e) {
+
+            console.error('Failed to parse JSON:', line);
+
+            return null;
+
+          }
+
+        })
+
+        .filter(obj => obj !== null);
+
+
+      // Find the event before the last 'message_end' event
+      
+      let copolit_result =  findEventBeforeLastMessageEnd(jsonObjects);
+      debugger
+      return copolit_result
+
+    } catch (error) {
+      console.error("An error occurred:", error);
+      return null;
+    }
   };
 
   //获取aws fetch api
@@ -400,6 +482,24 @@ export default function App() {
     setVisible(false);
   };
 
+  // 通过AI来检查ticket内客服回复的质量
+  const customerCopilot = async () => {
+    // ticket content always be initialized to ticket state
+    setVisible(true);
+    // let prompt = composeAnslysisPrompt(ticket);
+    // setAnalysisPrompt(prompt)
+    // const result = 
+    console.log("questionContent "+ questionContent)
+    debugger
+    let result = await callDifyAgent(questionContent);
+    debugger
+    setAiSuggestResponse(JSON.stringifyresult);
+    setAiSuggestContent(result.thought);
+    // setAnalysisResultInText(result_string);
+    // setAnalysisResult(JSON.parse(result_string))
+    setVisible(false);
+  };
+
   /**
    * initialize data
    */
@@ -473,7 +573,7 @@ export default function App() {
           <TabList>
             <Tab item="tab-1">AI建议</Tab>
             <Tab item="tab-2">AI质检</Tab>
-            <Tab item="tab-3">Next</Tab>
+            <Tab item="tab-3">CoPolit</Tab>
           </TabList>
           <TabPanel item="tab-1">
             <Grid>
@@ -593,6 +693,16 @@ export default function App() {
                         style={{ marginRight: 10 }}
                       >
                         AI Suggest
+                      </Button>
+                    </Tooltip>
+                    <Tooltip content="call ai copilot">
+                      <Button
+                        size="small"
+                        isPrimary
+                        onClick={customerCopilot}
+                        style={{ marginRight: 10 }}
+                      >
+                        AI Copolit
                       </Button>
                     </Tooltip>
                     <Tooltip content="Primary leaf">
@@ -753,7 +863,7 @@ export default function App() {
                     onClick={customerServiceQualityAnalytics}
                     style={{ marginLeft: 10 }}
                   >
-                    开始质检 
+                    开始质检
                   </Button>
                 </Col>
               </Row>
@@ -848,6 +958,14 @@ export default function App() {
           </TabPanel>
           <TabPanel item="tab-3">
             Coming Soon...
+            <Button
+              size="small"
+              isDanger
+              onClick={customerCopilot}
+              style={{ marginLeft: 10 }}
+            >
+              开始辅助
+            </Button>
           </TabPanel>
         </Tabs>
 

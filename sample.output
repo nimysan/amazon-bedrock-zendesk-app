@@ -1,0 +1,11 @@
+Justication:
+
+In the Huabao case, Xiaowei rapidly developed and iterated a Zendesk-based AI solution within a week, followed by 4-5 additional versions over two months. This swift deployment enabled Huabao to leverage GenAI capabilities for 15,000 monthly customer consultation tickets, providing AI-assisted responses and quality checks. His proactive approach facilitated Huabao's participation in the Summit and MFG Forum, showcasing the solution as a case study and promoting GenAI adoption.
+
+For Mktech, Xiaowei collaborated closely with the client to conduct comparative testing across multiple machine types, including vt1, gravition 2,3, G4dn, and G5, ultimately identifying G5 as the most cost-effective choice. He helped the customer swiftly complete the migration of the transcoding workload from IDC to AWS before the 2024 UEFA European Football Championship (starting June 12) and the 2024 CONMEBOL Copa América (starting June 14). Subsequently, he worked with the client to validate that a single A10 GPU could handle both transcoding and CUDA computing tasks simultaneously, further improving machine utilization and earning the client's trust.
+
+2. Highlights (in 3 sentences):
+
+- Delivered a Zendesk-based AI solution for Huabao including a frontend web page and 15+ APIs based on the Knowledge base for Amazon Bedrock, enabling 15,000 monthly customer consultation tickets and promoting GenAI adoption through Summit and MFG Forum showcases.
+- Facilitated Mktech's migration of transcoding workload to the cloud within a month, generating a quarterly MRR of $30K and helping the customer enable live streaming for the 2024 European and American cups in South America.
+- Validated the dual workload capability of the A10 GPU, with 70% of G5 instances currently running both workloads, further reducing Mktech's AWS TCO and earning client trust.
