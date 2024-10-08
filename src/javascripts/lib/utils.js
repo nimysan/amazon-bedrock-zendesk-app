@@ -9,25 +9,25 @@ const INTENT_FIELD_ID = 9704553495439; //可能需要后期配置修改
  * @returns {string} 替换后的字符串
  */
 function replaceKeywordsInTemplate(template, replacements) {
-  let result = template;
-//   debugger 
-  // 遍历需要替换的关键字和对应的值
-  for (const [keyword, replacement] of Object.entries(replacements)) {
-    // 使用正则表达式替换关键字
-    const regex = new RegExp(keyword, 'g');
-    result = result.replace(regex, replacement);
-  }
+    let result = template;
+    //   debugger 
+    // 遍历需要替换的关键字和对应的值
+    for (const [keyword, replacement] of Object.entries(replacements)) {
+        // 使用正则表达式替换关键字
+        const regex = new RegExp(keyword, 'g');
+        result = result.replace(regex, replacement);
+    }
 
-  return result;
+    return result;
 }
 
 export const findUserIntent = (fields) => {
-  const fields_array = fields.ticket_fields;
+    const fields_array = fields.ticket_fields;
 
-  const userIntent = fields_array.find((obj) => obj.id == INTENT_FIELD_ID);
-  // debugger
-  let filed_options = userIntent.custom_field_options;
-  return filed_options;
+    const userIntent = fields_array.find((obj) => obj.id == INTENT_FIELD_ID);
+    // debugger
+    let filed_options = userIntent.custom_field_options;
+    return filed_options;
 };
 
 const intent_description = `
@@ -952,66 +952,66 @@ const quality_analysis_standard = `
 `
 
 export const build_intent_promot = (options, content) => {
-  return (
-    `You are a customer service representative. Please perform intent recognition based on the user's submitted content, which includes a subject and content. Rely primarily on the content to determine the intent. Always output only the single most relevant intent. Select the matching intent from the following JSON data` +
-    JSON.stringify(options) +
-    "Please refer to the detailed description for each intent " +
-    intent_description +
-    "-------- The content of the customer's inquiry is ------" +
-    content +
-    `Please output the intent according to the provided list of intents, and provide a complete JSON object. The output format should be JSON, and please ensure that the outputted JSON is correctly formatted, including any necessary JSON escape settings, to ensure that the outputted JSON can be parsed correctly.Avoid quotation mark within a quotation mark, if encountering a quotation mark within a quotation mark, it needs to be single quotation mark instead. The format is as follows:
+    return (
+        `You are a customer service representative. Please perform intent recognition based on the user's submitted content, which includes a subject and content. Rely primarily on the content to determine the intent. Always output only the single most relevant intent. Select the matching intent from the following JSON data` +
+        JSON.stringify(options) +
+        "Please refer to the detailed description for each intent " +
+        intent_description +
+        "-------- The content of the customer's inquiry is ------" +
+        content +
+        `Please output the intent according to the provided list of intents, and provide a complete JSON object. The output format should be JSON, and please ensure that the outputted JSON is correctly formatted, including any necessary JSON escape settings, to ensure that the outputted JSON can be parsed correctly.Avoid quotation mark within a quotation mark, if encountering a quotation mark within a quotation mark, it needs to be single quotation mark instead. The format is as follows:
         {
             "reason": "xxx",
             "intent": intent object
         }`
-  );
+    );
 };
 
 const chat_with_bedrock = async (client, clientSetup, prompt) => {
-  const inputData = {
-    input: prompt,
-  };
-  // beforeCallback();
-  const options = {
-    url: clientSetup.url + "/api/bedrock/chat",
-    type: "POST",
-    headers: { Authorization: "Basic " + clientSetup.token },
-    secure: clientSetup.secure, // very important
-    contentType: "application/json",
-    data: JSON.stringify(inputData),
-  };
+    const inputData = {
+        input: prompt,
+    };
+    // beforeCallback();
+    const options = {
+        url: clientSetup.url + "/api/bedrock/chat",
+        type: "POST",
+        headers: { Authorization: "Basic " + clientSetup.token },
+        secure: clientSetup.secure, // very important
+        contentType: "application/json",
+        data: JSON.stringify(inputData),
+    };
 
-  let response = await client.request(options);
-//   debugger 
-  return response.result.content[0]["text"];
+    let response = await client.request(options);
+    //   debugger 
+    return response.result.content[0]["text"];
 };
 
 export const setUserIntentToTicket = async (
-  client,
-  ticket,
-  field_id,
-  value_array
+    client,
+    ticket,
+    field_id,
+    value_array
 ) => {
 
-  let input_data = {
-    ticket: {
-      custom_fields: [
-        {
-          id: field_id || INTENT_FIELD_ID, //9704553495439,
-          value: value_array// ["account_points_redemption", "account_reset_password","product_info_product_recommendation"]
+    let input_data = {
+        ticket: {
+            custom_fields: [
+                {
+                    id: field_id || INTENT_FIELD_ID, //9704553495439,
+                    value: value_array// ["account_points_redemption", "account_reset_password","product_info_product_recommendation"]
+                },
+            ],
+            "status": ticket.status
         },
-      ],
-      "status": ticket.status
-    },
-  };
+    };
 
-  const options = {
-    url: TICKET_URL + ticket.id,
-    type: "PUT",
-    contentType: "application/json",
-    data: JSON.stringify(input_data),
-  };
-  await client.request(options);
+    const options = {
+        url: TICKET_URL + ticket.id,
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(input_data),
+    };
+    await client.request(options);
 };
 
 /**
@@ -1033,66 +1033,67 @@ export const setUserIntentToTicket = async (
  * ```
  */
 const parse_claude3_intent = (output) => {
-  console.log("=============");
-  console.log(output);
-  let json = JSON.parse(output);
-  let intent = json.intent;
-  let reason = json.reason;
-  return {
-    reason: reason,
-    intent: intent,
-  };
+    console.log("=============");
+    console.log(output);
+    let json = JSON.parse(output);
+    let intent = json.intent;
+    let reason = json.reason;
+    return {
+        reason: reason,
+        intent: intent,
+    };
 };
 
 export const tag_intent_for_ticket = async (
-  client,
-  ticket,
-  userIntentList,
-  ticketContent,
-  clientSetup
+    client,
+    ticket,
+    userIntentList,
+    ticketContent,
+    clientSetup
 ) => {
-  //make prompt
+    //make prompt
 
-  let prompt = build_intent_promot(userIntentList, ticketContent);
-  console.log(prompt);
-  let user_intent = await chat_with_bedrock(client, clientSetup, prompt);
-  let intents = parse_claude3_intent(user_intent);
-  return intents;
+    let prompt = build_intent_promot(userIntentList, ticketContent);
+    console.log(prompt);
+    let user_intent = await chat_with_bedrock(client, clientSetup, prompt);
+    let intents = parse_claude3_intent(user_intent);
+    return intents;
 };
 
 
 const append_string = (string, content) => {
-  return string.concat(content);
+    return string.concat(content);
 }
 
-const stripHtmlTags = (html) =>  {
-    if(html == undefined){
+const stripHtmlTags = (html) => {
+    if (html == undefined) {
         return ""
     }
     const regex = /(<([^>]+)>)/gi;
     return html.replace(regex, '');
-  }
+}
 /**
  * 构造用于AI质检的prompt
  * @param {*} ticket 
  * @returns 
  */
 export const composeAnslysisPrompt = (ticket) => {
-  let conversations = ticket.conversation;
-  let chatHistory = `<ticket><ticket_subject>` + ticket.subject + `</ticket_subject><ticket_description>` + ticket.description + `</ticket_description><chat_history>`;
-  conversations.forEach(element => {
-    chatHistory = append_string(chatHistory, "<Convertion>")
-    chatHistory = append_string(chatHistory, "<Role>" + element.author.role + "</Role>")
-    // let pure_content = stripHtmlTags(element.message.content);
-    // debugger
-    chatHistory = append_string(chatHistory, "<Message>" + element.message.content + "</Message>")
-    chatHistory = append_string(chatHistory, "</Convertion>")
-  });
-  chatHistory = append_string(chatHistory, "</chat_history></ticket>")
-  const replacements = { 
-    '{ticket}': chatHistory,
-    '{standard}': quality_analysis_standard 
-  };
-  const result = replaceKeywordsInTemplate(service_analysis_prompt_template, replacements);
-  return result
+    let conversations = ticket.conversation;
+    let chatHistory = `<ticket><ticket_subject>` + ticket.subject + `</ticket_subject><ticket_description>` + ticket.description + `</ticket_description><chat_history>`;
+    conversations.forEach(element => {
+        chatHistory = append_string(chatHistory, "<Convertion>")
+        chatHistory = append_string(chatHistory, "<Role>" + element.author.role + "</Role>")
+        // let pure_content = stripHtmlTags(element.message.content);
+        // debugger
+        chatHistory = append_string(chatHistory, "<Message>" + element.message.content + "</Message>")
+        chatHistory = append_string(chatHistory, "</Convertion>")
+    });
+    chatHistory = append_string(chatHistory, "</chat_history></ticket>")
+    const replacements = {
+        '{ticket}': chatHistory,
+        '{standard}': quality_analysis_standard
+    };
+    const result = replaceKeywordsInTemplate(service_analysis_prompt_template, replacements);
+    return result
+
 }

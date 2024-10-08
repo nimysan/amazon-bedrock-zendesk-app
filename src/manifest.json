@@ -15,22 +15,41 @@
       }
     }
   },
-  "domainWhitelist": ["dify.plaza.red","ai.plaza.red","apisix-data.hijackery.cn"],
+  "domainWhitelist": [
+    "dify.plaza.red",
+    "ai.plaza.red",
+    "apisix-data.hijackery.cn"
+  ],
   "parameters": [
     {
-      "name": "apiToken",
+      "name": "difyServer",
       "type": "text",
-      "secure": true
-    },
-    {
-      "name": "aiServerUrl",
-      "type": "text",
+      "default": "https://dify.plaza.red",
       "secure": false
     },
     {
-      "name": "prompt",
-      "type": "multiline",
-      "secure": false
+      "name": "orderAgentToken",
+      "type": "text",
+      "secure": true,
+      "default": "xxx"
+    },
+    {
+      "name": "normalWorkflowToken",
+      "type": "text",
+      "secure": true,
+      "default": "app-xxxx"
+    },
+    {
+      "name": "judgeOrderWorkflowToken",
+      "type": "text",
+      "secure": true,
+      "default": "app-xxxx"
+    },
+    {
+      "name": "ragWorkflowToken",
+      "type": "text",
+      "secure": true,
+      "default": "app-xxxx"
     }
   ],
   "version": "1.0",

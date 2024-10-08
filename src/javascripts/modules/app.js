@@ -23,8 +23,10 @@ import {
   findUserIntent,
   tag_intent_for_ticket,
   setUserIntentToTicket,
-  composeAnslysisPrompt,
+  composeAnslysisPrompt
 } from "../../javascripts/lib/utils";
+
+import { DIFY_WORLFLOW } from "./app_dev"
 
 const client = ZAFClient.init();
 
@@ -127,21 +129,14 @@ export default function App() {
   // Helper function to find the event before the last 'message_end' event
 
   const findEventBeforeLastMessageEnd = (events) => {
-
+    console.log(JSON.stringify(events))
     let lastMessageEndIndex = events.length - 1;
-
     while (lastMessageEndIndex >= 0 && events[lastMessageEndIndex].event !== 'message_end') {
-
       lastMessageEndIndex--;
-
     }
-
-
-
+    console.log('xxxxxx----')
     if (lastMessageEndIndex > 0) {
-
       return events[lastMessageEndIndex - 1];
-
     }
     return null;
   }
@@ -184,120 +179,133 @@ export default function App() {
     });
   };
 
-  const callTranslate = (prompt, content, callback) => {
-    const inputData = {
-      input: prompt + " --> " + content,
-    };
-    const options = {
-      url: aiServerUrl + "/api/bedrock/chat",
-      type: "POST",
-      headers: { Authorization: "Basic " + aiServerToken },
-      secure: API_ENDPOINTS.requestSecure, // very important
-      contentType: "application/json",
-      data: JSON.stringify(inputData),
-    };
-    setVisible(true);
-    client.request(options).then((response) => {
-      setVisible(false);
-      callback(response.result.content[0]["text"]);
+  /**
+   * 使用Zendesk Proxy访问dify server, 确保安全
+   * 
+   * @param {*} prompt 
+   * @param {*} content 
+   * @returns 
+   */
+  const callTranslate = async (prompt, content) => {
+    let res = await callDifyByZendeskProxy("normalWorkflow", {
+      "prompt": prompt + " --> " + content
     });
+    return res.data.outputs.text;
   };
 
   /**
-   * 调用chat接口
-   * @param {*} prompt
-   * @param {*} callback
+   * 安全的去call远程dify server api
+   * @param {*} api 
+   * @param {*} inputs 
+   * @returns 
    */
-  const callDifyAgent = async (message, conversationId = null) => {
-    const url = "https://dify.plaza.red/v1/chat-messages";
-
-    const headers = {
-      "Authorization": "Bearer app-22rGlxQJopqiOpZPfhKnMqfm",
-      "Content-Type": "application/json"
-    };
-    debugger
-
+  const callDifyAgentByZendeskProxy = async (api, message, conversationId = null) => {
+    console.log("----agent call-----")
     const payload = {
       inputs: {},
       query: message,
-      user: "abc-123",
+      user: "zendesk-app",
       response_mode: "streaming",
       conversation_id: conversationId
     };
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(payload)
-      });
-
-      // debu
-      // console.log(await response.text());  // This is equivalent to logging the response content
-      const reader = await response.body.getReader();
-      const decoder = new TextDecoder();
-      let result = '';
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        result += decoder.decode(value, { stream: true });
-      }
-
-      console.log(result);  // Log the full response
-      debugger
-      // Parse the result into JSON objects
-
-      const jsonObjects = result.split('\n\n')
-
-        .filter(line => line.trim() !== '')
-
-        .map(line => {
-
-          try {
-
-            return JSON.parse(line.replace(/^data: /, ''));
-
-          } catch (e) {
-
-            console.error('Failed to parse JSON:', line);
-
-            return null;
-
-          }
-
-        })
-
-        .filter(obj => obj !== null);
-
-
-      // Find the event before the last 'message_end' event
-      
-      let copolit_result =  findEventBeforeLastMessageEnd(jsonObjects);
-      debugger
-      return copolit_result
-
-    } catch (error) {
-      console.error("An error occurred:", error);
-      return null;
-    }
-  };
-
-  //获取aws fetch api
-  const fetchRemoteApi = (api, callback, responseCallback) => {
+    let bt = API_ENDPOINTS.requestSecure ? "{{setting." + api + "Token}}" : DIFY_WORLFLOW[api];
+    console.log("----agent call-----")
+    const url = "https://dify.plaza.red/v1/chat-messages";
     const options = {
-      url: aiServerUrl + api,
+      url: url,
       type: "POST",
-      headers: { Authorization: "Basic " + aiServerToken },
+      headers: { Authorization: "Bearer " + bt },
       secure: API_ENDPOINTS.requestSecure, // very important
       contentType: "application/json",
-      data: JSON.stringify(inputData),
+      data: JSON.stringify(payload),
     };
-    callback(options);
-    client.request(options).then((response) => {
-      responseCallback(response);
-    });
+    let result = await client.request(options);
+    const jsonObjects = result.split('\n\n')
+      .filter(line => line.trim() !== '')
+      .map(line => {
+        try {
+          return JSON.parse(line.replace(/^data: /, ''));
+        } catch (e) {
+          console.error('Failed to parse JSON:', line);
+          return null;
+        }
+      })
+      .filter(obj => obj !== null);
+
+
+    // Find the event before the last 'message_end' event
+
+    let copolit_result = findEventBeforeLastMessageEnd(jsonObjects);
+    debugger
+    return copolit_result
+    return response
   };
 
+
+  // call remote server by  Zendesk proxy
+  const callDifyByZendeskProxy = async (api, inputs) => {
+    const payload = {
+      inputs: inputs,
+      user: "demo-from-zendesk",
+      response_mode: "blocking"
+    };
+    let bt = API_ENDPOINTS.requestSecure ? "{{setting." + api + "Token}}" : DIFY_WORLFLOW[api];
+    console.log("----xxxx0000-----")
+    const workflowUrl = "https://dify.plaza.red/v1/workflows/run";
+    const options = {
+      url: workflowUrl,
+      type: "POST",
+      headers: { Authorization: "Bearer " + bt },
+      secure: API_ENDPOINTS.requestSecure, // very important
+      contentType: "application/json",
+      data: JSON.stringify(payload),
+    };
+    let response = await client.request(options);
+    return response
+  };
+
+  /**
+   * 判断是否跟订单相关的订单
+   * @param {*} ticketContent 
+   * @returns 
+   */
+  const aiActionJudgeIsOrderRelated = async (ticketContent) => {
+    let res = await callDifyByZendeskProxy("judgeOrderWorkflow", {
+      "user_query": ticketContent
+    });
+    return "yes" == res.data.outputs.text;
+  }
+  /**
+   * 使用dify知识库来回答咨询
+   * @param {*} ticketContent 
+   * @returns 
+   */
+  const aiActionQueryKnowledge = async (ticketContent) => {
+    let result = await callDifyByZendeskProxy("ragWorkflow", {
+      "user_query": ticketContent
+    });
+    return JSON.parse(result).data.outputs.text;
+  }
+
+  // use ai suggest v2
+  const callCopolit = async () => {
+    setVisible(true)
+    let isOrderReleated = await aiActionJudgeIsOrderRelated(questionContent);
+    let response = null;
+
+    if (isOrderReleated) {
+      response = await callDifyAgentByZendeskProxy("orderAgent", questionContent)
+      setAiSuggestResponse(JSON.stringify(response))
+      setAiSuggestContent(response.thought)
+      console.log("agent response" + response)
+    } else {
+      response = await aiActionQueryKnowledge(questionContent);
+      setAiSuggestResponse(response)
+      setAiSuggestContent(response)
+    }
+    setVisible(false)
+    debugger
+  }
   //
   const callAISuggest = async () => {
     const field_options = {
@@ -348,44 +356,45 @@ export default function App() {
     setFeedback(e.target.value);
   };
 
-  const translateContentToCN = () => {
-    callTranslate(
+  const translateContentToCN = async () => {
+    setVisible(true)
+    let response = await callTranslate(
       "please translate below content to Chinese(简体中文)",
-      questionContent,
-      (res) => {
-        setTranslatedQuestionContent(res);
-      }
+      questionContent
     );
+    setTranslatedQuestionContent(response)
+    setVisible(false)
   };
 
-  const translateContentToEN = () => {
-    callTranslate(
+  const translateContentToEN = async () => {
+    setVisible(true)
+    let response = await callTranslate(
       "please translate below content to English",
-      questionContent,
-      (res) => {
-        setTranslatedQuestionContent(res);
-      }
+      questionContent
     );
+    setTranslatedQuestionContent(response)
+    setVisible(false)
   };
 
-  const translateSuggestToEN = () => {
-    callTranslate(
+  const translateSuggestToEN = async () => {
+    setVisible(true)
+    let response = await callTranslate(
       "please translate below content to English",
-      aiSuggestContent,
-      (res) => {
-        setTranslatedAiSuggestContent(res);
-      }
+      aiSuggestContent
     );
+    setTranslatedAiSuggestContent(response)
+    setVisible(false)
+
   };
 
-  const translateSuggestToCN = () => {
-    callTranslate(
+  const translateSuggestToCN = async () => {
+    setVisible(true)
+    let response = await callTranslate(
       "please translate below content to Chinese(简体中文)",
-      aiSuggestContent,
-      (res) => {
-        setTranslatedAiSuggestContent(res);
-      }
+      questionContent
     );
+    setTranslatedAiSuggestContent(response)
+    setVisible(false)
   };
 
   const checkAiSuggestContent = () => {
@@ -484,30 +493,23 @@ export default function App() {
 
   // 通过AI来检查ticket内客服回复的质量
   const customerCopilot = async () => {
-    // ticket content always be initialized to ticket state
     setVisible(true);
-    // let prompt = composeAnslysisPrompt(ticket);
-    // setAnalysisPrompt(prompt)
-    // const result = 
-    console.log("questionContent "+ questionContent)
+    console.log("questionContent " + questionContent)
     debugger
     let result = await callDifyAgent(questionContent);
     debugger
     setAiSuggestResponse(JSON.stringifyresult);
     setAiSuggestContent(result.thought);
-    // setAnalysisResultInText(result_string);
-    // setAnalysisResult(JSON.parse(result_string))
     setVisible(false);
   };
 
   /**
-   * initialize data
+   * 初始化一些数据, 并读取配置文件中的配置
    */
   useEffect(() => {
     const fetchConfig = async () => {
       const response = await axios.get("/api/config");
       setConfig(response.data);
-      setPrompt(get_config_item("prompt_rag"));
     };
 
     const fetchData = async () => {
@@ -572,12 +574,12 @@ export default function App() {
         <Tabs selectedItem={selectedTab} onChange={setSelectedTab}>
           <TabList>
             <Tab item="tab-1">AI建议</Tab>
-            <Tab item="tab-2">AI质检</Tab>
-            <Tab item="tab-3">CoPolit</Tab>
+            <Tab item="tab-2" style={{ display: 'none' }}>AI质检</Tab>
+            <Tab item="tab-3" style={{ display: 'none' }}  >CoPolit</Tab>
           </TabList>
           <TabPanel item="tab-1">
             <Grid>
-              <Row>
+              {/* <Row>
                 <Col>
                   <Label>意图识别</Label>
                 </Col>
@@ -604,7 +606,7 @@ export default function App() {
                   <Label>{aiIntent?.reason}</Label>
                   <Label>{aiIntent?.intent?.value}</Label>
                 </Col>
-              </Row>
+              </Row> */}
               <Row>
                 {visible && (
                   <Modal onClose={() => setVisible(false)}>
@@ -685,7 +687,7 @@ export default function App() {
                     ></Textarea>
                   </Field>
                   <Field style={{ marginTop: 10 }}>
-                    <Tooltip content="call ai suggest">
+                    {/* <Tooltip content="call ai suggest">
                       <Button
                         size="small"
                         isPrimary
@@ -694,18 +696,18 @@ export default function App() {
                       >
                         AI Suggest
                       </Button>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip content="call ai copilot">
                       <Button
                         size="small"
                         isPrimary
-                        onClick={customerCopilot}
+                        onClick={callCopolit}
                         style={{ marginRight: 10 }}
                       >
                         AI Copolit
                       </Button>
                     </Tooltip>
-                    <Tooltip content="Primary leaf">
+                    <Tooltip content="AI Translate">
                       <Button
                         size="small"
                         onClick={translateContentToCN}
@@ -714,7 +716,7 @@ export default function App() {
                         翻译为中文
                       </Button>
                     </Tooltip>
-                    <Tooltip content="Primary leaf">
+                    <Tooltip content="AI Translate">
                       <Button
                         size="small"
                         onClick={translateContentToEN}
@@ -761,7 +763,7 @@ export default function App() {
                         Use it
                       </Button>
                     </Tooltip>
-                    <Tooltip content="Feedback">
+                    {/* <Tooltip content="Feedback">
                       <Button
                         size="small"
                         isPrimary
@@ -784,7 +786,7 @@ export default function App() {
                       >
                         Use it with minor changes
                       </Button>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip content="Primary leaf">
                       <Button
                         size="small"

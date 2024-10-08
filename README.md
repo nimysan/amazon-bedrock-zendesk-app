@@ -4,6 +4,7 @@
 
 ## 方案场景
 
+
 1. 面向客服团队, 提高客服回复效率。
 
 2. AI自动回复 - 通过定制Zendesk app扩展客服工作台, 打通Amazon Bedrock知识库, 客户在打开Ticket的时候自动生成回复, 客服审阅并采用AI回复。
@@ -59,6 +60,10 @@
 
 ![alt text](image-1.png)
 
+## 安全设定 
+
+> 使用metadata https://developer.zendesk.com/documentation/apps/getting-started/setting-up-new-apps/
+
 
 ## 安装说明
 
@@ -87,4 +92,4 @@ You may obtain a copy of the License at
 http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
--- YWRtaW46cGFzc3dvcmQxMjM=
+ffmpeg -i demo.mov -c:v libx264 -s 1280x720 -c:a aac demo.mp4
