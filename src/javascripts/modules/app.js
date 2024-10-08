@@ -391,7 +391,7 @@ export default function App() {
     setVisible(true)
     let response = await callTranslate(
       "please translate below content to Chinese(简体中文)",
-      questionContent
+      aiSuggestContent
     );
     setTranslatedAiSuggestContent(response)
     setVisible(false)
@@ -787,7 +787,7 @@ export default function App() {
                         Use it with minor changes
                       </Button>
                     </Tooltip> */}
-                    <Tooltip content="Primary leaf">
+                    <Tooltip content="翻译为中文">
                       <Button
                         size="small"
                         onClick={translateSuggestToCN}
@@ -796,7 +796,7 @@ export default function App() {
                         翻译为中文
                       </Button>
                     </Tooltip>
-                    <Tooltip content="Primary leaf">
+                    <Tooltip content="翻译为英文">
                       <Button
                         size="small"
                         onClick={translateSuggestToEN}
