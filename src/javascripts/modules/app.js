@@ -284,7 +284,7 @@ export default function App() {
     let result = await callDifyByZendeskProxy("ragWorkflow", {
       "user_query": ticketContent
     });
-    return JSON.parse(result).data.outputs.text;
+    return result.data.outputs.text;
   }
 
   // use ai suggest v2
