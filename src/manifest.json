@@ -28,25 +28,13 @@
       "secure": false
     },
     {
-      "name": "orderAgentToken",
+      "name": "ragWorkflowToken",
       "type": "text",
       "secure": true,
-      "default": "xxx"
+      "default": "app-xxxx"
     },
     {
       "name": "normalWorkflowToken",
-      "type": "text",
-      "secure": true,
-      "default": "app-xxxx"
-    },
-    {
-      "name": "judgeOrderWorkflowToken",
-      "type": "text",
-      "secure": true,
-      "default": "app-xxxx"
-    },
-    {
-      "name": "ragWorkflowToken",
       "type": "text",
       "secure": true,
       "default": "app-xxxx"
