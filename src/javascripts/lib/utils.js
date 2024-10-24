@@ -1093,7 +1093,8 @@ export const composeAnslysisPrompt = (ticket) => {
         '{ticket}': chatHistory,
         '{standard}': quality_analysis_standard
     };
-    const result = replaceKeywordsInTemplate(service_analysis_prompt_template, replacements);
-    return result
+    // const result = replaceKeywordsInTemplate(service_analysis_prompt_template, replacements);
+    // return result
+    return chatHistory;
 
 }

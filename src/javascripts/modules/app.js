@@ -200,11 +200,12 @@ export default function App() {
    * @param {*} content 
    * @returns 
    */
-  const callQualifyChecking = async (prompt) => {
-    let res = await callDifyByZendeskProxy("normalWorkflow", {
-      "prompt": prompt
+  const callQualifyChecking = async (user_dialog) => {
+    let res = await callDifyByZendeskProxy("qaChecking", {
+      "user_query": user_dialog
     });
-    return res.data.outputs.text;
+    console.log("text-----")
+    return res.data.outputs.result_json_text;
   };
 
   /**
