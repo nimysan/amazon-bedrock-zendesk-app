@@ -179,6 +179,7 @@ export default function App() {
     });
   };
 
+  
   /**
    * 使用Zendesk Proxy访问dify server, 确保安全
    * 
@@ -189,6 +190,19 @@ export default function App() {
   const callTranslate = async (prompt, content) => {
     let res = await callDifyByZendeskProxy("normalWorkflow", {
       "prompt": prompt + " --> " + content
+    });
+    return res.data.outputs.text;
+  };
+
+  /**
+   * 
+   * @param {*} prompt 
+   * @param {*} content 
+   * @returns 
+   */
+  const callQualifyChecking = async (prompt) => {
+    let res = await callDifyByZendeskProxy("normalWorkflow", {
+      "prompt": prompt
     });
     return res.data.outputs.text;
   };
@@ -210,7 +224,8 @@ export default function App() {
     };
     let bt = API_ENDPOINTS.requestSecure ? "{{setting." + api + "Token}}" : DIFY_WORLFLOW[api];
     console.log("----agent call-----")
-    const url = "https://dify.plaza.red/v1/chat-messages";
+    const url = aiServerUrl + "/v1/chat-messages";
+    console.log('Call dify server at ' + url);
     const options = {
       url: url,
       type: "POST",
@@ -250,8 +265,8 @@ export default function App() {
       response_mode: "blocking"
     };
     let bt = API_ENDPOINTS.requestSecure ? "{{setting." + api + "Token}}" : DIFY_WORLFLOW[api];
-    console.log("----xxxx0000-----")
-    const workflowUrl = "https://dify.plaza.red/v1/workflows/run";
+    console.log("-----------0000---------")
+    const workflowUrl = aiServerUrl + "/v1/workflows/run";
     const options = {
       url: workflowUrl,
       type: "POST",
@@ -281,31 +296,34 @@ export default function App() {
    * @returns 
    */
   const aiActionQueryKnowledge = async (ticketContent) => {
+    debugger
+    console.log("xxaiActionQueryKnowledge")
     let result = await callDifyByZendeskProxy("ragWorkflow", {
       "user_query": ticketContent
     });
     return result.data.outputs.text;
   }
 
-  // use ai suggest v2
-  const callCopolit = async () => {
-    setVisible(true)
-    let isOrderReleated = await aiActionJudgeIsOrderRelated(questionContent);
-    let response = null;
+ // use ai suggest v2
+ const callCopolit = async () => {
+  setVisible(true)
+  let isOrderReleated = await aiActionJudgeIsOrderRelated(questionContent);
+  let response = null;
 
-    if (isOrderReleated) {
-      response = await callDifyAgentByZendeskProxy("orderAgent", questionContent)
-      setAiSuggestResponse(JSON.stringify(response))
-      setAiSuggestContent(response.thought)
-      console.log("agent response" + response)
-    } else {
-      response = await aiActionQueryKnowledge(questionContent);
-      setAiSuggestResponse(response)
-      setAiSuggestContent(response)
-    }
-    setVisible(false)
-    debugger
+  if (isOrderReleated) {
+    response = await callDifyAgentByZendeskProxy("orderAgent", questionContent)
+    setAiSuggestResponse(JSON.stringify(response))
+    setAiSuggestContent(response.thought)
+    console.log("agent response" + response)
+  } else {
+    response = await aiActionQueryKnowledge(questionContent);
+    setAiSuggestResponse(response)
+    setAiSuggestContent(response)
   }
+  setVisible(false)
+  debugger
+}
+
   //
   const callAISuggest = async () => {
     const field_options = {
@@ -474,8 +492,8 @@ export default function App() {
     setVisible(true);
     let prompt = composeAnslysisPrompt(ticket);
     setAnalysisPrompt(prompt)
-    let response = await callChat(prompt);
-    let result_string = response.result.content[0].text;
+    let response = await callQualifyChecking(prompt);
+    let result_string = response;
     let json_obj = {}
     try {
       json_obj = JSON.parse(result_string);
@@ -514,16 +532,7 @@ export default function App() {
 
     const fetchData = async () => {
       const metadata = await client.metadata();
-      // debugger;
-      setAiServerUrl(metadata.settings.aiServerUrl);
-
-      const confPrompt = metadata.settings.prompt;
-      if (confPrompt) {
-        setPrompt(metadata.settings.prompt);
-      }
-      if (isDev) {
-        setAiServerToken(metadata.settings.apiToken);
-      }
+      setAiServerUrl(metadata.settings.difyServer);
 
       const ticketResponse = await client.get("ticket");
       setTicket(ticketResponse["ticket"]);
@@ -574,7 +583,7 @@ export default function App() {
         <Tabs selectedItem={selectedTab} onChange={setSelectedTab}>
           <TabList>
             <Tab item="tab-1">AI建议</Tab>
-            <Tab item="tab-2" style={{ display: 'none' }}>AI质检</Tab>
+            <Tab item="tab-2">AI质检</Tab>
             <Tab item="tab-3" style={{ display: 'none' }}  >CoPolit</Tab>
           </TabList>
           <TabPanel item="tab-1">
